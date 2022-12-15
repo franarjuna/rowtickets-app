@@ -1,0 +1,9 @@
+*.pyc
+*.sqlite3
+*.db
+__pycache__
+.directory
+app/rowticket/settings/local.py
+.venv
+app/.python-version
+app/collected_static
