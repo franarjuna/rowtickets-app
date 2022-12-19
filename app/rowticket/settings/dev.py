@@ -9,9 +9,6 @@ API_BASE_URL = 'http://localhost:8000'
 FRONTEND_BASE_URL = 'http://localhost:3000'
 DOMAIN = 'localhost:3000'
 
-# SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'devsecretkey'
-
 ALLOWED_HOSTS = ['*']
 
 try:

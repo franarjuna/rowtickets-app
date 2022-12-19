@@ -185,6 +185,7 @@ CELERY_RESULT_BACKEND = 'django-db'
 JAZZMIN_SETTINGS = {
     'site_title': 'ROW Ticket Admin',
     'site_header': 'ROW Ticket',
+    'site_brand': 'ROW Ticket',
     'custom_css': 'css/admin.css'
 }
 
