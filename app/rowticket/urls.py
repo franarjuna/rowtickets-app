@@ -1,37 +1,36 @@
 from django.conf import settings
+from django.conf.urls.static import static
 from django.contrib import admin
 from django.urls import include, path
 
-from rest_framework import permissions
+from rest_framework.routers import DefaultRouter
+from rest_framework_nested.routers import NestedSimpleRouter
 from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView
-from drf_yasg import openapi
-from drf_yasg.views import get_schema_view
 
+from countries.viewsets import CountryViewSet
+from events.viewsets import EventViewSet
 
 # Sentry debug function
 def trigger_error(request):
     raise Exception('Debugging Sentry installation')
 
+# Django Rest Framework setup
+router = DefaultRouter()
+router.register(r'countries', CountryViewSet, basename='countries')
+
+countries_router = NestedSimpleRouter(router, r'countries', lookup='country')
+countries_router.register(r'events', EventViewSet)
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('token/', TokenObtainPairView.as_view(), name='token_obtain_pair'),
     path('token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
     path('auth/', include('djoser.urls')),
-    path('sentry-debug-8f0fae1a5f/', trigger_error),
+    path('sentry-debug-2d4795b5a4b00eb38d1a1db9a90ffd8c/', trigger_error),
+    path(r'', include(router.urls)),
+    path(r'', include(countries_router.urls))
 ]
 
-# if settings.DEBUG:
-#     # Swagger
-#     SchemaView = get_schema_view(
-#         openapi.Info(
-#             title="Relevant API",
-#             default_version='v1',
-#             description="Endpoints disponibles en la API de Relevant",
-#         ),
-#         public=True,
-#         permission_classes=(permissions.AllowAny,),
-#         url=settings.SWAGGER_URL,
-#     )
-# 
-#     urlpatterns.append(path('', SchemaView.with_ui('swagger', cache_timeout=0), name='schema-swagger-ui'))
+
+if settings.DEBUG:
+    urlpatterns +=  static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

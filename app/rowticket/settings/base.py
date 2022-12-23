@@ -36,7 +36,9 @@ INSTALLED_APPS = [
     'rest_framework',
     'drf_yasg',
     'corsheaders',
+    'adminsortable2',
 
+    'events',
     'rowticket',
     'users',
 
@@ -86,13 +88,24 @@ DATABASES = {
     }
 }
 
+# Enabled countries
+COUNTRIES = (
+    ('ar', _('Argentina')),
+    ('cl', _('Chile'))
+)
+
+COUNTRY_LANGUAGES = {
+    'ar': 'es-ar',
+    'cl': 'es-cl'
+}
+
 # Internationalization
 LANGUAGE_CODE = 'es-ar'
 
-LANGUAGES = [
+LANGUAGES = (
     ('es-ar', _('Español (Argentina)')),
     ('es-cl', _('Español (Chile)'))
-]
+)
 
 LOCALE_PATHS = [
     os.path.join(BASE_DIR, 'locale'),
@@ -126,10 +139,10 @@ REST_FRAMEWORK = {
     'PAGE_SIZE': 20,
     'DEFAULT_AUTHENTICATION_CLASSES': (
         'rest_framework_simplejwt.authentication.JWTAuthentication',
-    ),
-    'DEFAULT_PERMISSION_CLASSES': [
-        'rest_framework.permissions.IsAuthenticated',
-    ]
+    )
+    # 'DEFAULT_PERMISSION_CLASSES': [
+    #     'rest_framework.permissions.IsAuthenticated',
+    # ]
 }
 
 COERCE_DECIMAL_TO_STRING = True
@@ -141,8 +154,8 @@ STATIC_URL = '/static/'
 STATICFILES_STORAGE = 'django.contrib.staticfiles.storage.ManifestStaticFilesStorage'
 
 # Media
-MEDIA_ROOT = os.path.join(BASE_DIR, 'uploads')
-MEDIA_URL = '/uploads/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+MEDIA_URL = '/media/'
 
 # TOKEN
 SIMPLE_JWT = {

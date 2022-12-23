@@ -7,3 +7,4 @@ app/rowticket/settings/local.py
 .venv
 app/.python-version
 app/collected_static
+app/media
