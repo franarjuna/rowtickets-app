@@ -7,12 +7,17 @@ from events.models import (
 
 class CategoryAdmin(admin.ModelAdmin):
     prepopulated_fields = {'slug': ('name', )}
-    fields = ('country', 'name', 'slug')
-    list_display = ('name', 'slug', 'country')
+    fields = (
+        'country', 'name', 'slug', 'color', 'header_image',
+        'header_image_width', 'header_image_height', 'order',
+    )
+    list_display = ('name', 'slug', 'country', 'published', 'order', 'color')
+    readonly_fields = ('header_image_width', 'header_image_height')
 
 
 class OrganizerAdmin(admin.ModelAdmin):
     prepopulated_fields = {'slug': ('name', )}
+    fields = ('country', 'name', 'slug', 'twitter_handle')
 
 
 class VenueAdmin(admin.ModelAdmin):
@@ -21,18 +26,27 @@ class VenueAdmin(admin.ModelAdmin):
 
 class EventImageInline(admin.StackedInline):
     model = EventImage
+    extra = 0
+    readonly_fields = ('image_width', 'image_height')
 
 
 class EventGalleryImageInline(admin.StackedInline):
     model = EventGalleryImage
+    extra = 0
+    readonly_fields = ('image_width', 'image_height')
 
 
 class EventAdmin(admin.ModelAdmin):
     inlines = [EventImageInline, EventGalleryImageInline]
     prepopulated_fields = {'slug': ('title', )}
-    list_display = ('title', 'date', 'country', 'identifier', )
-    list_filter = ('country', 'date')
+    list_display = ('title', 'date', 'country', 'identifier', 'highlighted')
+    list_filter = ('country', 'date', 'highlighted')
     search_fields = ('title', )
+    fields = (
+        'title', 'slug', 'category', 'date', 'date_text', 'venue', 'online_event', 'highlighted',
+        'published', 'main_image', 'main_image_width', 'main_image_height'
+    )
+    readonly_fields = ('main_image_width', 'main_image_height')
 
 
 admin.site.register(Category, CategoryAdmin)
