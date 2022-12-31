@@ -9,6 +9,7 @@ from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView
 
 from countries.viewsets import CountryViewSet
 from events.viewsets import EventViewSet
+from homepages.viewsets import HomepageViewSet
 
 # Sentry debug function
 def trigger_error(request):
@@ -17,6 +18,7 @@ def trigger_error(request):
 # Django Rest Framework setup
 router = DefaultRouter()
 router.register(r'countries', CountryViewSet, basename='countries')
+router.register(r'homepages', HomepageViewSet, basename='homepages')
 
 countries_router = NestedSimpleRouter(router, r'countries', lookup='country')
 countries_router.register(r'events', EventViewSet)

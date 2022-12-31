@@ -9,6 +9,7 @@ from rowticket.models import AbstractBaseModel, CountrySlugModel
 
 class Category(CountrySlugModel):
     name = models.CharField(_('nombre'), max_length=150)
+    published = models.BooleanField(_('publicada'), default=True)
     order = models.PositiveIntegerField(default=0, blank=False, null=False, db_index=True)
 
     def __str__(self):
@@ -75,7 +76,7 @@ class Event(CountrySlugModel):
     class Meta:
         verbose_name = _('evento')
         verbose_name_plural = _('eventos')
-        ordering = ('date', )
+        ordering = ('-date', )
 
 
 class EventImage(AbstractBaseModel):
@@ -89,6 +90,9 @@ class EventImage(AbstractBaseModel):
     image_width = models.PositiveIntegerField(_('ancho'), null=True, blank=True)
     image_height = models.PositiveIntegerField(_('alto'), null=True, blank=True)
     order = models.PositiveIntegerField(default=0, blank=False, null=False, db_index=True)
+
+    image_large = ImageSpecField(source='image', processors=[ResizeToFit(800, 800)], format='JPEG')
+    image_thumb = ImageSpecField(source='image', processors=[ResizeToFit(180, 180)], format='JPEG')
 
     class Meta:
         verbose_name = _('imagen de evento')
@@ -107,6 +111,9 @@ class EventGalleryImage(AbstractBaseModel):
     image_width = models.PositiveIntegerField(_('ancho'), null=True, blank=True)
     image_height = models.PositiveIntegerField(_('alto'), null=True, blank=True)
     order = models.PositiveIntegerField(default=0, blank=False, null=False, db_index=True)
+
+    image_large = ImageSpecField(source='image', processors=[ResizeToFit(800, 800)], format='JPEG')
+    image_thumb = ImageSpecField(source='image', processors=[ResizeToFit(180, 180)], format='JPEG')
 
     class Meta:
         verbose_name = _('imagen de galería de evento')

@@ -8,7 +8,7 @@ from events.models import (
 class CategoryAdmin(admin.ModelAdmin):
     prepopulated_fields = {'slug': ('name', )}
     fields = ('country', 'name', 'slug')
-    list_display = ('name', 'slug', 'country')
+    list_display = ('name', 'slug', 'country', 'published', 'order')
 
 
 class OrganizerAdmin(admin.ModelAdmin):
@@ -21,17 +21,19 @@ class VenueAdmin(admin.ModelAdmin):
 
 class EventImageInline(admin.StackedInline):
     model = EventImage
+    extra = 0
 
 
 class EventGalleryImageInline(admin.StackedInline):
     model = EventGalleryImage
+    extra = 0
 
 
 class EventAdmin(admin.ModelAdmin):
     inlines = [EventImageInline, EventGalleryImageInline]
     prepopulated_fields = {'slug': ('title', )}
-    list_display = ('title', 'date', 'country', 'identifier', )
-    list_filter = ('country', 'date')
+    list_display = ('title', 'date', 'country', 'identifier', 'highlighted')
+    list_filter = ('country', 'date', 'highlighted')
     search_fields = ('title', )
 
 

@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'adminsortable2',
 
     'events',
+    'homepages',
     'rowticket',
     'users',
 

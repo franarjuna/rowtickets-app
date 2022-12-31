@@ -36,6 +36,13 @@ class CountrySpecificModel(AbstractBaseModel):
         abstract = True
 
 
+class CountrySpecificUniqueModel(AbstractBaseModel):
+    country = models.CharField(_('país'), db_index=True, choices=settings.COUNTRIES, max_length=2, unique=True)
+
+    class Meta:
+        abstract = True
+
+
 class CountrySlugModel(CountrySpecificModel):
     slug = models.SlugField(_('nombre en URL'), max_length=80, allow_unicode=False)
 
@@ -47,7 +54,7 @@ class CountrySlugModel(CountrySpecificModel):
         if not self.pk:
             slug_updated = True
         else:
-            old_version = self.objects.get(pk=self.pk)
+            old_version = self._meta.model.objects.get(pk=self.pk)
 
             if old_version.slug != self.slug:
                 slug_updated = True
