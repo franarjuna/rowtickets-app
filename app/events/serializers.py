@@ -8,7 +8,7 @@ class CategorySerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Category
-        fields = ('name', 'order', 'color', 'header_image_large')
+        fields = ('name', 'slug', 'order', 'color', 'header_image_large')
 
 
 class EventImageSerializer(serializers.ModelSerializer):

@@ -28,7 +28,9 @@ class CountryViewSet(viewsets.ViewSet):
         homepage_data = HomepageDetailSerializer(homepage, context=request_context).data
 
         # Highlighted events data
-        highlighted_events = Event.objects.filter(published=True, highlighted=True, country=country)[:8]
+        highlighted_events = Event.objects.filter(
+            published=True, highlighted=True, country=country
+        ).prefetch_related('venue')[:8]
         highlighted_events_data = EventListingSerializer(highlighted_events, many=True, context=request_context).data
         highlighted_event_ids = [highlighted_event.id for highlighted_event in highlighted_events]
 
