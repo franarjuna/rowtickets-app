@@ -29,5 +29,9 @@ class HomepageDetailSerializer(serializers.ModelSerializer):
     class Meta:
         model = Homepage
         fields = (
-            'slides',
+            'slides', 'about_us_module_button_text', 'about_us_module_heading',
+            'about_us_module_title', 'about_us_module_subtitle', 'about_us_module_text',
+            'about_us_module_button_text', 'contact_us_module_event_today', 'contact_us_module_text',
+            'sell_module_button_text', 'sell_module_text', 'sell_module_title', 'warranty_module_buy_sell_text',
+            'warranty_module_customer_service_text', 'warranty_module_warranty_text'
         )

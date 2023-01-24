@@ -3,6 +3,13 @@ from rest_framework import serializers
 from events.models import Category, Event, EventImage, EventGalleryImage
 
 
+class CategoryBasicSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = Category
+        fields = ('name', 'slug', 'order', 'color')
+
+
 class CategorySerializer(serializers.ModelSerializer):
     header_image_large = serializers.ImageField(read_only=True)
 

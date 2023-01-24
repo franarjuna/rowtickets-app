@@ -6,7 +6,7 @@ from rest_framework.decorators import action
 from rest_framework.response import Response
 
 from events.models import Category, Event
-from events.serializers import CategorySerializer, EventListingSerializer
+from events.serializers import CategoryBasicSerializer, EventListingSerializer
 from homepages.models import Homepage
 from homepages.serializers import HomepageDetailSerializer
 from rowticket.decorators import query_debugger_detailed
@@ -18,7 +18,6 @@ class CountryViewSet(viewsets.ViewSet):
     def list(self, request):
         return Response(settings.COUNTRIES)
 
-    @query_debugger_detailed
     @action(detail=True, methods=['get'])
     def homepage(self, request, country):
         request_context={ 'request': self.request }
@@ -36,7 +35,7 @@ class CountryViewSet(viewsets.ViewSet):
 
         # Events per category
         categories = Category.objects.filter(published=True, country=country)
-        category_data = CategorySerializer(categories, many=True).data
+        category_data = CategoryBasicSerializer(categories, many=True).data
 
         i = 0
 
@@ -54,3 +53,12 @@ class CountryViewSet(viewsets.ViewSet):
             'highlighted_events': highlighted_events_data,
             'categories': category_data
         })
+
+
+    @action(detail=True, methods=['get'])
+    def categories(self, request, country):
+        request_context={ 'request': self.request }
+
+        categories = Category.objects.filter(published=True, country=country)
+
+        return Response(CategoryBasicSerializer(categories, many=True).data)

@@ -9,6 +9,56 @@ from rowticket.models import AbstractBaseModel, CountrySpecificUniqueModel
 
 
 class Homepage(CountrySpecificUniqueModel):
+    sell_module_title = models.CharField(
+        _('módulo vender: título'), max_length=150,
+        default='Vende con tranquilidad'
+    )
+    sell_module_text = models.TextField(
+        _('módulo vender: texto'),
+        default='Establece el precio y ajústalo en cualquier momento antes de que se vendan tus entradas. La entrega '
+            'es rápida y sin complicaciones seguida del pago puntual. Manejamos las comunicaciones con los compradores.'
+    )
+    sell_module_button_text = models.CharField(
+        _('módulo vender: texto botón'), max_length=80, default='Vender entradas'
+    )
+    warranty_module_buy_sell_text = models.CharField(
+        _('módulo garantía: texto compra venta'), max_length=150,
+        default='Compra y vende con confianza'
+    )
+    warranty_module_customer_service_text = models.CharField(
+        _('módulo garantía: texto servicio al cliente'), max_length=150,
+        default='Servicio al cliente hasta su asiento'
+    )
+    warranty_module_warranty_text = models.CharField(
+        _('módulo garantía: texto garantía'), max_length=150,
+        default='Cada pedido está 100% garantizado'
+    )
+    about_us_module_heading = models.CharField(
+        _('módulo quienes somos: encabezado'), max_length=150,
+        default='Nosotros y nuestros partners'
+    )
+    about_us_module_title = models.CharField(
+        _('módulo quienes somos: título'), max_length=150,
+        default='Más de 20 años de experiencia'
+    )
+    about_us_module_subtitle = models.CharField(
+        _('módulo quienes somos: subtítulo'), max_length=150,
+        default='Somos un grupo de profesionales a tu servicio.'
+    )
+    about_us_module_text = models.TextField(
+        _('módulo quienes somos: texto'),
+        default='RowTicket es la plataforma de compra y venta secundaria de entradas. Con entradas disponibles '
+        'para eventos deportivos, musicales y de teatro, en todo Latam.'
+    )
+    about_us_module_button_text = models.CharField(_('módulo quienes somos: texto botón'), max_length=150, default='Conocenos')
+    contact_us_module_event_today = models.CharField(
+        _('módulo contacto: ¿el evento es hoy?'),
+        max_length=100, default='¿El evento es hoy?'
+    )
+    contact_us_module_text = models.TextField(
+        _('módulo contacto: texto'), default='Por consultas o ventas coorporativas contactate con nosotros'
+    )
+
     def __str__(self):
         return f'{self.get_country_display()}'
 
