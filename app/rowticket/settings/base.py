@@ -32,6 +32,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
 
     'django_extensions',
+    'django_quill',
     'imagekit',
     'rest_framework',
     'drf_yasg',
@@ -39,6 +40,7 @@ INSTALLED_APPS = [
     'adminsortable2',
 
     'events',
+    'faqs',
     'homepages',
     'rowticket',
     'users',
