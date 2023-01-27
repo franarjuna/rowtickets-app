@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     'events',
     'faqs',
     'homepages',
+    'tncs',
     'rowticket',
     'users',
 

@@ -8,8 +8,9 @@ from rest_framework_nested.routers import NestedSimpleRouter
 from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView
 
 from countries.viewsets import CountryViewSet
-from events.viewsets import EventViewSet
+from events.viewsets import CategoryViewSet, EventViewSet
 from faqs.viewsets import FAQViewSet
+from tncs.viewsets import TnCViewSet
 
 # Sentry debug function
 def trigger_error(request):
@@ -20,8 +21,10 @@ router = DefaultRouter()
 router.register(r'countries', CountryViewSet, basename='countries')
 
 countries_router = NestedSimpleRouter(router, r'countries', lookup='country')
+countries_router.register(r'categories', CategoryViewSet)
 countries_router.register(r'events', EventViewSet)
 countries_router.register(r'faqs', FAQViewSet)
+countries_router.register(r'tncs', TnCViewSet)
 
 urlpatterns = [
     path('admin/', admin.site.urls),
