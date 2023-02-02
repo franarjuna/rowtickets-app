@@ -1,6 +1,9 @@
-venv
 *.pyc
-staticfiles
-.env
-db.sqlite3
-getting-started/*
+*.sqlite3
+*.db
+__pycache__
+.directory
+.venv
+app/.python-version
+app/collected_static
+app/media
