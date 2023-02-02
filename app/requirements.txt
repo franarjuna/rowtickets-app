@@ -8,6 +8,7 @@ django-quill-editor==0.1.40
 djangorestframework==3.14.0
 djangorestframework-simplejwt==4.8.0
 djoser==2.1.0
+dj_database_url
 drf-nested-routers==0.93.4
 drf-yasg==1.21.4
 gunicorn==20.1.0
