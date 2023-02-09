@@ -4,6 +4,6 @@
 __pycache__
 .directory
 .venv
-app/.python-version
-app/collected_static
-app/media
+.python-version
+collected_static
+media
