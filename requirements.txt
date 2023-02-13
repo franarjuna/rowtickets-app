@@ -5,6 +5,7 @@ django-extensions==3.2.1
 django-imagekit==4.1.0
 django-jazzmin==2.6.0
 django-quill-editor==0.1.40
+dj-rest-auth[with_social]==2.2.7
 djangorestframework==3.14.0
 djangorestframework-simplejwt==4.8.0
 djoser==2.1.0

@@ -1,3 +1,5 @@
+ALLOWED_HOSTS = []
+
 SECRET_KEY = ''
 
 DATABASES = {

@@ -20,6 +20,8 @@ API_BASE_URL = 'http://localhost:8000'
 FRONTEND_BASE_URL = 'http://localhost:3000'
 DOMAIN = 'localhost:3000'
 
+SITE_ID = 1
+
 # Application definition
 INSTALLED_APPS = [
     'jazzmin',
@@ -28,13 +30,23 @@ INSTALLED_APPS = [
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
+    'django.contrib.sites',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+
+    # Authentication
+    'allauth',
+    'allauth.account',
+    'allauth.socialaccount',
+    'allauth.socialaccount.providers.google',
+    'dj_rest_auth',
+    # 'dj_rest_auth.registration',
 
     'django_extensions',
     'django_quill',
     'imagekit',
     'rest_framework',
+    'rest_framework.authtoken',
     'drf_yasg',
     'corsheaders',
     'adminsortable2',
@@ -142,12 +154,23 @@ REST_FRAMEWORK = {
     'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
     'PAGE_SIZE': 20,
     'DEFAULT_AUTHENTICATION_CLASSES': (
-        'rest_framework_simplejwt.authentication.JWTAuthentication',
+        'dj_rest_auth.jwt_auth.JWTCookieAuthentication'
     )
-    # 'DEFAULT_PERMISSION_CLASSES': [
-    #     'rest_framework.permissions.IsAuthenticated',
-    # ]
 }
+
+REST_USE_JWT = True
+
+JWT_AUTH_COOKIE = 'rowticket-auth'
+JWT_AUTH_REFRESH_COOKIE = 'rowticket-refresh-token'
+
+# REST Framework
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'dj_rest_auth.jwt_auth.JWTCookieAuthentication',
+    )
+}
+
+# Authentication
 
 COERCE_DECIMAL_TO_STRING = True
 
