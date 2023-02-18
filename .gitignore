@@ -8,3 +8,4 @@ __pycache__
 collected_static
 media
 .env
+rowticket/settings/local.py
