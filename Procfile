@@ -1,1 +1,1 @@
-web: gunicorn rowticket.wsgi
+web: gunicorn rowticket.wsgi --settings=rowticket.settings.production
