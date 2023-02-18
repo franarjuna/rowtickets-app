@@ -40,3 +40,7 @@ STATIC_URL = "static/"
 
 # Enable WhiteNoise's GZip compression of static assets.
 STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
+
+DEFAULT_FILE_STORAGE = 'storages.backends.ftp.FTPStorage'
+FTP_STORAGE_LOCATION = 'ftp://rowticket:?00ys3tG@claveglobal.com:21'
+BASE_URL = 'https://rowticket.claveglobal.com'
