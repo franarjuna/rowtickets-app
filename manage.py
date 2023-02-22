@@ -6,7 +6,11 @@ import sys
 
 def main():
     """Run administrative tasks."""
-    os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'rowticket.settings.dev')
+    if "SENTRY" in os.environ:
+        os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'rowticket.settings.production')
+    else:
+        os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'rowticket.settings.dev')
+    
     try:
         from django.core.management import execute_from_command_line
     except ImportError as exc:
