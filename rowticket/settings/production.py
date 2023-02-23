@@ -4,6 +4,7 @@ from pathlib import Path
 import dj_database_url
 from rowticket.settings.base import *
 import django_heroku
+import boto3
 
 import sentry_sdk
 from sentry_sdk.integrations.django import DjangoIntegration
