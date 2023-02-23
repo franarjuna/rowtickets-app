@@ -74,7 +74,7 @@ AWS_S3_ENDPOINT_URL = f'https://{AWS_STORAGE_BUCKET_NAME}.s3.amazonaws.com'
 AWS_S3_OBJECT_PARAMETERS = {'CacheControl': 'max-age=86400'}
 
 PUBLIC_MEDIA_DEFAULT_ACL = 'public-read'
-PUBLIC_MEDIA_LOCATION = 'media/public'
+PUBLIC_MEDIA_LOCATION = 'public'
 
 MEDIA_URL = f'{AWS_S3_ENDPOINT_URL}/{PUBLIC_MEDIA_LOCATION}/'
 #DEFAULT_FILE_STORAGE = 'rowticket.backends.bucketeer.PublicMediaStorage'
