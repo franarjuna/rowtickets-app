@@ -4,6 +4,7 @@ django-cors-headers==3.13.0
 django-extensions==3.2.1
 django-imagekit==4.1.0
 django-jazzmin==2.6.0
+django_heroku
 django-quill-editor==0.1.40
 dj-rest-auth[with_social]==2.2.7
 django-storages

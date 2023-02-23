@@ -3,6 +3,7 @@ import os
 from pathlib import Path
 import dj_database_url
 from rowticket.settings.base import *
+import django_heroku
 
 import sentry_sdk
 from sentry_sdk.integrations.django import DjangoIntegration
@@ -62,6 +63,24 @@ STATIC_URL = "static/"
 # Enable WhiteNoise's GZip compression of static assets.
 STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
 
-DEFAULT_FILE_STORAGE = 'storages.backends.ftp.FTPStorage'
-FTP_STORAGE_LOCATION = 'ftp://rowticket:?00ys3tG@claveglobal.com:21'
-BASE_URL = 'https://rowticket.claveglobal.com'
+AWS_ACCESS_KEY_ID = os.environ['BUCKETEER_AWS_ACCESS_KEY_ID']
+AWS_SECRET_ACCESS_KEY = os.environ['BUCKETEER_AWS_SECRET_ACCESS_KEY']
+AWS_STORAGE_BUCKET_NAME = os.environ['BUCKETEER_BUCKET_NAME']
+AWS_S3_REGION_NAME = os.environ['BUCKETEER_AWS_REGION']
+AWS_DEFAULT_ACL = None
+AWS_S3_SIGNATURE_VERSION = os.environ['S3_SIGNATURE_VERSION', default='s3v4']
+AWS_S3_ENDPOINT_URL = f'https://{AWS_STORAGE_BUCKET_NAME}.s3.amazonaws.com'
+AWS_S3_OBJECT_PARAMETERS = {'CacheControl': 'max-age=86400'}
+
+PUBLIC_MEDIA_DEFAULT_ACL = 'public-read'
+PUBLIC_MEDIA_LOCATION = 'media/public'
+
+MEDIA_URL = f'{AWS_S3_ENDPOINT_URL}/{PUBLIC_MEDIA_LOCATION}/'
+DEFAULT_FILE_STORAGE = 'example.utils.storage_backends.PublicMediaStorage'
+
+PRIVATE_MEDIA_DEFAULT_ACL = 'private'
+PRIVATE_MEDIA_LOCATION = 'media/private'
+PRIVATE_FILE_STORAGE = 'example.utils.storage_backends.PrivateMediaStorage'
+
+
+django_heroku.settings(locals())
