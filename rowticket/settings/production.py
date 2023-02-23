@@ -80,7 +80,7 @@ DEFAULT_FILE_STORAGE = 'example.utils.storage_backends.PublicMediaStorage'
 
 PRIVATE_MEDIA_DEFAULT_ACL = 'private'
 PRIVATE_MEDIA_LOCATION = 'media/private'
-PRIVATE_FILE_STORAGE = 'example.utils.storage_backends.PrivateMediaStorage'
+# PRIVATE_FILE_STORAGE = 'example.utils.storage_backends.PrivateMediaStorage'
 
 
 django_heroku.settings(locals())
