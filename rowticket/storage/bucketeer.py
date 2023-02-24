@@ -22,4 +22,4 @@ class PublicMediaStorage(S3Boto3Storage):
         try:
             return safe_join(self.location, name)
         except ValueError:
-            raise SuspiciousOperation("Attempted access to '%s' denied. '%s'" % name, self.location)
+            raise SuspiciousOperation("Attempted access to '%s' denied." % f'{name} + {self.location}')
