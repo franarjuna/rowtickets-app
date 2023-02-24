@@ -19,7 +19,8 @@ class PublicMediaStorage(S3Boto3Storage):
         work. We check to make sure that the path pointed to is not outside
         the directory specified by the LOCATION setting.
         """
+        name =  (self.location + "/" + name)
         try:
-            return safe_join(self.location, (self.location + "/" + name))
+            return safe_join(self.location,name)
         except ValueError:
             raise SuspiciousOperation("Attempted access to '%s' denied." % f'{name} + {self.location}')
