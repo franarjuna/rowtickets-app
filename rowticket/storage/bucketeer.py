@@ -9,7 +9,7 @@ class PublicMediaStorage(S3Boto3Storage):
     enpoint_url = settings.AWS_S3_ENDPOINT_URL
     default_acl = 'public-read'
     file_overwrite = False
-    
+
     def _clean_name(self, name):
         return name
 
@@ -17,5 +17,5 @@ class PublicMediaStorage(S3Boto3Storage):
         if not name.endswith('/'):
             name += "/"
 
-        name += self.location
+        name = self.location + "/" + name
         return name
