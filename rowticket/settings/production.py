@@ -31,7 +31,7 @@ sentry_sdk.init(
     # release="myapp@1.0.0",
 )
 
-DEBUG = True
+DEBUG = False
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = Path(__file__).resolve().parent.parent
