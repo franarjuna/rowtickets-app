@@ -6,3 +6,13 @@ class PublicMediaStorage(S3Boto3Storage):
     location = f'{settings.AWS_S3_ENDPOINT_URL}/public'
     default_acl = 'public-read'
     file_overwrite = False
+    
+    def _clean_name(self, name):
+        return name
+
+    def _normalize_name(self, name):
+        if not name.endswith('/'):
+            name += "/"
+
+        name = self.location + name
+        return name
