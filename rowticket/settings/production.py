@@ -14,21 +14,8 @@ sentry_sdk.init(
     integrations=[
         DjangoIntegration(),
     ],
-
-    # Set traces_sample_rate to 1.0 to capture 100%
-    # of transactions for performance monitoring.
-    # We recommend adjusting this value in production,
     traces_sample_rate=0.1,
-
-    # If you wish to associate users to errors (assuming you are using
-    # django.contrib.auth) you may enable sending PII data.
     send_default_pii=True,
-
-    # By default the SDK will try to use the SENTRY_RELEASE
-    # environment variable, or infer a git commit
-    # SHA as release, however you may want to set
-    # something more human-readable.
-    # release="myapp@1.0.0",
 )
 
 DEBUG = True
@@ -55,38 +42,25 @@ MIDDLEWARE = MIDDLEWARE + [
     "whitenoise.middleware.WhiteNoiseMiddleware",
 ]
 
-# Static files (CSS, JavaScript, Images)
-# https://docs.djangoproject.com/en/4.0/howto/static-files/
 
-STATIC_ROOT = BASE_DIR / "staticfiles"
-STATIC_URL = "static/"
 
-# Enable WhiteNoise's GZip compression of static assets.
-STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
+STATICFILES_DIRS = [
+    os.path.join(BASE_DIR, 'mysite/static'),
+]
 
 AWS_ACCESS_KEY_ID = os.environ['BUCKETEER_AWS_ACCESS_KEY_ID']
 AWS_SECRET_ACCESS_KEY = os.environ['BUCKETEER_AWS_SECRET_ACCESS_KEY']
 AWS_STORAGE_BUCKET_NAME = os.environ['BUCKETEER_BUCKET_NAME']
 AWS_S3_REGION_NAME = os.environ['BUCKETEER_AWS_REGION']
-AWS_DEFAULT_ACL = None
-AWS_S3_SIGNATURE_VERSION = 's3v4'
-AWS_S3_ENDPOINT_URL = f'https://{AWS_STORAGE_BUCKET_NAME}.s3.amazonaws.com'
-AWS_S3_OBJECT_PARAMETERS = {'CacheControl': 'max-age=86400'}
+AWS_S3_CUSTOM_DOMAIN = '%s.s3.amazonaws.com' % AWS_STORAGE_BUCKET_NAME
 
-PUBLIC_MEDIA_DEFAULT_ACL = 'public-read'
-PUBLIC_MEDIA_LOCATION = 'public'
-AWS_LOCATION = 'public'
+AWS_S3_OBJECT_PARAMETERS = {
+    'CacheControl': 'max-age=86400',
+}
 
-MEDIA_URL = 'public'
-MEDIA_ROOT = MEDIA_URL
+AWS_LOCATION = 'public/static'
+STATICFILES_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
+STATIC_URL = "https://%s/%s/" % (AWS_S3_CUSTOM_DOMAIN, AWS_LOCATION)
 
-#MEDIA_URL = f'/{PUBLIC_MEDIA_LOCATION}/'
-DEFAULT_FILE_STORAGE = 'rowticket.storage.bucketeer.PublicMediaStorage'
-#DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
+DEFAULT_FILE_STORAGE = 'rowticket.storage.bucketeer.PublicMediaStorage'  # <-- here is where we reference it
 
-PRIVATE_MEDIA_DEFAULT_ACL = 'private'
-PRIVATE_MEDIA_LOCATION = 'media/private'
-# PRIVATE_FILE_STORAGE = 'example.utils.storage_backends.PrivateMediaStorage'
-
-
-django_heroku.settings(locals())
