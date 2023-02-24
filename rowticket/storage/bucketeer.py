@@ -14,13 +14,8 @@ class PublicMediaStorage(S3Boto3Storage):
         return name
 
     def _normalize_name(self, name):
-        """
-        Normalizes the name so that paths like /path/to/ignored/../something.txt
-        work. We check to make sure that the path pointed to is not outside
-        the directory specified by the LOCATION setting.
-        """
-        name =  (self.location + "/" + name)
-        try:
-            return safe_join(self.location,name)
-        except ValueError:
-            raise SuspiciousOperation("Attempted access to '%s' denied." % f'{name} + {self.location}')
+        if not name.endswith('/'):
+            name += "/"
+
+        name += self.location
+        return name
