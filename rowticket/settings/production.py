@@ -77,12 +77,11 @@ PUBLIC_MEDIA_DEFAULT_ACL = 'public-read'
 PUBLIC_MEDIA_LOCATION = 'public'
 
 MEDIA_URL = 'https://%s.s3.amazonaws.com/public/' % AWS_STORAGE_BUCKET_NAME
-print(MEDIA_URL)
 MEDIA_ROOT = MEDIA_URL
 
 #MEDIA_URL = f'/{PUBLIC_MEDIA_LOCATION}/'
-#DEFAULT_FILE_STORAGE = 'rowticket.backends.bucketeer.PublicMediaStorage'
-DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
+DEFAULT_FILE_STORAGE = 'rowticket.storage.bucketeer.PublicMediaStorage'
+#DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
 
 PRIVATE_MEDIA_DEFAULT_ACL = 'private'
 PRIVATE_MEDIA_LOCATION = 'media/private'
