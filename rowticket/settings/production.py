@@ -37,18 +37,27 @@ DEBUG = True
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 
+AWS_ACCESS_KEY_ID = os.environ['BUCKETEER_AWS_ACCESS_KEY_ID']
+AWS_SECRET_ACCESS_KEY = os.environ['BUCKETEER_AWS_SECRET_ACCESS_KEY']
+AWS_STORAGE_BUCKET_NAME = os.environ['BUCKETEER_BUCKET_NAME']
+AWS_S3_REGION_NAME = os.environ['BUCKETEER_AWS_REGION']
+AWS_DEFAULT_ACL = None
+AWS_S3_SIGNATURE_VERSION = 's3v4'
+AWS_S3_ENDPOINT_URL = f'https://{AWS_STORAGE_BUCKET_NAME}.s3.amazonaws.com'
+AWS_S3_OBJECT_PARAMETERS = {'CacheControl': 'max-age=86400'}
+
 if 'SECRET_KEY' in os.environ:
     SECRET_KEY = os.environ["SECRET_KEY"]
 
 MAX_CONN_AGE = 600
 
-ALLOWED_HOSTS = ["rowticket-app.herokuapp.com"]
+ALLOWED_HOSTS = ["rowticket-app.herokuapp.com",f'https://{AWS_STORAGE_BUCKET_NAME}.s3.amazonaws.com']
 DATABASES["default"] = dj_database_url.config(
     conn_max_age=MAX_CONN_AGE, ssl_require=True)
 
 # CORS
 CORS_ALLOWED_ORIGINS = [
-    'https://rowticket-front.herokuapp.com/'
+    'https://rowticket-front.herokuapp.com/',f'https://{AWS_STORAGE_BUCKET_NAME}.s3.amazonaws.com'
 ]
 
 MIDDLEWARE = MIDDLEWARE + [
@@ -64,14 +73,6 @@ STATIC_URL = "static/"
 # Enable WhiteNoise's GZip compression of static assets.
 STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
 
-AWS_ACCESS_KEY_ID = os.environ['BUCKETEER_AWS_ACCESS_KEY_ID']
-AWS_SECRET_ACCESS_KEY = os.environ['BUCKETEER_AWS_SECRET_ACCESS_KEY']
-AWS_STORAGE_BUCKET_NAME = os.environ['BUCKETEER_BUCKET_NAME']
-AWS_S3_REGION_NAME = os.environ['BUCKETEER_AWS_REGION']
-AWS_DEFAULT_ACL = None
-AWS_S3_SIGNATURE_VERSION = 's3v4'
-AWS_S3_ENDPOINT_URL = f'https://{AWS_STORAGE_BUCKET_NAME}.s3.amazonaws.com'
-AWS_S3_OBJECT_PARAMETERS = {'CacheControl': 'max-age=86400'}
 
 PUBLIC_MEDIA_DEFAULT_ACL = 'public-read'
 PUBLIC_MEDIA_LOCATION = 'public'
