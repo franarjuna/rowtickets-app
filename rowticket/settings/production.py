@@ -31,7 +31,7 @@ sentry_sdk.init(
     # release="myapp@1.0.0",
 )
 
-DEBUG = False
+DEBUG = True
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -77,6 +77,7 @@ PUBLIC_MEDIA_DEFAULT_ACL = 'public-read'
 PUBLIC_MEDIA_LOCATION = 'public'
 
 MEDIA_URL = 'https://%s.s3.amazonaws.com/public/' % AWS_STORAGE_BUCKET_NAME
+print(MEDIA_URL)
 MEDIA_ROOT = MEDIA_URL
 
 #MEDIA_URL = f'/{PUBLIC_MEDIA_LOCATION}/'
