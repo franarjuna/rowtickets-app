@@ -36,7 +36,7 @@ DATABASES["default"] = dj_database_url.config(
 # CORS
 CORS_ALLOWED_ORIGINS = [
     'https://rowtickets-front.herokuapp.com',
-    'http://localhost'
+    'http://localhost:3000'
 ]
 
 MIDDLEWARE = MIDDLEWARE + [
