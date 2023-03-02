@@ -164,6 +164,10 @@ class EventTickets(AbstractBaseModel):
     event = models.ForeignKey(
         Event, verbose_name=_('evento'), on_delete=models.CASCADE, related_name='event_tickets'
     )
+    user = models.ForeignKey(
+        Category, verbose_name=_('vendedor'), on_delete=models.PROTECT, related_name='ticket_seller'
+    )
+
     title = models.CharField(_('fila'), max_length=150)
     price = models.DecimalField(_('precio_final'), max_digits=10, decimal_places=2)
     cost = models.DecimalField(_('precio'), max_digits=10, decimal_places=2)
