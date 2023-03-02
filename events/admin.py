@@ -38,13 +38,11 @@ class EventGalleryImageInline(admin.StackedInline):
 class EventPlacesInline(admin.StackedInline):
     model = EventPlaces
     extra = 0
-    readonly_fields = ('title', 'color')
 
 
 class EventTicketsInline(admin.StackedInline):
     model = EventTickets
     extra = 0
-    readonly_fields = ('user', 'price','cost')
 
 
 class EventAdmin(admin.ModelAdmin):
