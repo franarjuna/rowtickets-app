@@ -5,6 +5,7 @@ from imagekit.models import ImageSpecField
 from imagekit.processors import ResizeToFill, ResizeToFit
 
 from rowticket.models import AbstractBaseModel, CountrySlugModel
+from django.contrib.auth.models import User
 
 
 COLOR_CHOICES = [
@@ -165,7 +166,7 @@ class EventTickets(AbstractBaseModel):
         Event, verbose_name=_('evento'), on_delete=models.CASCADE, related_name='event_tickets'
     )
     user = models.ForeignKey(
-        Category, verbose_name=_('vendedor'), on_delete=models.PROTECT, related_name='ticket_seller', null=True, blank=True
+        User, verbose_name=_('vendedor'), on_delete=models.PROTECT, related_name='ticket_seller', null=True, blank=True
     )
 
     title = models.CharField(_('fila'), max_length=150)
