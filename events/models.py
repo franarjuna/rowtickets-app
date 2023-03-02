@@ -149,3 +149,28 @@ class EventGalleryImage(AbstractBaseModel):
         verbose_name = _('imagen de galería de evento')
         verbose_name_plural = _('imágenes de galería de evento')
         ordering = ('event', 'order')
+class EventPlaces(AbstractBaseModel):
+    event = models.ForeignKey(
+        Event, verbose_name=_('evento'), on_delete=models.CASCADE, related_name='event_places'
+    )
+    title = models.CharField(_('nombre'), max_length=150)
+    color = models.CharField(_('color'), max_length=7)
+
+    class Meta:
+        verbose_name = _('sectores del evento')
+        verbose_name_plural = _('sectores del evento')
+        ordering = ('event', 'title')
+class EventTickets(AbstractBaseModel):
+    event = models.ForeignKey(
+        Event, verbose_name=_('evento'), on_delete=models.CASCADE, related_name='event_tickets'
+    )
+    title = models.CharField(_('fila'), max_length=150)
+    price = models.DecimalField(_('precio_final'), max_digits=10, decimal_places=2)
+    cost = models.DecimalField(_('precio'), max_digits=10, decimal_places=2)
+    ready_to_go = models.BooleanField(_('ready_to_go'))
+    add_info = models.TextField(_('add_info'))
+
+    class Meta:
+        verbose_name = _('entradas a la venta')
+        verbose_name_plural = _('entradas a la venta')
+        ordering = ('event', 'price')
