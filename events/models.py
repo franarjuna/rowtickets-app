@@ -5,7 +5,8 @@ from imagekit.models import ImageSpecField
 from imagekit.processors import ResizeToFill, ResizeToFit
 
 from rowticket.models import AbstractBaseModel, CountrySlugModel
-from django.contrib.auth.models import User
+from django.conf import settings
+User = settings.AUTH_USER_MODEL
 
 
 COLOR_CHOICES = [
@@ -168,13 +169,33 @@ class EventTickets(AbstractBaseModel):
     user = models.ForeignKey(
         User, verbose_name=_('vendedor'), on_delete=models.PROTECT, related_name='ticket_seller', null=True, blank=True
     )
+    place = models.ForeignKey(
+        EventPlaces, verbose_name=_('sector'), on_delete=models.PROTECT, related_name='ticket_place', null=True, blank=True
+    )
 
     title = models.CharField(_('fila'), max_length=150)
-    price = models.DecimalField(_('precio_final'), max_digits=10, decimal_places=2)
+    price = models.DecimalField(_('precio final'), max_digits=10, decimal_places=2)
     cost = models.DecimalField(_('precio'), max_digits=10, decimal_places=2)
     ready_to_go = models.BooleanField(_('ready_to_go'))
     add_info = models.TextField(_('add_info'))
-
+    quantity = models.TextField(_('cantidad'),default=0)
+    ticketTypeOptions = (
+        ("Entradas de papel", "Entradas de papel"),
+        ("Transferencia de entradas electrónicas", "Transferencia de entradas electrónicas"),
+        ("E-ticket", "E-ticket"),
+    )
+    ticket_type = models.CharField(max_length=50,
+                  choices=ticketTypeOptions,
+                  default="Entradas de papel")
+    togetherOptions = (
+        (0, "Sin preferencia"),
+        (1, "Se venden juntas"),
+        (2, "No dejar 1 sin vender"),
+        (3, "De a pares"),
+    )
+    together = models.IntegerField(
+                  choices=togetherOptions,
+                  default=0)
     class Meta:
         verbose_name = _('entradas a la venta')
         verbose_name_plural = _('entradas a la venta')
