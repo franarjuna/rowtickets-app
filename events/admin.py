@@ -1,7 +1,7 @@
 from django.contrib import admin
 
 from events.models import (
-    Event, EventImage, EventGalleryImage, EventPlaces, Category, Organizer, Venue
+    Event, EventImage, EventGalleryImage, EventPlaces, EventTickets, Category, Organizer, Venue
 )
 
 
@@ -42,7 +42,7 @@ class EventPlacesInline(admin.StackedInline):
 
 
 class EventTicketsInline(admin.StackedInline):
-    model = EventPlaces
+    model = EventTickets
     extra = 0
     readonly_fields = ('user', 'price','cost')
 
