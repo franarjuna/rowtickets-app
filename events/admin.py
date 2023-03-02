@@ -48,7 +48,7 @@ class EventTicketsInline(admin.StackedInline):
 
 
 class EventAdmin(admin.ModelAdmin):
-    inlines = [EventImageInline, EventGalleryImageInline]
+    inlines = [EventImageInline, EventGalleryImageInline, EventPlacesInline, EventTicketsInline]
     prepopulated_fields = {'slug': ('title', )}
     list_display = ('title', 'date', 'country', 'identifier', 'highlighted')
     list_filter = ('country', 'date', 'highlighted')
