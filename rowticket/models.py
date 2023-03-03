@@ -5,7 +5,6 @@ from django.utils.translation import gettext_lazy as _
 
 from rowticket.identifiers import generate_random_identifier
 
-
 class AbstractBaseModel(models.Model):
     identifier = models.CharField(_('identificador'), unique=True, db_index=True, editable=False, max_length=10)
     created = models.DateTimeField(_('creado'), auto_now_add=True)

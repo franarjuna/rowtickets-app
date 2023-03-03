@@ -5,8 +5,8 @@ from imagekit.models import ImageSpecField
 from imagekit.processors import ResizeToFill, ResizeToFit
 
 from rowticket.models import AbstractBaseModel, CountrySlugModel
-from django.conf import settings
-User = settings.AUTH_USER_MODEL
+from users.models import User
+
 
 
 COLOR_CHOICES = [

@@ -60,6 +60,7 @@ class User(AbstractBaseModel, AbstractBaseUser, PermissionsMixin):
 
     is_staff = models.BooleanField(_('es staff'), default=False)
     is_active = models.BooleanField(_('activo'), default=True)
+    is_seller = models.BooleanField(_('venta autorizada'), default=False)
     language_code = LanguageCodeField(_('código de idioma'))
 
     USERNAME_FIELD = 'email'

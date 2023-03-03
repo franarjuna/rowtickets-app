@@ -57,6 +57,11 @@ class EventAdmin(admin.ModelAdmin):
     )
     readonly_fields = ('main_image_width', 'main_image_height')
 
+#SALES TABLES
+
+#class OrderAdmin(admin.ModelAdmin):
+
+
 
 admin.site.register(Category, CategoryAdmin)
 admin.site.register(Event, EventAdmin)
