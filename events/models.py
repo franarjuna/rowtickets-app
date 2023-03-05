@@ -173,6 +173,7 @@ class EventTickets(AbstractBaseModel):
         EventPlaces, verbose_name=_('sector'), on_delete=models.PROTECT, related_name='ticket_place', null=True, blank=True
     )
 
+
     title = models.CharField(_('fila'), max_length=150)
     price = models.DecimalField(_('precio final'), max_digits=10, decimal_places=2)
     cost = models.DecimalField(_('precio'), max_digits=10, decimal_places=2)

@@ -11,6 +11,7 @@ from countries.viewsets import CountryViewSet
 from events.viewsets import CategoryViewSet, EventViewSet
 from faqs.viewsets import FAQViewSet
 from tncs.viewsets import TnCViewSet
+from account.viewsets import AccoountViewSet
 
 # Sentry debug function
 def trigger_error(request):
@@ -25,6 +26,7 @@ countries_router.register(r'categories', CategoryViewSet)
 countries_router.register(r'events', EventViewSet)
 countries_router.register(r'faqs', FAQViewSet)
 countries_router.register(r'tncs', TnCViewSet)
+countries_router.register(r'user', AccoountViewSet)
 
 urlpatterns = [
     path('admin/', admin.site.urls),
