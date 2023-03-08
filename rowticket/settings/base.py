@@ -19,6 +19,12 @@ API_BASE_URL = 'http://localhost:8000'
 # Frontend URL & domain
 FRONTEND_BASE_URL = 'http://localhost:3000'
 DOMAIN = 'localhost:3000'
+FRONTEND_URLS = {
+    'my_account': {
+        'ar': '/ar/mi-cuenta',
+        'cl': '/cl/mi-cuenta'
+    }
+}
 
 SITE_ID = 1
 
@@ -40,7 +46,7 @@ INSTALLED_APPS = [
     'allauth.socialaccount',
     'allauth.socialaccount.providers.google',
     'dj_rest_auth',
-    # 'dj_rest_auth.registration',
+    'dj_rest_auth.registration',
 
     'django_extensions',
     'django_quill',
@@ -51,14 +57,13 @@ INSTALLED_APPS = [
     'corsheaders',
     'adminsortable2',
 
+    'emails',
     'events',
     'faqs',
     'homepages',
     'tncs',
     'rowticket',
     'users',
-
-    'djoser' # Placed last so rowticket's templates override Djoser's
 ]
 
 MIDDLEWARE = [
@@ -149,28 +154,26 @@ AUTH_PASSWORD_VALIDATORS = [
 ]
 AUTHENTICATION_BACKENDS = ['rowticket.authentication_backends.CaseInsensitiveEmailAuthenticationBackend']
 
-# Django Rest Framework
-REST_FRAMEWORK = {
-    'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
-    'PAGE_SIZE': 20,
-    'DEFAULT_AUTHENTICATION_CLASSES': (
-        'dj_rest_auth.jwt_auth.JWTCookieAuthentication'
-    )
-}
+# Allauth
+ACCOUNT_AUTHENTICATION_METHOD = 'email'
+ACCOUNT_EMAIL_REQUIRED = True
+ACCOUNT_EMAIL_VERIFICATION = 'none'
+ACCOUNT_UNIQUE_EMAIL = True
+ACCOUNT_USER_MODEL_EMAIL_FIELD = 'email'
+ACCOUNT_USER_MODEL_USERNAME_FIELD = None
+ACCOUNT_USERNAME_REQUIRED = False
 
 REST_USE_JWT = True
 
-JWT_AUTH_COOKIE = 'rowticket-auth'
-JWT_AUTH_REFRESH_COOKIE = 'rowticket-refresh-token'
+# Emails
+EMAILS_FROM = _('<ROW Ticket Argentina> info@rowticket.com')
 
-# REST Framework
+# Django Rest Framework
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': (
         'dj_rest_auth.jwt_auth.JWTCookieAuthentication',
     )
 }
-
-# Authentication
 
 COERCE_DECIMAL_TO_STRING = True
 
@@ -220,6 +223,12 @@ CELERY_TIMEZONE = 'America/Argentina/Buenos_Aires'
 CELERY_TASK_SERIALIZER = 'pickle'
 CELERY_ACCEPT_CONTENT = ['pickle']
 CELERY_RESULT_BACKEND = 'django-db'
+
+# DJ Rest Auth
+REST_AUTH = {
+    'REGISTER_SERIALIZER': 'users.serializers.RegisterSerializer',
+    'USE_JWT': True
+}
 
 # Jazzmin admin skin
 JAZZMIN_SETTINGS = {

@@ -1,10 +1,16 @@
+from django.conf import settings
 from django.contrib.auth.base_user import AbstractBaseUser, BaseUserManager
 from django.contrib.auth.models import PermissionsMixin
 from django.core.exceptions import ValidationError
 from django.db import models
-from django.utils.translation import gettext_lazy as _
+from django.utils.translation import activate, get_language, gettext_lazy as _
 
+from allauth.account.signals import user_signed_up
+
+from emails.tasks import send_mail
+from countries.utils import get_country_from_language_code
 from rowticket.fields import LanguageCodeField
+from rowticket.frontend_urls import get_frontend_url
 from rowticket.models import AbstractBaseModel
 
 
@@ -80,6 +86,9 @@ class User(AbstractBaseModel, AbstractBaseUser, PermissionsMixin):
     get_full_name.short_description = _('nombre completo')
     get_full_name.admin_order_field = ('last_name', )
 
+    def get_signup_country(self):
+        return get_country_from_language_code(self.language_code)
+
     def get_short_name(self):
         return self.first_name
 
@@ -107,3 +116,20 @@ class User(AbstractBaseModel, AbstractBaseUser, PermissionsMixin):
     class Meta:
         verbose_name = _('usuario')
         verbose_name_plural = _('usuarios')
+
+
+# Signals
+def on_user_signup(sender, request, user, **kwargs):
+    context = {
+        'user': user,
+        'my_account_url': get_frontend_url('my_account', get_country_from_language_code(user.language_code))
+    }
+
+    current_language = get_language()
+
+    activate(user.language_code)
+    send_mail('signup', _('¡Se ha creado tu cuenta en ROW Ticket Argentina!'), context, user.email)
+    activate(current_language)
+
+
+user_signed_up.connect(on_user_signup)

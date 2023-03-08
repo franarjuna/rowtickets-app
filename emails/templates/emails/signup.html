@@ -1,0 +1,18 @@
+{% extends "emails/base.html" %}
+{% load i18n %}
+
+{% block title %}{% translate "Bienvenido a ROW Ticket Argentina" %}{% endblock %}
+
+{% block content %}
+  <p style="margin: 0 0 16px;">
+    {% blocktranslate with user_name=user.first_name %}Hola {{ user_name }},{% endblocktranslate %}
+  </p>
+  <p style="margin: 0 0 16px;">
+    {% blocktranslate %}
+    Gracias por crear una cuenta en ROW Ticket Argentina. Podés acceder al área de tu cuenta para ver pedidos, cambiar 
+    tu contraseña y más en:
+    {% endblocktranslate %}
+    <a href="{{ my_account_url }}" rel="nofollow" style="color: #feb12a; font-weight: normal; text-decoration: underline;">{{ my_account_url }}</a>
+  </p>
+  <p style="margin: 0 0 16px;">{% translate "Esperamos verte pronto." %}</p>
+{% endblock %}

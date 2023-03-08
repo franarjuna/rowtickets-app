@@ -7,7 +7,7 @@ from users.models import User
 
 class UserAdmin(DjangoUserAdmin):
     ordering = ('last_name', 'first_name', )
-    list_display = ('identifier', 'first_name', 'last_name', 'email', 'is_staff', 'is_superuser')
+    list_display = ('identifier', 'language_code', 'first_name', 'last_name', 'email', 'is_staff', 'is_superuser', 'created', )
     fieldsets = (
         (None, {'fields': ('email', 'password')}),
         (_('Información personal'), {'fields': ('first_name', 'last_name')}),
