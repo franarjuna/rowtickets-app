@@ -1,7 +1,7 @@
 from django.contrib import admin
 
 from events.models import (
-    Event, EventImage, EventGalleryImage, EventPlaces, Category, Organizer, Venue
+    Event, EventImage, EventGalleryImage, EventPlace, EventTicket, Category, Organizer, Venue
 )
 
 
@@ -35,20 +35,20 @@ class EventGalleryImageInline(admin.StackedInline):
     extra = 0
     readonly_fields = ('image_width', 'image_height')
 
-class EventPlacesInline(admin.StackedInline):
-    model = EventPlaces
+class EventPlaceInline(admin.StackedInline):
+    model = EventPlace
     extra = 0
     readonly_fields = ('title', 'color')
 
 
-class EventTicketsInline(admin.StackedInline):
-    model = EventPlaces
+class EventTicketInline(admin.StackedInline):
+    model = EventTicket
     extra = 0
     readonly_fields = ('user', 'price','cost')
 
 
 class EventAdmin(admin.ModelAdmin):
-    inlines = [EventImageInline, EventGalleryImageInline, EventPlacesInline, EventTicketsInline]
+    inlines = [EventImageInline, EventGalleryImageInline, EventPlaceInline, EventTicketInline]
     prepopulated_fields = {'slug': ('title', )}
     list_display = ('title', 'date', 'country', 'identifier', 'highlighted')
     list_filter = ('country', 'date', 'highlighted')

@@ -149,7 +149,9 @@ class EventGalleryImage(AbstractBaseModel):
         verbose_name = _('imagen de galería de evento')
         verbose_name_plural = _('imágenes de galería de evento')
         ordering = ('event', 'order')
-class EventPlaces(AbstractBaseModel):
+
+
+class EventPlace(AbstractBaseModel):
     event = models.ForeignKey(
         Event, verbose_name=_('evento'), on_delete=models.CASCADE, related_name='event_places'
     )
@@ -160,7 +162,9 @@ class EventPlaces(AbstractBaseModel):
         verbose_name = _('sectores del evento')
         verbose_name_plural = _('sectores del evento')
         ordering = ('event', 'title')
-class EventTickets(AbstractBaseModel):
+
+
+class EventTicket(AbstractBaseModel):
     event = models.ForeignKey(
         Event, verbose_name=_('evento'), on_delete=models.CASCADE, related_name='event_tickets'
     )
