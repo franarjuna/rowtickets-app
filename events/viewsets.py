@@ -1,7 +1,10 @@
+from django.db.models import Prefetch
+
 from rest_framework import mixins, viewsets
 from rest_framework.response import Response
 
-from events.models import Category, Event
+from rowticket.decorators import query_debugger_detailed
+from events.models import Category, Event, Ticket
 from events.serializers import (
     CategorySerializer, CategoryBasicSerializer, EventDetailSerializer, EventListingSerializer
 )
@@ -32,7 +35,15 @@ class EventViewSet(mixins.RetrieveModelMixin, mixins.ListModelMixin, viewsets.Ge
     def get_queryset(self):
         queryset = super().get_queryset()
 
-        return queryset.filter(published=True, country=self.kwargs['country_country'])
+        queryset = queryset.filter(published=True, country=self.kwargs['country_country'])
+
+        if self.action == 'retrieve':
+            # Filter out unavailable tickets and prefetch tickets & sections
+            queryset = queryset.prefetch_related(
+                Prefetch('tickets', queryset=Ticket.objects.all()), 'tickets__section'
+            )
+
+        return queryset
 
     def get_serializer_class(self):
         if self.action == 'list':

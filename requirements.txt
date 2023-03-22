@@ -2,6 +2,7 @@ boto3
 Django==4.1.4
 django-admin-sortable2==2.1.4
 django-anymail==9.0
+django-colorfield==0.8.0
 django-cors-headers==3.13.0
 django-extensions==3.2.1
 django-imagekit==4.1.0

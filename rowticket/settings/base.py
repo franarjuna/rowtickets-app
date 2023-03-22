@@ -45,6 +45,7 @@ INSTALLED_APPS = [
     'allauth.account',
     'allauth.socialaccount',
     'allauth.socialaccount.providers.google',
+    'colorfield',
     'dj_rest_auth',
     'dj_rest_auth.registration',
 

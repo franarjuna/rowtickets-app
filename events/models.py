@@ -1,6 +1,7 @@
 from django.db import models
 from django.utils.translation import gettext_lazy as _
 
+from colorfield.fields import ColorField
 from imagekit.models import ImageSpecField
 from imagekit.processors import ResizeToFill, ResizeToFit
 
@@ -14,6 +15,19 @@ COLOR_CHOICES = [
     ('pink', _('Rosa')),
     ('red', _('Rojo'))
 ]
+
+TICKET_TYPES = [
+    ('paper', _('Papel')),
+    ('e_ticket', _('E Ticket')),
+    ('electronic_ticket_transfer', _('Transferencia de entradas electrónicas'))
+]
+
+SELLING_CONDITIONS = (
+    ('no_preference', _('Sin preferencia')),
+    ('sold_together', _('Se venden juntas')),
+    ('no_single_ticket_unsold', _('No dejar 1 sin vender')),
+    ('sold_by_pairs', _('Se venden de a pares'))
+)
 
 
 class Category(CountrySlugModel):
@@ -151,34 +165,42 @@ class EventGalleryImage(AbstractBaseModel):
         ordering = ('event', 'order')
 
 
-class EventPlace(AbstractBaseModel):
+class Section(AbstractBaseModel):
     event = models.ForeignKey(
-        Event, verbose_name=_('evento'), on_delete=models.CASCADE, related_name='event_places'
+        Event, verbose_name=_('evento'), on_delete=models.CASCADE, related_name='sections'
     )
-    title = models.CharField(_('nombre'), max_length=150)
-    color = models.CharField(_('color'), max_length=7)
+    name = models.CharField(_('nombre'), max_length=150)
+    color = ColorField(verbose_name=_('color'))
+
+    def __str__(self):
+        return self.name
 
     class Meta:
         verbose_name = _('sectores del evento')
         verbose_name_plural = _('sectores del evento')
-        ordering = ('event', 'title')
+        ordering = ('event', 'name')
 
 
-class EventTicket(AbstractBaseModel):
+class Ticket(AbstractBaseModel):
     event = models.ForeignKey(
-        Event, verbose_name=_('evento'), on_delete=models.CASCADE, related_name='event_tickets'
+        Event, verbose_name=_('evento'), on_delete=models.PROTECT, related_name='tickets'
     )
-    user = models.ForeignKey(
-        Category, verbose_name=_('vendedor'), on_delete=models.PROTECT, related_name='ticket_seller'
+    seller = models.ForeignKey(
+        'users.User', verbose_name=_('vendedor'), on_delete=models.PROTECT, related_name='tickets'
     )
 
-    title = models.CharField(_('fila'), max_length=150)
-    price = models.DecimalField(_('precio_final'), max_digits=10, decimal_places=2)
+    section = models.ForeignKey(Section, on_delete=models.PROTECT, verbose_name=_('sector'))
+    price = models.DecimalField(_('precio final'), max_digits=10, decimal_places=2)
     cost = models.DecimalField(_('precio'), max_digits=10, decimal_places=2)
-    ready_to_go = models.BooleanField(_('ready_to_go'))
-    add_info = models.TextField(_('add_info'))
+    ticket_type = models.CharField(_('tipo de entrada'), choices=TICKET_TYPES, max_length=50)
+    ready_to_ship = models.BooleanField(_('listo para enviar'))
+    extra_info = models.CharField(_('información extra'), max_length=255, blank=True)
+    quantity = models.PositiveIntegerField(_('cantidad'))
+    selling_condition = models.CharField(
+        _('condición de venta'), max_length=50, choices=SELLING_CONDITIONS, default='no_preference'
+    )
 
     class Meta:
-        verbose_name = _('entradas a la venta')
-        verbose_name_plural = _('entradas a la venta')
+        verbose_name = _('entradas')
+        verbose_name_plural = _('entradas')
         ordering = ('event', 'price')
