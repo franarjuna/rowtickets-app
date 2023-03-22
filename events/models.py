@@ -181,6 +181,13 @@ class Section(AbstractBaseModel):
         ordering = ('event', 'name')
 
 
+class TicketManager(models.Manager):
+    def with_available_quantity(self):
+        return self.annotate(
+            available_quantity=Sum()
+        )
+
+
 class Ticket(AbstractBaseModel):
     event = models.ForeignKey(
         Event, verbose_name=_('evento'), on_delete=models.PROTECT, related_name='tickets'
@@ -199,6 +206,9 @@ class Ticket(AbstractBaseModel):
     selling_condition = models.CharField(
         _('condición de venta'), max_length=50, choices=SELLING_CONDITIONS, default='no_preference'
     )
+
+    def __str__(self):
+        return f'{self.event}: {self.section} {self.price} ({self.seller.email})'
 
     class Meta:
         verbose_name = _('entradas')
