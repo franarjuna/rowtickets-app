@@ -9,5 +9,6 @@ class OrderTicketInline(admin.StackedInline):
 
 class OrderAdmin(admin.ModelAdmin):
     inlines = [OrderTicketInline]
+    extra = 0
 
 admin.site.register(Order, OrderAdmin)

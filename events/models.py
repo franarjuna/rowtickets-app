@@ -1,10 +1,12 @@
 from django.db import models
+from django.db.models import Case, F, Sum, Value, When
 from django.utils.translation import gettext_lazy as _
 
 from colorfield.fields import ColorField
 from imagekit.models import ImageSpecField
 from imagekit.processors import ResizeToFill, ResizeToFit
 
+from orders.models import ORDER_STATUSES
 from rowticket.models import AbstractBaseModel, CountrySlugModel
 
 
@@ -182,9 +184,20 @@ class Section(AbstractBaseModel):
 
 
 class TicketManager(models.Manager):
-    def with_available_quantity(self):
+    def with_availability(self):
         return self.annotate(
-            available_quantity=Sum()
+            sold_quantity=Sum(
+                Case(
+                    When(order_tickets__order__status__in=[
+                        ORDER_STATUSES['IN_PROGRESS'], ORDER_STATUSES['PENDING_PAYMENT_CONFIRMATION'],
+                        ORDER_STATUSES['PAID']
+                    ], then='order_tickets__quantity'),
+                    output_field=models.PositiveIntegerField(),
+                    default=Value(0)
+                )
+            )
+        ).annotate(
+            available_quantity=F('quantity')-F('sold_quantity')
         )
 
 
@@ -206,6 +219,8 @@ class Ticket(AbstractBaseModel):
     selling_condition = models.CharField(
         _('condición de venta'), max_length=50, choices=SELLING_CONDITIONS, default='no_preference'
     )
+
+    objects = TicketManager()
 
     def __str__(self):
         return f'{self.event}: {self.section} {self.price} ({self.seller.email})'

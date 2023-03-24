@@ -4,7 +4,15 @@ from django.utils.translation import gettext_lazy as _
 from rowticket.models import AbstractBaseModel, CountrySpecificModel
 
 
-ORDER_STATUSES = (
+ORDER_STATUSES = {
+    'IN_PROGRESS': 'in_progress',
+    'PENDING_PAYMENT_CONFIRMATION': 'pending_payment_confirmation',
+    'PAID': 'paid',
+    'CANCELLED': 'cancelled'
+}
+
+
+ORDER_STATUS_CHOICES = (
     ('in_progress', _('En proceso')),
     ('pending_payment_confirmation', _('Esperando confirmación de pago')),
     ('paid', _('Paga')),
@@ -16,7 +24,7 @@ class Order(CountrySpecificModel):
     user = models.ForeignKey(
         'users.User', verbose_name=_('comprador'), on_delete=models.PROTECT, related_name='orders'
     )
-    status = models.CharField(_('estado'), max_length=50, choices=ORDER_STATUSES)
+    status = models.CharField(_('estado'), max_length=50, choices=ORDER_STATUS_CHOICES)
 
     class Meta:
         verbose_name = _('compra')

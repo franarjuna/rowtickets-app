@@ -40,7 +40,11 @@ class EventViewSet(mixins.RetrieveModelMixin, mixins.ListModelMixin, viewsets.Ge
         if self.action == 'retrieve':
             # Filter out unavailable tickets and prefetch tickets & sections
             queryset = queryset.prefetch_related(
-                Prefetch('tickets', queryset=Ticket.objects.all()), 'tickets__section'
+                Prefetch(
+                    'tickets',
+                    queryset=Ticket.objects.with_availability().order_by('price').filter(available_quantity__gt=0)
+                ),
+                'tickets__section'
             )
 
         return queryset

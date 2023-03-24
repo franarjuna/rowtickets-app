@@ -27,12 +27,17 @@ class SectionSerializer(serializers.ModelSerializer):
 
 class TicketSerializer(serializers.ModelSerializer):
     section = SectionSerializer()
+    available_quantity = serializers.SerializerMethodField()
+
+    @staticmethod
+    def get_available_quantity(ticket):
+        return ticket.available_quantity
 
     class Meta:
         model = Ticket
         fields = (
             'identifier', 'section', 'price', 'ticket_type', 'ready_to_ship', 'extra_info', 'quantity',
-            'selling_condition'
+            'selling_condition', 'available_quantity'
         )
 
 
