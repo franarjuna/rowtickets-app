@@ -1,5 +1,5 @@
 from django.db import models
-from django.db.models import Case, F, Sum, Value, When
+from django.db.models import Case, F, OuterRef, Subquery, Sum, Value, When
 from django.utils.translation import gettext_lazy as _
 
 from colorfield.fields import ColorField
@@ -84,6 +84,17 @@ class Organizer(CountrySlugModel):
         verbose_name_plural = _('organizadores')
 
 
+class EventManager(models.Manager):
+    def with_starting_price(self):
+        starting_ticket_price = Ticket.objects.with_availability().order_by('price').filter(
+            available_quantity__gt=0, event_id=OuterRef('pk')
+        )
+
+        return self.annotate(
+            starting_price=Subquery(starting_ticket_price.values('price')[:1])
+        )
+
+
 class Event(CountrySlugModel):
     title = models.CharField(_('nombre'), max_length=150)
     category = models.ForeignKey(
@@ -109,6 +120,8 @@ class Event(CountrySlugModel):
     # ImageKit specs
     main_image_large = ImageSpecField(source='main_image', processors=[ResizeToFit(1920, 1920)], format='JPEG')
     main_image_thumb = ImageSpecField(source='main_image', processors=[ResizeToFill(300, 300)], format='JPEG')
+
+    objects = EventManager()
 
     def __str__(self):
         return f'{self.title}'

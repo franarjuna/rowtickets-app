@@ -5,7 +5,7 @@ from rest_framework import viewsets
 from rest_framework.decorators import action
 from rest_framework.response import Response
 
-from events.models import Category, Event
+from events.models import Category, Event, Ticket
 from events.serializers import CategoryBasicSerializer, EventListingSerializer
 from homepages.models import Homepage
 from homepages.serializers import HomepageDetailSerializer
@@ -40,7 +40,7 @@ class CountryViewSet(viewsets.ViewSet):
         i = 0
 
         for category in categories:
-            category_data[i]['events'] = EventListingSerializer(Event.objects.filter(
+            category_data[i]['events'] = EventListingSerializer(Event.objects.with_starting_price().filter(
                 category=category, published=True
             ).exclude(
                 id__in=highlighted_event_ids

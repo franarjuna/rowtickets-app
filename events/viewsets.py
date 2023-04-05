@@ -1,4 +1,4 @@
-from django.db.models import Prefetch
+from django.db.models import Prefetch, Q
 
 from rest_framework import mixins, viewsets
 from rest_framework.response import Response
@@ -33,7 +33,10 @@ class EventViewSet(mixins.RetrieveModelMixin, mixins.ListModelMixin, viewsets.Ge
     pagination_class = None
 
     def get_queryset(self):
-        queryset = super().get_queryset()
+        if self.action == 'list':
+            queryset = Event.objects.with_starting_price()
+        else:
+            queryset = super().get_queryset()
 
         queryset = queryset.filter(published=True, country=self.kwargs['country_country'])
 
