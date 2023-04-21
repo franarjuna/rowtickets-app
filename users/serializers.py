@@ -8,7 +8,10 @@ from allauth.account.utils import setup_user_email
 from rest_framework import serializers
 
 from countries.utils import get_language_code_from_country
-
+from orders.models import Order
+from users.models import User
+from orders.serializers import OrderSerializer
+from events.serializers import TicketSerializer
 
 class RegisterSerializer(serializers.Serializer):
     first_name = serializers.CharField(required=True, write_only=True)
@@ -70,3 +73,11 @@ class RegisterSerializer(serializers.Serializer):
         setup_user_email(request, user, [])
 
         return user
+
+class AccountSerializer(serializers.ModelSerializer):
+    orders = OrderSerializer(many=True, read_only=True)
+    tickets = TicketSerializer(many=True, read_only=True)
+    class Meta:
+        model = User
+        fields = ('first_name', 'last_name','orders','tickets')
+        #fields = ('first_name', 'last_name')

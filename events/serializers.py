@@ -22,7 +22,7 @@ class SectionSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Section
-        fields = ('name', 'color')
+        fields = ('id','name', 'color')
 
 
 class TicketSerializer(serializers.ModelSerializer):
@@ -75,6 +75,7 @@ class EventListingSerializer(serializers.ModelSerializer):
     main_image_thumb = serializers.ImageField(read_only=True)
     venue_name = serializers.SerializerMethodField()
     starting_price = serializers.SerializerMethodField()
+    sections = SectionSerializer(many=True)
 
     def get_starting_price(self, event):
         starting_price = getattr(event, 'starting_price', None)
@@ -87,8 +88,8 @@ class EventListingSerializer(serializers.ModelSerializer):
     class Meta:
         model = Event
         fields = (
-            'title', 'slug', 'date', 'date_text', 'venue_name', 'main_image_thumb',
-            'starting_price'
+            'id','title', 'slug', 'date', 'date_text', 'venue_name', 'main_image_thumb',
+            'starting_price', 'sections'
         )
 
 

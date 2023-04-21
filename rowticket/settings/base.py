@@ -191,7 +191,7 @@ MEDIA_URL = '/media/'
 
 # TOKEN
 SIMPLE_JWT = {
-    'ACCESS_TOKEN_LIFETIME': timedelta(hours=1),
+    'ACCESS_TOKEN_LIFETIME': timedelta(days=1),
     'REFRESH_TOKEN_LIFETIME': timedelta(days=7),
 }
 
@@ -229,7 +229,8 @@ CELERY_RESULT_BACKEND = 'django-db'
 # DJ Rest Auth
 REST_AUTH = {
     'REGISTER_SERIALIZER': 'users.serializers.RegisterSerializer',
-    'USE_JWT': True
+    'USE_JWT': True, 
+    'JWT_AUTH_HTTPONLY':False
 }
 
 # Jazzmin admin skin
