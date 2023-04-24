@@ -1,6 +1,6 @@
 from django.conf import settings
 from django.shortcuts import get_object_or_404
-
+import datetime
 from rest_framework import viewsets
 from rest_framework.decorators import action
 from rest_framework.response import Response
@@ -21,14 +21,15 @@ class CountryViewSet(viewsets.ViewSet):
     @action(detail=True, methods=['get'])
     def homepage(self, request, country):
         request_context={ 'request': self.request }
-
+        
+        now = datetime.datetime.now()
         # Homepage data
         homepage = get_object_or_404(Homepage.objects.all(), country=country)
         homepage_data = HomepageDetailSerializer(homepage, context=request_context).data
 
         # Highlighted events data
         highlighted_events = Event.objects.filter(
-            published=True, highlighted=True, country=country
+            published=True, highlighted=True, country=country, date__gt=now
         ).prefetch_related('venue')[:8]
         highlighted_events_data = EventListingSerializer(highlighted_events, many=True, context=request_context).data
         highlighted_event_ids = [highlighted_event.id for highlighted_event in highlighted_events]
@@ -41,7 +42,7 @@ class CountryViewSet(viewsets.ViewSet):
 
         for category in categories:
             category_data[i]['events'] = EventListingSerializer(Event.objects.with_starting_price().filter(
-                category=category, published=True
+                category=category, published=True, date__gt=now
             ).exclude(
                 id__in=highlighted_event_ids
             )[:8], many=True, context=request_context).data

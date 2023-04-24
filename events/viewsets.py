@@ -1,4 +1,5 @@
 from django.db.models import Prefetch, Q
+import datetime
 
 from rest_framework import mixins, viewsets
 from rest_framework.response import Response
@@ -37,8 +38,8 @@ class EventViewSet(mixins.RetrieveModelMixin, mixins.ListModelMixin, viewsets.Ge
             queryset = Event.objects.with_starting_price()
         else:
             queryset = super().get_queryset()
-
-        queryset = queryset.filter(published=True, country=self.kwargs['country_country'])
+        now = datetime.datetime.now()
+        queryset = queryset.filter(published=True, country=self.kwargs['country_country'], date__gt=now)
 
         if self.action == 'retrieve':
             # Filter out unavailable tickets and prefetch tickets & sections
@@ -73,7 +74,7 @@ class EventViewSet(mixins.RetrieveModelMixin, mixins.ListModelMixin, viewsets.Ge
                 queryset = queryset.exclude(id__in=highlighted_events.values_list('id', flat=True))
 
         serializer = self.get_serializer(queryset, many=True)
-
+        print(serializer.query)
         response = {
             'events': serializer.data
         }
