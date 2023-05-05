@@ -1,14 +1,16 @@
 from django.db.models import Prefetch, Q
+from django.shortcuts import get_object_or_404
 import datetime
 
 from rest_framework import mixins, viewsets
 from rest_framework.response import Response
 
 from rowticket.decorators import query_debugger_detailed
-from events.models import Category, Event, Ticket
+from events.models import Category, Event, Ticket, Section,TicketManager
 from events.serializers import (
-    CategorySerializer, CategoryBasicSerializer, EventDetailSerializer, EventListingSerializer
+    CategorySerializer, CategoryBasicSerializer, EventDetailSerializer, EventListingSerializer, TicketSerializer
 )
+from users.models import User
 
 
 class CategoryViewSet(mixins.RetrieveModelMixin, mixins.ListModelMixin, viewsets.GenericViewSet):
@@ -74,7 +76,7 @@ class EventViewSet(mixins.RetrieveModelMixin, mixins.ListModelMixin, viewsets.Ge
                 queryset = queryset.exclude(id__in=highlighted_events.values_list('id', flat=True))
 
         serializer = self.get_serializer(queryset, many=True)
-        print(serializer.query)
+
         response = {
             'events': serializer.data
         }
@@ -83,3 +85,38 @@ class EventViewSet(mixins.RetrieveModelMixin, mixins.ListModelMixin, viewsets.Ge
             response['highlighted_events'] = EventListingSerializer(highlighted_events, many=True, context={ 'request': self.request }).data
 
         return Response(response)
+    
+class TicketViewSet(viewsets.ModelViewSet):
+    queryset = Ticket.objects.all()
+    serializer_class = TicketSerializer
+
+    
+
+    def create(self, request, *args, **kwargs):
+        event_ = Event.objects.filter(id=request.data.get('event_id')).first()
+        section_ = Section.objects.filter(id=request.data.get('section_id')).first()
+        seller = User.objects.filter(id=request.data.get('seller')).first()
+        # Create a new ticket
+        ticket = Ticket(
+            event=event_,
+            section=section_,
+            row=request.data.get('row'),
+            cost=request.data.get('cost'),
+            price=request.data.get('price'),
+            ticket_type=request.data.get('ticket_type'),
+            selling_condition=request.data.get('selling_condition'),
+            quantity=request.data.get('quantity'),
+            ready_to_ship=request.data.get('ready_to_ship'),
+            seller=seller
+        )
+
+        # Save the ticket to the database
+        ticket.save()
+
+        # Return a response
+        return Response({'status': 'success'})
+    
+    def my_tickets(self, request, *args, **kwargs):
+        
+        my_tickets = TicketSerializer(user=request.user).data
+        return Response({'status': 'success','data': (my_tickets) })

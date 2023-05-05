@@ -226,12 +226,15 @@ class Ticket(AbstractBaseModel):
     price = models.DecimalField(_('precio final'), max_digits=10, decimal_places=2)
     cost = models.DecimalField(_('precio'), max_digits=10, decimal_places=2)
     ticket_type = models.CharField(_('tipo de entrada'), choices=TICKET_TYPES, max_length=50)
+    row = models.CharField(_('fila'), max_length=50, default='')
     ready_to_ship = models.BooleanField(_('listo para enviar'))
     extra_info = models.CharField(_('información extra'), max_length=255, blank=True)
     quantity = models.PositiveIntegerField(_('cantidad'))
     selling_condition = models.CharField(
         _('condición de venta'), max_length=50, choices=SELLING_CONDITIONS, default='no_preference'
     )
+
+    attachment = models.ImageField(_('imagen'), default='')
 
     objects = TicketManager()
 
@@ -242,3 +245,5 @@ class Ticket(AbstractBaseModel):
         verbose_name = _('entradas')
         verbose_name_plural = _('entradas')
         ordering = ('event', 'price')
+    
+    

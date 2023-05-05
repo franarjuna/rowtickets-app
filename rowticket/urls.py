@@ -9,7 +9,7 @@ from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView
 
 from countries.viewsets import CountryViewSet
 from emails.views import EmailTemplateView
-from events.viewsets import CategoryViewSet, EventViewSet
+from events.viewsets import CategoryViewSet, EventViewSet, TicketViewSet
 from faqs.viewsets import FAQViewSet
 from tncs.viewsets import TnCViewSet
 from users.viewsets import AccountViewSet,PurchasesViewSet,OnSaleViewSet
@@ -25,11 +25,14 @@ router.register(r'countries', CountryViewSet, basename='countries')
 countries_router = NestedSimpleRouter(router, r'countries', lookup='country')
 countries_router.register(r'categories', CategoryViewSet)
 countries_router.register(r'events', EventViewSet)
+countries_router.register(r'tickets', TicketViewSet)
+countries_router.register(r'my_tickets', TicketViewSet)
 countries_router.register(r'faqs', FAQViewSet)
 countries_router.register(r'tncs', TnCViewSet)
 countries_router.register(r'account', AccountViewSet)
 countries_router.register(r'purchases', PurchasesViewSet)
 countries_router.register(r'onsale', OnSaleViewSet)
+
 
 urlpatterns = [
     path('admin/', admin.site.urls),
