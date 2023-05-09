@@ -23,7 +23,7 @@ class AbstractBaseModel(models.Model):
                     # Identifier is unique, continue saving the model instance
                     break
 
-        super().save(force_insert=False, force_update=False, using=None, update_fields=None)
+        super().save(force_insert, force_update, using, update_fields)
 
     class Meta:
         abstract = True

@@ -1,7 +1,9 @@
 from rest_framework import serializers
 from rest_framework.response import Response
 
-from events.models import Category, Event, EventImage, EventGalleryImage, Section, Ticket
+from events.models import (
+    Category, Event, EventImage, EventGalleryImage, Section, Ticket, Venue
+)
 
 
 
@@ -45,6 +47,12 @@ class TicketSerializer(serializers.ModelSerializer):
             'identifier', 'section', 'price', 'ticket_type', 'ready_to_ship', 'extra_info', 'quantity',
             'selling_condition', 'available_quantity', 'row','seller'
         )
+
+
+class VenueSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Venue
+        fields = ('name', 'address')
 
 
 class EventImageSerializer(serializers.ModelSerializer):
@@ -104,10 +112,12 @@ class EventDetailSerializer(serializers.ModelSerializer):
     event_images = EventImageSerializer(many=True)
     event_gallery_images = EventImageSerializer(many=True)
     tickets = TicketSerializer(many=True)
+    venue = VenueSerializer()
 
     class Meta:
         model = Event
         fields = (
-            'title', 'slug', 'date', 'date_text', 'main_image_large',
-            'event_images', 'event_gallery_images', 'tickets'
+            'identifier', 'title', 'slug', 'date', 'date_text', 'venue',
+            'main_image_large', 'event_images', 'event_gallery_images',
+            'tickets'
         )

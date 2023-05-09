@@ -1,12 +1,10 @@
-from django.db.models import Prefetch, Q
-from django.shortcuts import get_object_or_404
+from django.db.models import Prefetch
 import datetime
 
 from rest_framework import mixins, viewsets
 from rest_framework.response import Response
 
-from rowticket.decorators import query_debugger_detailed
-from events.models import Category, Event, Ticket, Section,TicketManager
+from events.models import Category, Event, Ticket, Section
 from events.serializers import (
     CategorySerializer, CategoryBasicSerializer, EventDetailSerializer, EventListingSerializer, TicketSerializer
 )
@@ -40,6 +38,7 @@ class EventViewSet(mixins.RetrieveModelMixin, mixins.ListModelMixin, viewsets.Ge
             queryset = Event.objects.with_starting_price()
         else:
             queryset = super().get_queryset()
+
         now = datetime.datetime.now()
         queryset = queryset.filter(published=True, country=self.kwargs['country_country'], date__gt=now)
 
@@ -82,20 +81,22 @@ class EventViewSet(mixins.RetrieveModelMixin, mixins.ListModelMixin, viewsets.Ge
         }
 
         if highlighted_events is not None:
-            response['highlighted_events'] = EventListingSerializer(highlighted_events, many=True, context={ 'request': self.request }).data
+            response['highlighted_events'] = EventListingSerializer(
+                highlighted_events, many=True, context={ 'request': self.request }
+            ).data
 
         return Response(response)
-    
+
+
 class TicketViewSet(viewsets.ModelViewSet):
     queryset = Ticket.objects.all()
     serializer_class = TicketSerializer
-
-    
 
     def create(self, request, *args, **kwargs):
         event_ = Event.objects.filter(id=request.data.get('event_id')).first()
         section_ = Section.objects.filter(id=request.data.get('section_id')).first()
         seller = User.objects.filter(id=request.data.get('seller')).first()
+
         # Create a new ticket
         ticket = Ticket(
             event=event_,
@@ -115,8 +116,8 @@ class TicketViewSet(viewsets.ModelViewSet):
 
         # Return a response
         return Response({'status': 'success'})
-    
+
     def my_tickets(self, request, *args, **kwargs):
-        
         my_tickets = TicketSerializer(user=request.user).data
+
         return Response({'status': 'success','data': (my_tickets) })

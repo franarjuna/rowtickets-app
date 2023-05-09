@@ -13,10 +13,10 @@ ORDER_STATUSES = {
 
 
 ORDER_STATUS_CHOICES = (
-    ('in_progress', _('En proceso')),
-    ('pending_payment_confirmation', _('Esperando confirmación de pago')),
-    ('paid', _('Paga')),
-    ('cancelled', _('Cancelada'))
+    (ORDER_STATUSES['IN_PROGRESS'], _('En proceso')),
+    (ORDER_STATUSES['PENDING_PAYMENT_CONFIRMATION'], _('Esperando confirmación de pago')),
+    (ORDER_STATUSES['PAID'], _('Paga')),
+    (ORDER_STATUSES['CANCELLED'], _('Cancelada'))
 )
 
 

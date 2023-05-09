@@ -11,6 +11,7 @@ django_heroku
 django-quill-editor==0.1.40
 dj-rest-auth[with_social]==3.0.0
 django-storages
+django-stubs==1.16.0
 djangorestframework==3.14.0
 djangorestframework-simplejwt==5.2.2
 dj_database_url

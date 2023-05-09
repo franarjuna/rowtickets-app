@@ -11,6 +11,7 @@ from countries.viewsets import CountryViewSet
 from emails.views import EmailTemplateView
 from events.viewsets import CategoryViewSet, EventViewSet, TicketViewSet
 from faqs.viewsets import FAQViewSet
+from orders.viewsets import OrderViewset
 from tncs.viewsets import TnCViewSet
 from users.viewsets import AccountViewSet,PurchasesViewSet,OnSaleViewSet
 
@@ -20,6 +21,8 @@ def trigger_error(request):
 
 # Django Rest Framework setup
 router = DefaultRouter()
+
+router.register(r'orders', OrderViewset, basename='orders')
 router.register(r'countries', CountryViewSet, basename='countries')
 
 countries_router = NestedSimpleRouter(router, r'countries', lookup='country')
