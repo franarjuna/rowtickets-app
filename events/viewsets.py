@@ -1,5 +1,5 @@
 from django.db.models import Prefetch
-import datetime
+from django.utils import timezone
 
 from rest_framework import mixins, viewsets
 from rest_framework.response import Response
@@ -39,7 +39,7 @@ class EventViewSet(mixins.RetrieveModelMixin, mixins.ListModelMixin, viewsets.Ge
         else:
             queryset = super().get_queryset()
 
-        now = datetime.datetime.now()
+        now = timezone.now()
         queryset = queryset.filter(published=True, country=self.kwargs['country_country'], date__gt=now)
 
         if self.action == 'retrieve':
@@ -89,7 +89,7 @@ class EventViewSet(mixins.RetrieveModelMixin, mixins.ListModelMixin, viewsets.Ge
 
 
 class TicketViewSet(viewsets.ModelViewSet):
-    queryset = Ticket.objects.all()
+    queryset = Ticket.objects.with_availability().all()
     serializer_class = TicketSerializer
 
     def create(self, request, *args, **kwargs):
@@ -116,8 +116,7 @@ class TicketViewSet(viewsets.ModelViewSet):
 
         # Return a response
         return Response({'status': 'success'})
-
-    def my_tickets(self, request, *args, **kwargs):
-        my_tickets = TicketSerializer(user=request.user).data
-
+    
+    def list(self, request, *args, **kwargs):
+        my_tickets = TicketSerializer(Ticket.objects.with_availability().filter(seller=request.user), many=True).data
         return Response({'status': 'success','data': (my_tickets) })
