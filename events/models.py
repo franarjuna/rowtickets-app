@@ -233,6 +233,7 @@ class Ticket(AbstractBaseModel):
     selling_condition = models.CharField(
         _('condición de venta'), max_length=50, choices=SELLING_CONDITIONS, default='no_preference'
     )
+    status =  models.BooleanField(_('status'), default=True)
 
     attachment = models.ImageField(_('imagen'), default='')
 
