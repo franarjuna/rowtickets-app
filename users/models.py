@@ -63,6 +63,14 @@ class User(AbstractBaseModel, AbstractBaseUser, PermissionsMixin):
     email = models.EmailField(_('email'), unique=True)
     first_name = models.CharField(_('nombre'), max_length=100)
     last_name = models.CharField(_('apellido'), max_length=100)
+    shipping_address = models.OneToOneField(
+        'addresses.Address', blank=True, null=True, verbose_name=_('Dirección de facturación'),
+        on_delete=models.SET_NULL, related_name='user_shipping_address'
+    )
+    billing_address = models.OneToOneField(
+        'addresses.Address', blank=True, null=True, verbose_name=_('Dirección de envío'),
+        on_delete=models.SET_NULL, related_name='user_billing_address'
+    )
 
     is_staff = models.BooleanField(_('es staff'), default=False)
     is_active = models.BooleanField(_('activo'), default=True)

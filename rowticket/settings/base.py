@@ -58,6 +58,7 @@ INSTALLED_APPS = [
     'corsheaders',
     'adminsortable2',
 
+    'addresses',
     'countries',
     'emails',
     'events',

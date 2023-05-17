@@ -25,6 +25,14 @@ class Order(CountrySpecificModel):
         'users.User', verbose_name=_('comprador'), on_delete=models.PROTECT, related_name='orders'
     )
     status = models.CharField(_('estado'), max_length=50, choices=ORDER_STATUS_CHOICES)
+    billing_address = models.OneToOneField(
+        'addresses.Address', blank=True, null=True, verbose_name=_('Dirección de facturación'),
+        on_delete=models.SET_NULL, related_name='order_billing_address'
+    )
+    shipping_address = models.OneToOneField(
+        'addresses.Address', blank=True, null=True, verbose_name=_('Dirección de envío'),
+        on_delete=models.SET_NULL, related_name='order_shipping_address'
+    )
 
     class Meta:
         verbose_name = _('compra')
