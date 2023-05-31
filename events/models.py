@@ -202,7 +202,7 @@ class TicketManager(models.Manager):
             sold_quantity=Sum(
                 Case(
                     When(order_tickets__order__status__in=[
-                        ORDER_STATUSES['IN_PROGRESS'], ORDER_STATUSES['PENDING_PAYMENT_CONFIRMATION'],
+                        ORDER_STATUSES['PENDING_PAYMENT_CONFIRMATION'],
                         ORDER_STATUSES['PAID']
                     ], then='order_tickets__quantity'),
                     output_field=models.PositiveIntegerField(),
@@ -246,5 +246,3 @@ class Ticket(AbstractBaseModel):
         verbose_name = _('entradas')
         verbose_name_plural = _('entradas')
         ordering = ('event', 'price')
-    
-    

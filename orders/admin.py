@@ -10,5 +10,6 @@ class OrderTicketInline(admin.StackedInline):
 class OrderAdmin(admin.ModelAdmin):
     inlines = [OrderTicketInline]
     extra = 0
+    list_display = ('identifier', 'status', 'created', 'country')
 
 admin.site.register(Order, OrderAdmin)

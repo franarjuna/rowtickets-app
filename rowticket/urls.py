@@ -11,9 +11,11 @@ from countries.viewsets import CountryViewSet
 from emails.views import EmailTemplateView
 from events.viewsets import CategoryViewSet, EventViewSet, TicketViewSet
 from faqs.viewsets import FAQViewSet
+from mercadopago_payments.viewsets import MercadoPagoViewSet
 from orders.viewsets import OrderViewset
+from payments.viewsets import PaymentMethodViewset
 from tncs.viewsets import TnCViewSet
-from users.viewsets import AccountViewSet,PurchasesViewSet,OnSaleViewSet
+from users.viewsets import AccountViewSet, PurchasesViewSet, OnSaleViewSet
 
 # Sentry debug function
 def trigger_error(request):
@@ -23,6 +25,7 @@ def trigger_error(request):
 router = DefaultRouter()
 
 router.register(r'orders', OrderViewset, basename='orders')
+router.register(r'mercadopago', MercadoPagoViewSet, basename='mercadopago')
 router.register(r'countries', CountryViewSet, basename='countries')
 
 countries_router = NestedSimpleRouter(router, r'countries', lookup='country')
@@ -35,6 +38,7 @@ countries_router.register(r'tncs', TnCViewSet)
 countries_router.register(r'account', AccountViewSet)
 countries_router.register(r'purchases', PurchasesViewSet)
 countries_router.register(r'onsale', OnSaleViewSet)
+countries_router.register(r'payment_methods', PaymentMethodViewset)
 
 
 urlpatterns = [
