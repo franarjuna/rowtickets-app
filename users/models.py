@@ -13,6 +13,12 @@ from rowticket.fields import LanguageCodeField
 from rowticket.frontend_urls import get_frontend_url
 from rowticket.models import AbstractBaseModel
 
+VAT_CONDITIONS = [
+    ('responsable_inscripto', _('Responsable Inscripto')),
+    ('monotributo', _('Monotributo')),
+    ('consumidor_final', _('Consumidor Final')),
+    ('exento', _('Exento'))
+]
 
 class UserManager(BaseUserManager):
     def create_user(
@@ -75,7 +81,14 @@ class User(AbstractBaseModel, AbstractBaseUser, PermissionsMixin):
     is_staff = models.BooleanField(_('es staff'), default=False)
     is_active = models.BooleanField(_('activo'), default=True)
     language_code = LanguageCodeField(_('código de idioma'))
+    vat_condition = models.CharField(_('condicion IVA'), choices=VAT_CONDITIONS, max_length=50, null=True, default='consumidor_final')
+    bank_name = models.CharField(_('Banco'), max_length=100, null=True, default='')
+    bank_type = models.CharField(_('tipo de cuenta'), max_length=100, null=True, default='')
+    bank_number = models.CharField(_('cuenta bancaria'), max_length=100, null=True, default='')
+    bank_cbu = models.CharField(_('cbu'), max_length=100, null=True, default='')
+    bank_cuit = models.CharField(_('cuit'), max_length=100, null=True, default='')
 
+    
     USERNAME_FIELD = 'email'
     REQUIRED_FIELDS = ['first_name', 'last_name']
 

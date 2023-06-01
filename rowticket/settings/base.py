@@ -22,7 +22,8 @@ DOMAIN = 'localhost:3000'
 FRONTEND_URLS = {
     'my_account': {
         'ar': '/ar/mi-cuenta',
-        'cl': '/cl/mi-cuenta'
+        'cl': '/cl/mi-cuenta',
+        'br': '/br/mi-cuenta'
     }
 }
 
@@ -118,12 +119,14 @@ DATABASES = {
 # Enabled countries
 COUNTRIES = (
     ('ar', _('Argentina')),
-    ('cl', _('Chile'))
+    ('cl', _('Chile')),
+    ('br', _('Brasil'))
 )
 
 COUNTRY_LANGUAGES = {
     'ar': 'es-ar',
-    'cl': 'es-cl'
+    'cl': 'es-cl',
+    'pt': 'pt-br'
 }
 
 # Internationalization
@@ -131,7 +134,8 @@ LANGUAGE_CODE = 'es-ar'
 
 LANGUAGES = (
     ('es-ar', _('Español (Argentina)')),
-    ('es-cl', _('Español (Chile)'))
+    ('es-cl', _('Español (Chile)')),
+    ('pt-br', _('Portugues'))
 )
 
 LOCALE_PATHS = [
@@ -178,7 +182,9 @@ EMAILS_FROM = _('<ROW Ticket Argentina> info@rowticket.com')
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': (
         'dj_rest_auth.jwt_auth.JWTCookieAuthentication',
-    )
+    ),
+    'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.LimitOffsetPagination',
+    'PAGE_SIZE': 100
 }
 
 COERCE_DECIMAL_TO_STRING = True
@@ -197,6 +203,7 @@ MEDIA_URL = '/media/'
 SIMPLE_JWT = {
     'ACCESS_TOKEN_LIFETIME': timedelta(days=1),
     'REFRESH_TOKEN_LIFETIME': timedelta(days=7),
+    "TOKEN_OBTAIN_SERIALIZER": "rowticket.serializers.CustomTokenSerializer"
 }
 
 # Easy Thumbnails
@@ -220,6 +227,22 @@ SWAGGER_SETTINGS = {
 CORS_ALLOW_HEADERS = list(default_headers) + [
     'contenttype',
 ]
+CORS_ALLOWED_ORIGINS = [
+    'http://localhost:3000'
+]
+
+CSRF_TRUSTED_ORIGINS = [
+    "http://localhost:3000",
+]
+
+CORS_ALLOW_METHODS = (
+    "DELETE",
+    "GET",
+    "OPTIONS",
+    "PATCH",
+    "POST",
+    "PUT",
+)
 
 # Celery
 CELERY_TASK_ALWAYS_EAGER = False

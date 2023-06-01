@@ -3,6 +3,7 @@ from rest_framework import serializers
 from events.models import Ticket
 from orders.models import Order, OrderTicket, ORDER_STATUSES
 from rowticket.serializer_fields import IdentifierField
+from events.serializers import TicketCreateSerializer
 
 
 class OrderTicketCreateSerializer(serializers.ModelSerializer):
@@ -22,10 +23,10 @@ class OrderCreateSerializer(serializers.ModelSerializer):
 
 
 class OrderTicketSerializer(serializers.ModelSerializer):
-
+    ticket = TicketCreateSerializer()
     class Meta:
         model = OrderTicket
-        fields = ('identifier', 'quantity')
+        fields = ('identifier', 'quantity','ticket')
 
 
 class OrderSerializer(serializers.ModelSerializer):

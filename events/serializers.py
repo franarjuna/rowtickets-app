@@ -48,6 +48,15 @@ class TicketSerializer(serializers.ModelSerializer):
             'identifier', 'section', 'cost', 'price', 'ticket_type', 'ready_to_ship', 'extra_info', 'quantity',
             'selling_condition', 'available_quantity', 'row','seller','status'
         )
+class TicketCreateSerializer(serializers.ModelSerializer):
+    section = SectionSerializer()
+
+    class Meta:
+        model = Ticket
+        fields = (
+            'identifier', 'section', 'cost', 'price', 'ticket_type', 'ready_to_ship', 'extra_info', 'quantity',
+            'selling_condition', 'row','seller','status'
+        )
 
 
 class VenueSerializer(serializers.ModelSerializer):

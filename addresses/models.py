@@ -22,13 +22,7 @@ IVA_STATUSES = {
     'RESPONSABLE_INSCRIPTO': 'responsable_inscripto'
 }
 
-IVA_STATUS_CHOICES = (
-    (IVA_STATUSES['CONSUMIDOR_FINAL'], 'Consumidor Final'),
-    (IVA_STATUSES['RESPONSABLE_INSCRIPTO'], 'Responsable Inscripto')
-)
-
-
-class Address(CountrySpecificModel):
+class Address(CountrySpecificModel): 
     user = models.ForeignKey(
         get_user_model(), related_name='addresses', blank=True, null=True,
         on_delete=models.SET_NULL, verbose_name=_('Usuario')
@@ -46,7 +40,6 @@ class Address(CountrySpecificModel):
     postal_code = models.CharField(_('Código postal'), max_length=64, blank=True)
     phone = models.CharField(_('Teléfono'), max_length=30, blank=True)
     email = models.EmailField(_('Email'), max_length=30, blank=True)
-    iva_status = models.CharField(_('Condición frente al IVA'), max_length=30, blank=True, choices=IVA_STATUS_CHOICES)
 
     def __str__(self):
         return self.full_street

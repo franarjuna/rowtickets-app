@@ -15,9 +15,9 @@ from mercadopago_payments.viewsets import MercadoPagoViewSet
 from orders.viewsets import OrderViewset
 from payments.viewsets import PaymentMethodViewset
 from tncs.viewsets import TnCViewSet
-from users.viewsets import AccountViewSet, PurchasesViewSet, OnSaleViewSet
+from users.viewsets import AccountViewSet, PurchasesViewSet, OnSaleViewSet,SoldViewSet,AddressesViewSet
 
-# Sentry debug function
+# Sentry debug function 
 def trigger_error(request):
     raise Exception('Debugging Sentry installation')
 
@@ -38,7 +38,6 @@ countries_router.register(r'tncs', TnCViewSet)
 countries_router.register(r'account', AccountViewSet)
 countries_router.register(r'purchases', PurchasesViewSet)
 countries_router.register(r'onsale', OnSaleViewSet)
-countries_router.register(r'payment_methods', PaymentMethodViewset)
 
 
 urlpatterns = [

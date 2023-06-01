@@ -5,7 +5,7 @@ from rowticket.settings.base import *  # pylint: disable=wildcard-import,unused-
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-API_BASE_URL = 'http://localhost:8000'
+API_BASE_URL = 'http://127.0.0.1:8000'
 FRONTEND_BASE_URL = 'http://localhost:3000'
 DOMAIN = 'localhost:3000'
 

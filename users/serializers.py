@@ -75,9 +75,6 @@ class RegisterSerializer(serializers.Serializer):
         return user
 
 class AccountSerializer(serializers.ModelSerializer):
-    orders = OrderSerializer(many=True, read_only=True)
-    tickets = TicketSerializer(many=True, read_only=True)
     class Meta:
         model = User
-        fields = ('first_name', 'last_name','orders','tickets')
-        #fields = ('first_name', 'last_name')
+        fields = ('first_name', 'last_name','vat_condition','bank_name','bank_type','bank_number','bank_cbu','bank_cuit','is_active','email')
