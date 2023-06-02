@@ -19,7 +19,7 @@ class UserAdmin(DjangoUserAdmin):
             'classes': ('wide',),
             'fields': (
                 'first_name', 'last_name', 'email', 'language_code', 'password1', 'password2',
-                'is_staff', 'is_superuser', 'is_superuser'
+                'is_staff', 'is_superuser'
             ),
         }),
     )

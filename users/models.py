@@ -80,6 +80,7 @@ class User(AbstractBaseModel, AbstractBaseUser, PermissionsMixin):
 
     is_staff = models.BooleanField(_('es staff'), default=False)
     is_active = models.BooleanField(_('activo'), default=True)
+    is_seller = models.BooleanField(_('vendedor'), default=True)
     language_code = LanguageCodeField(_('código de idioma'))
     vat_condition = models.CharField(_('condicion IVA'), choices=VAT_CONDITIONS, max_length=50, null=True, default='consumidor_final')
     bank_name = models.CharField(_('Banco'), max_length=100, null=True, default='')
