@@ -1,3 +1,4 @@
+from django.core.validators import MinValueValidator, MaxValueValidator
 from django.db import models
 from django.utils.translation import gettext_lazy as _
 
@@ -33,6 +34,19 @@ class Order(CountrySpecificModel):
         'addresses.Address', blank=True, null=True, verbose_name=_('Dirección de envío'),
         on_delete=models.SET_NULL, related_name='order_shipping_address'
     )
+    per_ticket_service_charge = models.DecimalField(
+        _('cargo de servicio por entrada'), max_digits=10, decimal_places=2
+    )
+    ticket_price_surcharge_percentage = models.DecimalField(
+        _('porcentaje de recargo al precio base'), max_digits=10, decimal_places=2,
+        validators=[MinValueValidator(0), MaxValueValidator(100)]
+    )
+    tickets_subtotal = models.DecimalField(_('subtotal de tickets'), max_digits=10, decimal_places=2)
+    service_charge_subtotal = models.DecimalField(_('subtotal por cargo de servicio'), max_digits=10, decimal_places=2)
+    total = models.DecimalField(_('total'), max_digits=10, decimal_places=2)
+
+    def __str__(self):
+        return f'#{self.identifier}'
 
     class Meta:
         verbose_name = _('compra')
@@ -47,6 +61,10 @@ class OrderTicket(AbstractBaseModel):
         'events.ticket', verbose_name=_('ticket'), on_delete=models.PROTECT, related_name='order_tickets'
     )
     quantity = models.PositiveIntegerField(_('cantidad'))
+    price = models.DecimalField(_('precio final'), max_digits=10, decimal_places=2)
+    cost = models.DecimalField(_('precio'), max_digits=10, decimal_places=2)
+    subtotal = models.DecimalField(_('subtotal'), max_digits=10, decimal_places=2)
+    service_charge_subtotal = models.DecimalField(_('subtotal por cargo de servicio'), max_digits=10, decimal_places=2)
 
     class Meta:
         verbose_name = _('ticket de compra')

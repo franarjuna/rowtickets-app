@@ -17,15 +17,13 @@ from payments.viewsets import PaymentMethodViewset
 from tncs.viewsets import TnCViewSet
 from users.viewsets import AccountViewSet, PurchasesViewSet, OnSaleViewSet,SoldViewSet,AddressesViewSet
 
-# Sentry debug function 
+# Sentry debug function
 def trigger_error(request):
     raise Exception('Debugging Sentry installation')
 
 # Django Rest Framework setup
 router = DefaultRouter()
 
-router.register(r'orders', OrderViewset, basename='orders')
-router.register(r'mercadopago', MercadoPagoViewSet, basename='mercadopago')
 router.register(r'countries', CountryViewSet, basename='countries')
 
 countries_router = NestedSimpleRouter(router, r'countries', lookup='country')
@@ -36,8 +34,11 @@ countries_router.register(r'my_tickets', TicketViewSet)
 countries_router.register(r'faqs', FAQViewSet)
 countries_router.register(r'tncs', TnCViewSet)
 countries_router.register(r'account', AccountViewSet)
-countries_router.register(r'purchases', PurchasesViewSet)
+countries_router.register(r'mercadopago', MercadoPagoViewSet, basename='mercadopago')
 countries_router.register(r'onsale', OnSaleViewSet)
+countries_router.register(r'orders', OrderViewset)
+countries_router.register(r'payment_methods', PaymentMethodViewset, basename='payment_methods')
+countries_router.register(r'purchases', PurchasesViewSet)
 
 
 urlpatterns = [

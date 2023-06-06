@@ -13,7 +13,7 @@ class MercadoPagoViewSet(viewsets.GenericViewSet):
     permission_classes = [permissions.IsAuthenticated]
 
     @action(detail=False, methods=['post'])
-    def create_preference(self, request):
+    def create_preference(self, request, *args, **kwargs):
         serializer = CreatePreferenceSerializer(data=request.data)
 
         serializer.is_valid(raise_exception=True)
