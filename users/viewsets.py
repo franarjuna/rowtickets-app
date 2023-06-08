@@ -34,8 +34,7 @@ class AccountViewSet(mixins.RetrieveModelMixin, mixins.ListModelMixin, mixins.Up
         else:
             return queryset.filter(published=True, country=self.kwargs['country_country'])
 
-    def list(self, request, *args, **kwargs): 
-        
+    def list(self, request, *args, **kwargs):
         queryset = super().get_queryset()
 
         queryset = queryset.filter(id=request.user.id)
@@ -46,7 +45,7 @@ class AccountViewSet(mixins.RetrieveModelMixin, mixins.ListModelMixin, mixins.Up
         }
         return Response(response)
 
-    def partial_update(self, request, pk, *args, **kwargs): 
+    def partial_update(self, request, pk, *args, **kwargs):
         partial = True
         #request.user.id
         filter = {}
@@ -58,6 +57,7 @@ class AccountViewSet(mixins.RetrieveModelMixin, mixins.ListModelMixin, mixins.Up
         self.perform_update(serializer)
         return Response(serializer.data)
 
+
 class PurchasesViewSet(mixins.RetrieveModelMixin, mixins.ListModelMixin, viewsets.GenericViewSet):
     permission_classes = (IsAuthenticated,)
     queryset = Order.objects.all()
@@ -68,8 +68,7 @@ class PurchasesViewSet(mixins.RetrieveModelMixin, mixins.ListModelMixin, viewset
 
         return OrderSerializer
 
-    def list(self, request, *args, **kwargs): 
-        
+    def list(self, request, *args, **kwargs):
         queryset = super().get_queryset()
 
         queryset = queryset.filter(country=self.kwargs['country_country'],user=request.user)
@@ -92,8 +91,7 @@ class OnSaleViewSet(mixins.RetrieveModelMixin, mixins.ListModelMixin, viewsets.G
 
         return TicketSerializer
 
-    def list(self, request, *args, **kwargs): 
-        
+    def list(self, request, *args, **kwargs):
         queryset = Ticket.objects.with_availability().all()
 
         queryset = queryset.filter(seller=request.user)
@@ -107,12 +105,11 @@ class OnSaleViewSet(mixins.RetrieveModelMixin, mixins.ListModelMixin, viewsets.G
 class SoldViewSet(mixins.RetrieveModelMixin, mixins.ListModelMixin, viewsets.GenericViewSet):
     permission_classes = (IsAuthenticated,)
     queryset = Ticket.objects.all()
-    
+
     def get_serializer_class(self):
         return TicketSerializer
-    
+
     def list(self, request, *args, **kwargs):
-        
         queryset = Ticket.objects.with_availability().order_by('price').filter(seller=request.user)
 
         serializer = self.get_serializer(queryset, many=True)
@@ -120,6 +117,7 @@ class SoldViewSet(mixins.RetrieveModelMixin, mixins.ListModelMixin, viewsets.Gen
             'total': 0,
             'data': serializer.data
         }
+
         return Response(response)
 
 

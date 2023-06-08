@@ -36,7 +36,7 @@ class MercadoPagoPaymentMethod(PaymentMethod):
             {
                 'title': 'Tasa general por servicio',
                 'quantity': 1,
-                'unit_price': float(order.order_tickets.all()[0].quantity) * 6000
+                'unit_price': float(order.order_tickets.all()[0].quantity) * 100
             }
         )
 
@@ -45,10 +45,24 @@ class MercadoPagoPaymentMethod(PaymentMethod):
             'external_reference': order.identifier,
             'back_urls': {
                 'success': f'{settings.FRONTEND_BASE_URL}/ar/compra-exitosa'
-            }
+            },
+            'notification_url': f'{settings.BACKEND_BASE_URL}/countries/ar/mercadopago/ipn/',
+            'binary_mode': True # Require instant payment confirmation
         }
 
         preference_response = sdk.preference().create(preference_data)
         preference = preference_response['response']
 
         return preference['id']
+
+    def get_merchant_order_from_payment(self, payment_id):
+        sdk = mercadopago.SDK(self.access_token)
+
+        payment = sdk.payment().get(payment_id)
+
+        if payment['status'] == 404:
+            return None
+
+        print(payment)
+
+        return payment['response']['order']['id']

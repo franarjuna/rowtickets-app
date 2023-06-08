@@ -12,6 +12,14 @@ from mercadopago_payments.models import MercadoPagoPaymentMethod
 class MercadoPagoViewSet(viewsets.GenericViewSet):
     permission_classes = [permissions.IsAuthenticated]
 
+    def get_permissions(self):
+        if self.action == 'create_preference':
+            permission_classes = [permissions.IsAuthenticated]
+        else:
+            permission_classes = []
+
+        return [permission() for permission in permission_classes]
+
     @action(detail=False, methods=['post'])
     def create_preference(self, request, *args, **kwargs):
         serializer = CreatePreferenceSerializer(data=request.data)
@@ -27,3 +35,21 @@ class MercadoPagoViewSet(viewsets.GenericViewSet):
             return Response({ 'preference_id': preference_id })
         except Order.DoesNotExist:
             raise Http404
+
+    @action(detail=False, methods=['post'])
+    def ipn(self, request, *args, **kwargs):
+        print(request.data)
+        print(kwargs)
+
+        merchant_order = None
+
+        if request.GET.get('topic') == 'merchant_order':
+            merchant_order = request.GET.get('id')
+        elif request.GET.get('type') == 'payment':
+            mp = MercadoPagoPaymentMethod.objects.get()
+
+            merchant_order = mp.get_merchant_order_from_payment(request.GET.get('data.id'))
+
+        print(merchant_order)
+
+        return Response({})
