@@ -39,6 +39,8 @@ countries_router.register(r'onsale', OnSaleViewSet)
 countries_router.register(r'orders', OrderViewset)
 countries_router.register(r'payment_methods', PaymentMethodViewset, basename='payment_methods')
 countries_router.register(r'purchases', PurchasesViewSet)
+countries_router.register(r'sold', SoldViewSet)
+countries_router.register(r'addresses', AddressesViewSet)
 
 
 urlpatterns = [

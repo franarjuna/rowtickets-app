@@ -94,7 +94,7 @@ class OnSaleViewSet(mixins.RetrieveModelMixin, mixins.ListModelMixin, viewsets.G
 
     def list(self, request, *args, **kwargs): 
         
-        queryset = super().get_queryset()
+        queryset = Ticket.objects.with_availability().all()
 
         queryset = queryset.filter(seller=request.user)
         serializer = self.get_serializer(queryset, many=True)
