@@ -12,6 +12,7 @@ from emails.views import EmailTemplateView
 from events.viewsets import CategoryViewSet, EventViewSet, TicketViewSet
 from faqs.viewsets import FAQViewSet
 from mercadopago_payments.viewsets import MercadoPagoViewSet
+from mobbex_payments.viewsets import MobbexViewSet
 from orders.viewsets import OrderViewset
 from payments.viewsets import PaymentMethodViewset
 from tncs.viewsets import TnCViewSet
@@ -35,6 +36,7 @@ countries_router.register(r'faqs', FAQViewSet)
 countries_router.register(r'tncs', TnCViewSet)
 countries_router.register(r'account', AccountViewSet)
 countries_router.register(r'mercadopago', MercadoPagoViewSet, basename='mercadopago')
+countries_router.register(r'mobbex', MobbexViewSet, basename='mobbex')
 countries_router.register(r'onsale', OnSaleViewSet)
 countries_router.register(r'orders', OrderViewset)
 countries_router.register(r'payment_methods', PaymentMethodViewset, basename='payment_methods')

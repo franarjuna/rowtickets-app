@@ -22,7 +22,7 @@ IVA_STATUSES = {
     'RESPONSABLE_INSCRIPTO': 'responsable_inscripto'
 }
 
-class Address(CountrySpecificModel): 
+class Address(CountrySpecificModel):
     user = models.ForeignKey(
         get_user_model(), related_name='addresses', blank=True, null=True,
         on_delete=models.SET_NULL, verbose_name=_('Usuario')

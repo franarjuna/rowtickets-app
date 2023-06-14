@@ -36,7 +36,7 @@ class MercadoPagoPaymentMethod(PaymentMethod):
             {
                 'title': 'Tasa general por servicio',
                 'quantity': 1,
-                'unit_price': float(order.order_tickets.all()[0].quantity) * 100
+                'unit_price': float(order.service_charge_subtotal)
             }
         )
 
@@ -66,3 +66,7 @@ class MercadoPagoPaymentMethod(PaymentMethod):
         print(payment)
 
         return payment['response']['order']['id']
+
+    class Meta:
+        verbose_name = _('Método de pago Mercado Pago')
+        verbose_name_plural = _('Métodos de pago Mercado Pago')

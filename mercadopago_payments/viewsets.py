@@ -29,11 +29,15 @@ class MercadoPagoViewSet(viewsets.GenericViewSet):
         try:
             order = request.user.orders.get(identifier=serializer.validated_data['order_identifier'])
 
-            mp = MercadoPagoPaymentMethod.objects.get()
+            mp = MercadoPagoPaymentMethod.objects.get(
+                country=self.kwargs['country_country'],
+                identifier=serializer.validated_data['payment_method_identifier'],
+                active=True
+            )
             preference_id = mp.create_preference(order, '')
 
             return Response({ 'preference_id': preference_id })
-        except Order.DoesNotExist:
+        except (Order.DoesNotExist, MercadoPagoPaymentMethod.DoesNotExist):
             raise Http404
 
     @action(detail=False, methods=['post'])

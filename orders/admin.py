@@ -20,7 +20,7 @@ class OrderAdmin(admin.ModelAdmin):
         'service_charge_subtotal', 'total'
     )
     list_filter = ('identifier', 'status', 'user', 'created', 'country', )
-    
+
 
 class SellerTicketAdmin(admin.ModelAdmin):
     extra = 0
@@ -28,6 +28,7 @@ class SellerTicketAdmin(admin.ModelAdmin):
         'identifier', 'quantity', 'price', 'cost', 'ticket'
     )
     list_filter = ('ticket__seller', )
+
     def has_add_permission(self, request, obj=None):
         return False
 

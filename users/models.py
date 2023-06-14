@@ -88,7 +88,6 @@ class User(AbstractBaseModel, AbstractBaseUser, PermissionsMixin):
     bank_cbu = models.CharField(_('cbu'), max_length=100, null=True, default='')
     bank_cuit = models.CharField(_('cuit'), max_length=100, null=True, default='')
 
-    
     USERNAME_FIELD = 'email'
     REQUIRED_FIELDS = ['first_name', 'last_name']
 

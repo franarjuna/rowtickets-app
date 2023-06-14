@@ -18,10 +18,12 @@ class CategoryAdmin(admin.ModelAdmin):
 class OrganizerAdmin(admin.ModelAdmin):
     prepopulated_fields = {'slug': ('name', )}
     fields = ('country', 'name', 'slug', 'twitter_handle')
+    list_display = ('name', 'country', 'slug')
 
 
 class VenueAdmin(admin.ModelAdmin):
     prepopulated_fields = {'slug': ('name', )}
+    list_display = ('name', 'country', 'slug')
 
 
 class EventImageInline(admin.StackedInline):
@@ -53,8 +55,8 @@ class EventAdmin(admin.ModelAdmin):
     list_filter = ('country', 'date', 'highlighted')
     search_fields = ('title', )
     fields = (
-        'title', 'slug', 'category', 'date', 'date_text', 'venue', 'online_event', 'highlighted',
-        'published', 'main_image', 'main_image_width', 'main_image_height'
+        'country', 'title', 'slug', 'category', 'date', 'date_text', 'venue', 'online_event',
+        'highlighted', 'published', 'main_image', 'main_image_width', 'main_image_height'
     )
     readonly_fields = ('main_image_width', 'main_image_height')
 

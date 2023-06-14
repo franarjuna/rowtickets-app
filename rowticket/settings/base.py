@@ -66,6 +66,7 @@ INSTALLED_APPS = [
     'faqs',
     'homepages',
     'mercadopago_payments',
+    'mobbex_payments',
     'orders',
     'payments',
     'tncs',
