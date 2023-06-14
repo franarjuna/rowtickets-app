@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from orders.models import Order, OrderTicket
+from orders.models import Order, OrderTicket, SellerTicket
 
 
 class OrderTicketInline(admin.TabularInline):
@@ -19,5 +19,17 @@ class OrderAdmin(admin.ModelAdmin):
         'country', 'user', 'per_ticket_service_charge', 'ticket_price_surcharge_percentage', 'tickets_subtotal',
         'service_charge_subtotal', 'total'
     )
+    list_filter = ('identifier', 'status', 'user', 'created', 'country', )
+    
+
+class SellerTicketAdmin(admin.ModelAdmin):
+    extra = 0
+    list_display = (
+        'identifier', 'quantity', 'price', 'cost', 'ticket'
+    )
+    list_filter = ('ticket__seller', )
+    def has_add_permission(self, request, obj=None):
+        return False
 
 admin.site.register(Order, OrderAdmin)
+admin.site.register(SellerTicket, SellerTicketAdmin)

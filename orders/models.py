@@ -69,3 +69,10 @@ class OrderTicket(AbstractBaseModel):
     class Meta:
         verbose_name = _('ticket de compra')
         verbose_name_plural = _('tickets de compra')
+
+
+class SellerTicket(OrderTicket):
+    class Meta:
+        proxy = True
+        verbose_name = _('Liquidacion vendedor')
+        verbose_name_plural = _('Liquidaciones vendedor')
