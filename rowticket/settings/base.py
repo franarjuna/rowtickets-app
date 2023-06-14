@@ -14,7 +14,7 @@ ALLOWED_HOSTS = []
 SITE_NAME = 'ROW Ticket'
 
 # Backend URL
-API_BASE_URL = 'http://localhost:8000'
+BACKEND_BASE_URL = 'http://localhost:8000'
 
 # Frontend URL & domain
 FRONTEND_BASE_URL = 'http://localhost:3000'
