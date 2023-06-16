@@ -33,6 +33,11 @@ class SectionSerializer(serializers.ModelSerializer):
         model = Section
         fields = ('id','name', 'color', 'event')
 
+class OrganizerSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Section
+        fields = ('id','name')
+
 
 class TicketSerializer(serializers.ModelSerializer):
     section = SectionSerializer()
@@ -113,7 +118,7 @@ class EventListingSerializer(serializers.ModelSerializer):
         model = Event
         fields = (
             'id','title', 'slug', 'date', 'date_text', 'venue_name', 'main_image_thumb',
-            'starting_price', 'sections'
+            'starting_price', 'sections', 'organizer'
         )
 
 
@@ -122,6 +127,7 @@ class EventDetailSerializer(serializers.ModelSerializer):
     event_images = EventImageSerializer(many=True)
     event_gallery_images = EventImageSerializer(many=True)
     tickets = TicketSerializer(many=True)
+    organizer = OrganizerSerializer(many=True)
     venue = VenueSerializer()
 
     class Meta:
@@ -129,5 +135,5 @@ class EventDetailSerializer(serializers.ModelSerializer):
         fields = (
             'identifier', 'title', 'slug', 'date', 'date_text', 'venue',
             'main_image_large', 'event_images', 'event_gallery_images',
-            'tickets'
+            'tickets','organizer'
         )

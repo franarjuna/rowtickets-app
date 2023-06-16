@@ -100,6 +100,9 @@ class Event(CountrySlugModel):
     category = models.ForeignKey(
         Category, verbose_name=_('categoría'), on_delete=models.PROTECT, related_name='events'
     )
+    organizer = models.ForeignKey(
+        Organizer, verbose_name=_('organizador'), on_delete=models.PROTECT, related_name='events', null=True, blank=True
+    )
     date = models.DateTimeField(_('fecha y hora'), db_index=True)
     date_text = models.CharField(_('fecha (texto)'), max_length=150, blank=True)
     venue = models.ForeignKey(
