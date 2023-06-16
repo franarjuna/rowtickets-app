@@ -27,7 +27,7 @@ class SellerTicketAdmin(admin.ModelAdmin):
     list_display = (
         'identifier', 'quantity', 'price', 'cost', 'ticket','order'
     )
-    list_filter = ('ticket__seller', 'order__identifier', )
+    list_filter = ('ticket__seller', 'order__identifier', 'order__status', )
 
     def has_add_permission(self, request, obj=None):
         return False
