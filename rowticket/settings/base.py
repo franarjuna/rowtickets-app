@@ -177,7 +177,7 @@ ACCOUNT_USERNAME_REQUIRED = False
 REST_USE_JWT = True
 
 # Emails
-EMAILS_FROM = _('<ROW Ticket Argentina> info@rowticket.com')
+EMAILS_FROM = _('ROW Ticket Argentina <info@rowticket.com>')
 
 # Django Rest Framework
 REST_FRAMEWORK = {
