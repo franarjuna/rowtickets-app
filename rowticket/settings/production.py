@@ -66,3 +66,22 @@ STATIC_URL = "https://%s/%s/" % (AWS_S3_CUSTOM_DOMAIN, AWS_LOCATION)
 
 DEFAULT_FILE_STORAGE = 'rowticket.storage.bucketeer.MediaStorage'  # <-- here is where we reference it
 
+#EMAIL SMTP
+if 'EMAIL_HOST' in os.environ:
+    EMAIL_HOST = os.environ["EMAIL_HOST"]
+
+if 'EMAIL_PORT' in os.environ:
+    EMAIL_PORT = os.environ["EMAIL_PORT"]
+    
+if 'EMAIL_HOST_USER' in os.environ:
+    EMAIL_HOST_USER = os.environ["EMAIL_HOST_USER"]
+    
+if 'EMAIL_HOST_PASSWORD' in os.environ:
+    EMAIL_HOST_PASSWORD = os.environ["EMAIL_HOST_PASSWORD"]
+
+if 'EMAIL_USE_SSL' in os.environ:
+    EMAIL_USE_SSL = os.environ["EMAIL_USE_SSL"]
+
+if 'EMAIL_USE_TLS' in os.environ:
+    EMAIL_USE_TLS = os.environ["EMAIL_USE_TLS"]
+
