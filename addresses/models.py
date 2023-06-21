@@ -17,10 +17,15 @@ ADDRESS_TYPE_CHOICES = (
     (ADDRESS_TYPES['SHIPPING'], _('Envío'))
 )
 
-IVA_STATUSES = {
+AR_IVA_CONDITIONS = {
     'CONSUMIDOR_FINAL': 'consumidor_final',
     'RESPONSABLE_INSCRIPTO': 'responsable_inscripto'
 }
+
+AR_IVA_CONDITION_CHOICES = (
+    (AR_IVA_CONDITIONS['CONSUMIDOR_FINAL'], _('Consumidor Final')),
+    (AR_IVA_CONDITIONS['RESPONSABLE_INSCRIPTO'], _('Responsable Inscripto'))
+)
 
 class Address(CountrySpecificModel):
     user = models.ForeignKey(
@@ -32,14 +37,25 @@ class Address(CountrySpecificModel):
     name = models.CharField(_('Nombre'), max_length=255, blank=True)
     last_name = models.CharField(_('Apellido'), max_length=255, blank=True)
     company_name = models.CharField(_('Nombre de la empresa (opcional)'), max_length=255, blank=True)
+
     street_address_1 = models.CharField(_('Dirección (línea 1)'), max_length=255, blank=True)
     street_address_2 = models.CharField(_('Dirección (línea 2)'), max_length=255, blank=True)
     city = models.CharField(_('Ciudad / Localidad'), max_length=255, blank=True)
     country_area = models.CharField(_('Estado / Provincia / Región'), max_length=255, blank=True)
-    country = models.CharField(_('país'), db_index=True, choices=settings.COUNTRIES, max_length=2)
     postal_code = models.CharField(_('Código postal'), max_length=64, blank=True)
+
     phone = models.CharField(_('Teléfono'), max_length=30, blank=True)
     email = models.EmailField(_('Email'), max_length=30, blank=True)
+
+    # Country-specific fields
+    # Argentina
+    ar_dni = models.CharField(_('DNI'), max_length=100, blank=True)
+    ar_iva_condition = models.CharField(
+        _('Condición frente al IVA'), max_length=100, choices=AR_IVA_CONDITION_CHOICES, blank=True
+    )
+
+    # Chile
+    cl_rut = models.CharField(_('RUT'), max_length=100, blank=True)
 
     def __str__(self):
         return self.full_street
