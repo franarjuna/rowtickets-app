@@ -128,7 +128,7 @@ class EventDetailSerializer(serializers.ModelSerializer):
     event_images = EventImageSerializer(many=True)
     event_gallery_images = EventImageSerializer(many=True)
     tickets = TicketSerializer(many=True)
-    organizer = OrganizerSerializer(many=True)
+    organizer = OrganizerSerializer()
     venue = VenueSerializer()
 
     class Meta:
