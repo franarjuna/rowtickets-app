@@ -105,6 +105,7 @@ class EventListingSerializer(serializers.ModelSerializer):
     venue_name = serializers.SerializerMethodField()
     starting_price = serializers.SerializerMethodField()
     sections = SectionSerializer(many=True)
+    organizer = OrganizerSerializer()
 
     def get_starting_price(self, event):
         starting_price = getattr(event, 'starting_price', None)
