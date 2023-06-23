@@ -2,7 +2,7 @@ from rest_framework import serializers
 from rest_framework.response import Response
 
 from events.models import (
-    Category, Event, EventImage, EventGalleryImage, Section, Ticket, Venue
+    Category, Event, EventImage, EventGalleryImage, Section, Ticket, Venue, Organizer
 )
 
 
@@ -35,7 +35,7 @@ class SectionSerializer(serializers.ModelSerializer):
 
 class OrganizerSerializer(serializers.ModelSerializer):
     class Meta:
-        model = Section
+        model = Organizer
         fields = ('id','name')
 
 
