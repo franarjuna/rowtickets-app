@@ -135,5 +135,5 @@ class EventDetailSerializer(serializers.ModelSerializer):
         fields = (
             'identifier', 'title', 'slug', 'date', 'date_text', 'venue',
             'main_image_large', 'event_images', 'event_gallery_images',
-            'tickets','organizer'
+            'tickets','organizer', 'individual_percentage'
         )

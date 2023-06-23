@@ -7,10 +7,10 @@ from rowticket.models import CountrySpecificUniqueModel
 
 class CountrySettings(CountrySpecificUniqueModel):
     per_ticket_service_charge = models.DecimalField(
-        _('cargo de servicio por entrada'), max_digits=10, decimal_places=2
+        _('service charge'), max_digits=10, decimal_places=2
     )
     ticket_price_surcharge_percentage = models.DecimalField(
-        _('porcentaje de recargo al precio base'), max_digits=10, decimal_places=2,
+        _('cargo plataforma (porcentaje sobre precio vendedor)'), max_digits=10, decimal_places=2,
         validators=[MinValueValidator(0), MaxValueValidator(100)]
     )
 

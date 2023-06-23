@@ -55,8 +55,8 @@ class EventAdmin(admin.ModelAdmin):
     list_filter = ('country', 'date', 'highlighted')
     search_fields = ('title', )
     fields = (
-        'country', 'title', 'slug', 'category','organizer', 'date', 'date_text', 'venue', 'online_event',
-        'highlighted', 'published', 'main_image', 'main_image_width', 'main_image_height'
+        'country', 'title', 'slug', 'category','organizer', 'date', 'date_text', 'pay_date', 'venue', 'online_event',
+        'highlighted', 'published', 'main_image', 'main_image_width', 'main_image_height', 'individual_percentage'
     )
     readonly_fields = ('main_image_width', 'main_image_height')
 

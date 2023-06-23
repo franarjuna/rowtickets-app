@@ -98,10 +98,10 @@ class EventManager(models.Manager):
 class Event(CountrySlugModel):
     title = models.CharField(_('nombre'), max_length=150)
     category = models.ForeignKey(
-        Category, verbose_name=_('categoría'), on_delete=models.PROTECT, related_name='events'
+        Category, verbose_name=_('categoría'), on_delete=models.PROTECT, related_name='events', db_index=True
     )
     organizer = models.ForeignKey(
-        Organizer, verbose_name=_('organizador'), on_delete=models.PROTECT, related_name='events', null=True, blank=True
+        Organizer, verbose_name=_('organizador'), on_delete=models.PROTECT, related_name='events', null=True, blank=True, db_index=True
     )
     date = models.DateTimeField(_('fecha y hora'), db_index=True)
     date_text = models.CharField(_('fecha (texto)'), max_length=150, blank=True)
@@ -111,6 +111,12 @@ class Event(CountrySlugModel):
     online_event = models.BooleanField(_('evento online'), default=False)
     highlighted = models.BooleanField(_('destacado'), default=False)
     published = models.BooleanField(_('publicado'), default=False)
+
+    
+    pay_date = models.DateField(_('dia de liquidacion'), db_index=True, null=True, blank=True)
+
+    individual_percentage = models.DecimalField(_('coeficiente de venta especial'), max_digits=5, decimal_places=2, null=True, blank=True)
+
 
     # Images
     main_image = models.ImageField(
