@@ -194,6 +194,7 @@ class Section(AbstractBaseModel):
         Event, verbose_name=_('evento'), on_delete=models.CASCADE, related_name='sections'
     )
     name = models.CharField(_('nombre'), max_length=150)
+    subsection = models.TextField(_('sub-sector'), help_text="This is the grey text", default='', blank=True)
     color = ColorField(verbose_name=_('color'))
 
     def __str__(self):
@@ -232,6 +233,7 @@ class Ticket(AbstractBaseModel):
     )
 
     section = models.ForeignKey(Section, on_delete=models.PROTECT, verbose_name=_('sector'))
+    subsection = models.CharField(_('subsector'), max_length=50, default='', blank=True)
     price = models.DecimalField(_('precio final'), max_digits=10, decimal_places=2)
     cost = models.DecimalField(_('precio'), max_digits=10, decimal_places=2)
     ticket_type = models.CharField(_('tipo de entrada'), choices=TICKET_TYPES, max_length=50)
