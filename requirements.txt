@@ -2,6 +2,7 @@ boto3
 Django==4.1.4
 django-admin-sortable2==2.1.4
 django-anymail==9.0
+django-better-admin-arrayfield
 django-colorfield==0.8.0
 django-cors-headers==3.13.0
 django-extensions==3.2.1
@@ -11,6 +12,7 @@ django_heroku
 django-modelcluster==6.0
 django-quill-editor==0.1.40
 dj-rest-auth[with_social]==3.0.0
+
 django-storages
 django-stubs==1.16.0
 djangorestframework==3.14.0

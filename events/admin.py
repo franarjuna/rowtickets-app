@@ -3,7 +3,7 @@ from django.contrib import admin
 from events.models import (
     Event, EventImage, EventGalleryImage, Section, Ticket, Category, Organizer, Venue
 )
-
+from django_better_admin_arrayfield.admin.mixins import DynamicArrayMixin
 
 class CategoryAdmin(admin.ModelAdmin):
     prepopulated_fields = {'slug': ('name', )}
@@ -48,7 +48,7 @@ class TicketInline(admin.StackedInline):
     extra = 0
 
 
-class EventAdmin(admin.ModelAdmin):
+class EventAdmin(admin.ModelAdmin,DynamicArrayMixin):
     inlines = [EventImageInline, EventGalleryImageInline, SectionInline, TicketInline]
     prepopulated_fields = {'slug': ('title', )}
     list_display = ('title', 'date', 'country', 'identifier', 'highlighted')

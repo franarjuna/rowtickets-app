@@ -11,11 +11,6 @@ class Migration(migrations.Migration):
 
     operations = [
         migrations.AddField(
-            model_name='section',
-            name='subsection',
-            field=models.TextField(blank=True, default='', help_text='This is the grey text', verbose_name='sub-sector'),
-        ),
-        migrations.AddField(
             model_name='ticket',
             name='subsection',
             field=models.CharField(blank=True, default='', max_length=50, verbose_name='subsector'),

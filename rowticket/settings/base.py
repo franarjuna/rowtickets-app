@@ -58,6 +58,7 @@ INSTALLED_APPS = [
     'drf_yasg',
     'corsheaders',
     'adminsortable2',
+    'django_better_admin_arrayfield',
 
     'addresses',
     'countries',
@@ -72,6 +73,7 @@ INSTALLED_APPS = [
     'tncs',
     'rowticket',
     'users',
+    
 ]
 
 MIDDLEWARE = [

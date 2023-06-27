@@ -8,7 +8,8 @@ from imagekit.processors import ResizeToFill, ResizeToFit
 
 from orders.models import ORDER_STATUSES
 from rowticket.models import AbstractBaseModel, CountrySlugModel
-
+from django_better_admin_arrayfield.models.fields import ArrayField
+from django_better_admin_arrayfield.admin.mixins import DynamicArrayMixin
 
 COLOR_CHOICES = [
     ('blue', _('Azul')),
@@ -189,12 +190,13 @@ class EventGalleryImage(AbstractBaseModel):
         ordering = ('event', 'order')
 
 
-class Section(AbstractBaseModel):
+class Section(AbstractBaseModel,DynamicArrayMixin):
     event = models.ForeignKey(
         Event, verbose_name=_('evento'), on_delete=models.CASCADE, related_name='sections'
     )
     name = models.CharField(_('nombre'), max_length=150)
-    subsection = models.TextField(_('sub-sector'), help_text="This is the grey text", default='', blank=True)
+    sub_section = ArrayField(models.TextField(), null=True, blank=True)
+    #ArrayField(_('sub-sector'), help_text="This is the grey text", default='', blank=True)
     color = ColorField(verbose_name=_('color'))
 
     def __str__(self):
