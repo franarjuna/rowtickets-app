@@ -189,13 +189,12 @@ class EventGalleryImage(AbstractBaseModel):
         verbose_name_plural = _('imágenes de galería de evento')
         ordering = ('event', 'order')
 
-
 class Section(AbstractBaseModel,DynamicArrayMixin):
     event = models.ForeignKey(
         Event, verbose_name=_('evento'), on_delete=models.CASCADE, related_name='sections'
     )
     name = models.CharField(_('nombre'), max_length=150)
-    sub_section = ArrayField(models.TextField(), null=True, blank=True)
+    sub_section = ArrayField(models.TextField(_('sub-sector')), null=True, blank=True)
     #ArrayField(_('sub-sector'), help_text="This is the grey text", default='', blank=True)
     color = ColorField(verbose_name=_('color'))
 
@@ -253,7 +252,7 @@ class Ticket(AbstractBaseModel):
     objects = TicketManager()
 
     def __str__(self):
-        return f'{self.event}: {self.section} {self.price} ({self.seller.email})'
+        return f'{self.event}: {self.section} {self.subsection} {self.price} ({self.seller.email})'
 
     class Meta:
         verbose_name = _('entradas')
