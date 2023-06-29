@@ -114,6 +114,7 @@ class TicketViewSet(viewsets.ModelViewSet):
         ticket = Ticket.objects.create(
             event=Event.objects.get(id=request.data.get('event_id')),
             section=Section.objects.get(id=request.data.get('section_id')),
+            subsection=data.get('sub_section'),
             row=data.get('row'),
             cost=data.get('cost'),
             price=data.get('price'),
