@@ -1,5 +1,6 @@
 from django.conf import settings
 from django.utils.translation import gettext_lazy as _
+from django.core.exceptions import ValidationError
 
 from allauth.account import app_settings as allauth_account_settings
 from allauth.account.adapter import get_adapter
@@ -62,12 +63,13 @@ class RegisterSerializer(serializers.Serializer):
         if 'password' in self.cleaned_data:
             try:
                 adapter.clean_password(self.cleaned_data['password'], user=user)
-            except DjangoValidationError as exc:
+            except ValidationError as exc:
                 raise serializers.ValidationError(
                     detail=serializers.as_serializer_error(exc)
             )
 
         user.language_code = get_language_code_from_country(self.cleaned_data['country'])
+        user.set_password(self.cleaned_data['password'])
         user.save()
         self.custom_signup(request, user)
         setup_user_email(request, user, [])
