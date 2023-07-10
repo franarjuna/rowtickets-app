@@ -105,7 +105,7 @@ class TicketViewSet(viewsets.ModelViewSet):
         self.request.data['seller'] = request.user.id
         self.request.data['event'] = EventSerializer(Event.objects.get(id=request.data.get('event_id'))).data
         self.request.data['section'] = SectionSerializer(Section.objects.get(id=request.data.get('section_id'))).data
-        #self.request.data['seller'] = User.objects.filter(id=request.data.get('seller')).first()
+        seller = User.objects.filter(id=request.user.id).first()
 
         serializer = self.get_serializer(data=self.request.data)
         serializer.is_valid(raise_exception=True)
@@ -123,7 +123,7 @@ class TicketViewSet(viewsets.ModelViewSet):
             quantity=data.get('quantity'),
             ready_to_ship=data.get('ready_to_ship'),
             ready_date=data.get('ready_date'),
-            seller=request.user.id,
+            seller=seller,
         )
 
         serializer_create = TicketCreateSerializer(ticket)
