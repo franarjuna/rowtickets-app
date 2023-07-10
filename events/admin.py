@@ -28,6 +28,7 @@ class VenueAdmin(admin.ModelAdmin):
 
 class EventImageInline(admin.StackedInline):
     model = EventImage
+    ordering = ("order",)
     extra = 0
     readonly_fields = ('image_width', 'image_height')
 
@@ -35,6 +36,7 @@ class EventImageInline(admin.StackedInline):
 class EventGalleryImageInline(admin.StackedInline):
     model = EventGalleryImage
     extra = 0
+    ordering = ("order",)
     readonly_fields = ('image_width', 'image_height')
 
 

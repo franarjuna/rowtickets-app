@@ -122,7 +122,8 @@ class TicketViewSet(viewsets.ModelViewSet):
             selling_condition=data.get('selling_condition'),
             quantity=data.get('quantity'),
             ready_to_ship=data.get('ready_to_ship'),
-            seller=data.get('seller'),
+            ready_date=data.get('ready_date'),
+            seller=request.user.id,
         )
 
         serializer_create = TicketCreateSerializer(ticket)
