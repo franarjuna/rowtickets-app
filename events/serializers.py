@@ -52,7 +52,7 @@ class TicketSerializer(serializers.ModelSerializer):
         model = Ticket
         fields = (
             'identifier', 'event', 'section', 'subsection', 'cost', 'price', 'ticket_type', 'ready_to_ship', 'extra_info', 'quantity',
-            'selling_condition', 'available_quantity', 'row','seller','status', 'date_ready'
+            'selling_condition', 'available_quantity', 'row','seller','status', 'ready_date'
         )
 class TicketCreateSerializer(serializers.ModelSerializer):
     section = SectionSerializer()
