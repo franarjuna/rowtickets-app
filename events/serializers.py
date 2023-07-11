@@ -120,7 +120,7 @@ class EventListingSerializer(serializers.ModelSerializer):
         model = Event
         fields = (
             'id','title', 'slug', 'date', 'date_text', 'venue_name', 'main_image_thumb',
-            'starting_price', 'sections', 'organizer', ,'formatted_date'
+            'starting_price', 'sections', 'organizer','formatted_date'
         )
 
 
