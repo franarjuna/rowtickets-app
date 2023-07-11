@@ -40,6 +40,7 @@ class OrganizerSerializer(serializers.ModelSerializer):
 
 
 class TicketSerializer(serializers.ModelSerializer):
+    event = EventSerializer()
     section = SectionSerializer()
     available_quantity = serializers.SerializerMethodField()
 
@@ -50,8 +51,8 @@ class TicketSerializer(serializers.ModelSerializer):
     class Meta:
         model = Ticket
         fields = (
-            'identifier', 'section', 'subsection', 'cost', 'price', 'ticket_type', 'ready_to_ship', 'extra_info', 'quantity',
-            'selling_condition', 'available_quantity', 'row','seller','status'
+            'identifier', 'event', 'section', 'subsection', 'cost', 'price', 'ticket_type', 'ready_to_ship', 'extra_info', 'quantity',
+            'selling_condition', 'available_quantity', 'row','seller','status', 'date_ready'
         )
 class TicketCreateSerializer(serializers.ModelSerializer):
     section = SectionSerializer()

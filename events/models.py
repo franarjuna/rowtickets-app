@@ -238,7 +238,7 @@ class Ticket(AbstractBaseModel):
     price = models.DecimalField(_('precio final'), max_digits=10, decimal_places=2)
     cost = models.DecimalField(_('precio'), max_digits=10, decimal_places=2)
     ticket_type = models.CharField(_('tipo de entrada'), choices=TICKET_TYPES, max_length=50)
-    row = models.CharField(_('fila'), max_length=50, default='', blank=True)
+    row = models.CharField(_('fila'), max_length=50, default='', blank=True, null=True)
     ready_to_ship = models.BooleanField(_('listo para enviar'))
     ready_date = models.DateField(_('dia de disponibilidad'), null=True, blank=True)
     extra_info = models.CharField(_('información extra'), max_length=255, blank=True)
