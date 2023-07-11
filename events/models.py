@@ -132,6 +132,11 @@ class Event(CountrySlugModel):
     main_image_thumb = ImageSpecField(source='main_image', processors=[ResizeToFill(300, 300)], format='JPEG')
 
     objects = EventManager()
+    
+    @property
+    def formatted_date(self):
+        return self.date.strftime('%d/%m/%Y  %H:%M')
+
 
     def __str__(self):
         return f'{self.title}'

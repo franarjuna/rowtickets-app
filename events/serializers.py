@@ -25,7 +25,7 @@ class EventSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Event
-        fields = ('id','title','date')
+        fields = ('id','title','formatted_date')
 
 class SectionSerializer(serializers.ModelSerializer):
     event = EventSerializer()
