@@ -135,7 +135,7 @@ class Event(CountrySlugModel):
     
     @property
     def formatted_date(self):
-        return self.date.strftime('%d/%m/%Y  %H:%M')
+        return self.date.strftime('%x %X')
 
 
     def __str__(self):
