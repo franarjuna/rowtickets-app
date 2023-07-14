@@ -68,6 +68,8 @@ INSTALLED_APPS = [
     'homepages',
     'mercadopago_payments',
     'mobbex_payments',
+    'fiserv_payments',
+    'viumi_payments',
     'orders',
     'payments',
     'tncs',
