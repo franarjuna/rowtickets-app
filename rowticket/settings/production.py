@@ -27,6 +27,12 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 if 'SECRET_KEY' in os.environ:
     SECRET_KEY = os.environ["SECRET_KEY"]
 
+if 'FRONTEND_BASE_URL' in os.environ:
+    FRONTEND_BASE_URL = os.environ["FRONTEND_BASE_URL"]
+    
+if 'BACKEND_BASE_URL' in os.environ:
+    BACKEND_BASE_URLBACKEND_BASE_URL = os.environ["SECRET_KEY"]
+
 MAX_CONN_AGE = 600
 
 ALLOWED_HOSTS = ["rowticket-app.herokuapp.com"]
