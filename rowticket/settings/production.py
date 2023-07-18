@@ -29,9 +29,9 @@ if 'SECRET_KEY' in os.environ:
 
 if 'FRONTEND_BASE_URL' in os.environ:
     FRONTEND_BASE_URL = os.environ["FRONTEND_BASE_URL"]
-    
+
 if 'BACKEND_BASE_URL' in os.environ:
-    BACKEND_BASE_URLBACKEND_BASE_URL = os.environ["SECRET_KEY"]
+    BACKEND_BASE_URL = os.environ["BACKEND_BASE_URL"]
 
 MAX_CONN_AGE = 600
 
