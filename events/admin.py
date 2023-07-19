@@ -51,7 +51,7 @@ class TicketInline(admin.StackedInline):
 
 
 class EventAdmin(admin.ModelAdmin,DynamicArrayMixin):
-    save_as = True
+    actions = ['duplicate_event']
     inlines = [EventImageInline, EventGalleryImageInline, SectionInline, TicketInline]
     prepopulated_fields = {'slug': ('title', )}
     list_display = ('title', 'date', 'country', 'identifier', 'highlighted')
@@ -63,6 +63,12 @@ class EventAdmin(admin.ModelAdmin,DynamicArrayMixin):
     )
     readonly_fields = ('main_image_width', 'main_image_height')
 
+    @admin.action(description="Duplicar evento seleccionado")
+    def duplicate_event(modeladmin, request, queryset):
+        for object in queryset:
+            object.id = None
+            object.identifier = None
+            object.save()
 
 admin.site.register(Category, CategoryAdmin)
 admin.site.register(Event, EventAdmin)
