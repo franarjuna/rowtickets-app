@@ -36,7 +36,7 @@ class SectionSerializer(serializers.ModelSerializer):
 class OrganizerSerializer(serializers.ModelSerializer):
     class Meta:
         model = Organizer
-        fields = ('id','name')
+        fields = ('id','name','main_image','header_image','header_image')
 
 
 class TicketSerializer(serializers.ModelSerializer):

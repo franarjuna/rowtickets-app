@@ -73,7 +73,7 @@ class EventViewSet(mixins.RetrieveModelMixin, mixins.ListModelMixin, viewsets.Ge
             if highlighted_count > 0:
                 highlighted_events = queryset.filter(highlighted=True)[:highlighted_count]
 
-                queryset = queryset.exclude(id__in=highlighted_events.values_list('id', flat=True))
+                # queryset = queryset.exclude(id__in=highlighted_events.values_list('id', flat=True))
 
         serializer = self.get_serializer(queryset, many=True)
 

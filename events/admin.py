@@ -17,13 +17,13 @@ class CategoryAdmin(admin.ModelAdmin):
 
 class OrganizerAdmin(admin.ModelAdmin):
     prepopulated_fields = {'slug': ('name', )}
-    fields = ('country', 'name', 'slug', 'twitter_handle')
+    fields = ('country', 'name', 'slug', 'twitter_handle','main_image','header_image')
     list_display = ('name', 'country', 'slug')
 
 
 class VenueAdmin(admin.ModelAdmin):
     prepopulated_fields = {'slug': ('name', )}
-    list_display = ('name', 'country', 'slug')
+    list_display = ('name', 'country', 'slug','main_image','header_image')
 
 
 class EventImageInline(admin.StackedInline):
@@ -51,6 +51,7 @@ class TicketInline(admin.StackedInline):
 
 
 class EventAdmin(admin.ModelAdmin,DynamicArrayMixin):
+    save_as = True
     inlines = [EventImageInline, EventGalleryImageInline, SectionInline, TicketInline]
     prepopulated_fields = {'slug': ('title', )}
     list_display = ('title', 'date', 'country', 'identifier', 'highlighted')
