@@ -64,8 +64,8 @@ class Category(CountrySlugModel):
 class Venue(CountrySlugModel):
     name = models.CharField(_('nombre'), max_length=150)
     address = models.CharField(_('dirección'), max_length=200, blank=True)
-    main_image = models.ImageField( _('imagen principal'), upload_to='event_main_images', blank=True, null=True    )
-    header_image = models.ImageField( _('imagen header'), upload_to='event_main_images', blank=True, null=True    )
+    main_image = models.ImageField( _('imagen principal'), blank=True, null=True    )
+    header_image = models.ImageField( _('imagen header'), blank=True, null=True    )
 
     def __str__(self):
         return f'{self.name}'
@@ -78,8 +78,8 @@ class Venue(CountrySlugModel):
 class Organizer(CountrySlugModel):
     name = models.CharField(_('nombre'), max_length=150)
     twitter_handle = models.CharField(_('usuario de Twitter'), max_length=150, blank=True)
-    main_image = models.ImageField( _('imagen principal'), upload_to='event_main_images', blank=True, null=True    )
-    header_image = models.ImageField( _('imagen header'), upload_to='event_main_images', blank=True, null=True    )
+    main_image = models.ImageField( _('imagen principal'), blank=True, null=True    )
+    header_image = models.ImageField( _('imagen header'), blank=True, null=True    )
 
     def __str__(self):
         return f'{self.name}'
