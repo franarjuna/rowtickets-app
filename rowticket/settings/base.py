@@ -270,6 +270,7 @@ JAZZMIN_SETTINGS = {
     'site_title': 'ROW Ticket Admin',
     'site_header': 'ROW Ticket',
     'site_brand': 'ROW Ticket',
+    "order_with_respect_to": ["events","orders","users"],
     'custom_css': 'css/admin.css'
 }
 

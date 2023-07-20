@@ -5,6 +5,8 @@ from events.models import (
 )
 from django_better_admin_arrayfield.admin.mixins import DynamicArrayMixin
 
+from copy import deepcopy
+
 class CategoryAdmin(admin.ModelAdmin):
     prepopulated_fields = {'slug': ('name', )}
     fields = (
@@ -65,10 +67,40 @@ class EventAdmin(admin.ModelAdmin,DynamicArrayMixin):
 
     @admin.action(description="Duplicar evento seleccionado")
     def duplicate_event(modeladmin, request, queryset):
+        
         for object in queryset:
-            object.id = None
-            object.identifier = None
-            object.save()
+            id = object.id
+            old_obj = deepcopy(object)
+            old_obj.id = None
+            old_obj.identifier = None
+            newObj = old_obj.save()
+            ## levantar imagenes y sectores
+            if EventImage.objects.filter(event = object).exists():
+                gallery = EventImage.objects.filter(event = object)
+                for image in gallery:
+                    new_image = deepcopy(image)
+                    new_image.id = None
+                    new_image.identifier = None
+                    new_image.event = old_obj
+                    new_image.save()
+            if EventGalleryImage.objects.filter(event = object).exists():
+                gallery = EventGalleryImage.objects.filter(event = object)
+                for image in gallery:
+                    new_image = deepcopy(image)
+                    new_image.id = None
+                    new_image.identifier = None
+                    new_image.event = old_obj
+                    new_image.save()
+            if Section.objects.filter(event = object).exists():
+                gallery = Section.objects.filter(event = object)
+                for image in gallery:
+                    new_image = deepcopy(image)
+                    new_image.id = None
+                    new_image.identifier = None
+                    new_image.event = old_obj
+                    new_image.save()
+
+
 
 admin.site.register(Category, CategoryAdmin)
 admin.site.register(Event, EventAdmin)
