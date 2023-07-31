@@ -71,7 +71,7 @@ class PurchasesViewSet(mixins.RetrieveModelMixin, mixins.ListModelMixin, viewset
     def list(self, request, *args, **kwargs):
         queryset = super().get_queryset()
 
-        queryset = queryset.filter(country=self.kwargs['country_country'],user=request.user, status=['paid','cancelled'])
+        queryset = queryset.filter(country=self.kwargs['country_country'],user=request.user, status__in=['paid','cancelled'])
         #queryset = queryset.filter(country=self.kwargs['country_country'])
         serializer = self.get_serializer(queryset, many=True)
         response = {
