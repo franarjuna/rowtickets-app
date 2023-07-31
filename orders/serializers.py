@@ -34,4 +34,4 @@ class OrderSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Order
-        fields = ('identifier', 'status', 'order_tickets','per_ticket_service_charge','ticket_price_surcharge_percentage','tickets_subtotal','service_charge_subtotal','total','status' )
+        fields = ('identifier', 'created', 'status', 'order_tickets','per_ticket_service_charge','ticket_price_surcharge_percentage','tickets_subtotal','service_charge_subtotal','total','status' )
