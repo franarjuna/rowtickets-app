@@ -61,7 +61,7 @@ class TicketCreateSerializer(serializers.ModelSerializer):
         model = Ticket
         fields = (
             'identifier', 'section', 'cost', 'price', 'ticket_type', 'ready_to_ship', 'extra_info', 'quantity',
-            'selling_condition', 'row','seller','status'
+            'selling_condition', 'row','seller','status', 'subsection'
         )
 
 
