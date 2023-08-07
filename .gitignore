@@ -12,3 +12,4 @@ rowticket/settings/local.py
 .env
 rowticket/settings/-local.py
 .env
+.env
