@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-08-08 19:12-0300\n"
+"POT-Creation-Date: 2023-08-08 20:01-0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -124,6 +124,73 @@ msgstr ""
 msgid "ROW Ticket Argentina"
 msgstr ""
 
+#: .\emails\templates\emails\buyer_completed.html:5
+#, python-format
+msgid ""
+"\n"
+"    <h2>[Orden %(order_number)s]</h2>\n"
+"    \n"
+"    <p style=\"color: #ffffff;\">Tu ticket ha sido entregado! Felicitaciones!"
+"</p>\n"
+"\n"
+"    "
+msgstr ""
+
+#: .\emails\templates\emails\buyer_confirmed.html:5
+#, python-format
+msgid ""
+"\n"
+"    <h2>[Orden %(order_number)s]</h2>\n"
+"    \n"
+"    <p style=\"color: #ffffff;\">Felicitaciones, tu entrada ya está "
+"asignada!  Ahora solo resta coordinar el envío. Te estaremos avisando cómo y "
+"de qué forma vas a hacerte de tu entrada!</p>\n"
+"\n"
+"    "
+msgstr ""
+
+#: .\emails\templates\emails\buyer_on_transit.html:6
+#, python-format
+msgid ""
+"\n"
+"    <h2>[Orden %(order_number)s]</h2>\n"
+"    \n"
+"    <p style=\"color: #ffffff;\">Felicitaciones, tu entrada está en camino! "
+"Cuando ya la tengas asegurate de disfrutar!!</p>\n"
+"\n"
+"    "
+msgstr ""
+
+#: .\emails\templates\emails\buyer_reserved.html:6
+#, python-format
+msgid ""
+"\n"
+"    <h2>[Orden %(order_number)s]</h2>\n"
+"\n"
+"    <p style=\"color: #ffffff;\">Pudimos validar con éxito tu identidad! ¡Tu "
+"entrada ya está reservada!  Por favor seguí con atención los próximos pasos "
+"que te iremos indicando para que puedas ir al show!</p>\n"
+"\n"
+"    "
+msgstr ""
+
+#: .\emails\templates\emails\seller_cancelled.html:5
+#, python-format
+msgid ""
+"\n"
+"    <p style=\"color: #ffffff;\">Lamentablemente tu venta para "
+"%(details.product_name)s se ha Cancelado.</p>\n"
+"    <br>\n"
+"    <p style=\"color: #ffffff;\">Hemos cancelado la venta ya que el pago no "
+"pudo superar el proceso de validación y seguridad del mismo. No te "
+"preocupes, no hace falta volver a publicar tus entradas, las mismas fueron "
+"puestas a la venta automáticamente en la plataforma.</p>\n"
+"    <br>\n"
+"    <p style=\"color: #ffffff;\">No tenés que hacer más nada.</p>\n"
+"\n"
+"    "
+msgstr ""
+
 #: .\emails\templates\emails\seller_completed.html:5
 #, python-format
 msgid ""
@@ -140,14 +207,28 @@ msgid ""
 "    "
 msgstr ""
 
-#: .\emails\templates\emails\seller_pending_payment.html:6
+#: .\emails\templates\emails\seller_on_transit.html:6
+#, python-format
+msgid ""
+"\n"
+"<p style=\"color: #ffffff; font-weight: bolder;\">Estimado vendedor: gracias "
+"por enviar las entradas referentes a la operacion #%(order_number)s</p>\n"
+"<br>\n"
+"<p style=\"color: #ffffff;\">Recordá que vas a recibir la liquidación dentro "
+"de los próximos 10 dias luego que tenga lugar el evento, para garantizar el "
+"ingreso o cualquier inconveniente que nos informe el comprador.</span></p>\n"
+"<br>\n"
+"<p style=\"color: #ffffff;\">Muchas gracias por vender en Rowticket!</p>\n"
+msgstr ""
+
+#: .\emails\templates\emails\seller_pending_payment.html:8
 #: .\emails\templates\emails\signup.html:8
 #: .\emails\templates\emails\signup.txt:8
 #, python-format
 msgid "Hola %(user_name)s,"
 msgstr ""
 
-#: .\emails\templates\emails\seller_pending_payment.html:9
+#: .\emails\templates\emails\seller_pending_payment.html:11
 #, python-format
 msgid ""
 "\n"
@@ -166,7 +247,7 @@ msgid ""
 "    "
 msgstr ""
 
-#: .\emails\templates\emails\seller_pending_payment.html:25
+#: .\emails\templates\emails\seller_pending_payment.html:29
 #: .\emails\templates\emails\signup.html:17
 #: .\emails\templates\emails\signup.txt:12
 msgid "Esperamos verte pronto."
@@ -403,11 +484,11 @@ msgstr ""
 msgid "subsector"
 msgstr ""
 
-#: .\events\models.py:251 .\orders\models.py:135
+#: .\events\models.py:251 .\orders\models.py:145
 msgid "precio final"
 msgstr ""
 
-#: .\events\models.py:252 .\orders\models.py:136
+#: .\events\models.py:252 .\orders\models.py:146
 msgid "precio"
 msgstr ""
 
@@ -431,7 +512,7 @@ msgstr ""
 msgid "información extra"
 msgstr ""
 
-#: .\events\models.py:258 .\orders\models.py:134
+#: .\events\models.py:258 .\orders\models.py:144
 msgid "cantidad"
 msgstr ""
 
@@ -487,7 +568,7 @@ msgid "Métodos de pago Fiserv"
 msgstr ""
 
 #: .\fiserv_payments\models.py:94 .\mobbex_payments\models.py:94
-#: .\orders\models.py:51 .\orders\models.py:129 .\viumi_payments\models.py:94
+#: .\orders\models.py:51 .\orders\models.py:139 .\viumi_payments\models.py:94
 msgid "compra"
 msgstr ""
 
@@ -696,7 +777,7 @@ msgstr ""
 msgid "subtotal de tickets"
 msgstr ""
 
-#: .\orders\models.py:43 .\orders\models.py:138
+#: .\orders\models.py:43 .\orders\models.py:148
 msgid "subtotal por cargo de servicio"
 msgstr ""
 
@@ -716,59 +797,72 @@ msgstr ""
 msgid "Fila"
 msgstr ""
 
-#: .\orders\models.py:86
+#: .\orders\models.py:81
 msgid "Producto"
 msgstr ""
 
-#: .\orders\models.py:87
+#: .\orders\models.py:82
 msgid "Cantidad"
 msgstr ""
 
-#: .\orders\models.py:88
+#: .\orders\models.py:83
 msgid "Precio"
 msgstr ""
 
-#: .\orders\models.py:89
+#: .\orders\models.py:84
 msgid "Total"
 msgstr ""
 
-#: .\orders\models.py:107 .\orders\models.py:110 .\orders\models.py:113
+#: .\orders\models.py:111 .\orders\models.py:114 .\orders\models.py:115
+#: .\orders\models.py:118
 msgid "¡ Tenemos un posible Comprador para tus entradas !"
 msgstr ""
 
-#: .\orders\models.py:116
+#: .\orders\models.py:121
 msgid "Venta Completada"
 msgstr ""
 
-#: .\orders\models.py:119
+#: .\orders\models.py:122
+msgid "Tu Ticket ha sido entregado!"
+msgstr ""
+
+#: .\orders\models.py:125
 msgid "En Tránsito"
 msgstr ""
 
-#: .\orders\models.py:122
-msgid "Lamentablemente una de tus ventas se ha Cancelado."
+#: .\orders\models.py:126
+msgid "Tu Ticket está en camino!"
+msgstr ""
+
+#: .\orders\models.py:129
+msgid "Tu Ticket está reservado!"
 msgstr ""
 
 #: .\orders\models.py:132
-msgid "ticket"
-msgstr ""
-
-#: .\orders\models.py:137
-msgid "subtotal"
-msgstr ""
-
-#: .\orders\models.py:141
-msgid "ticket de compra"
+msgid "Lamentablemente una de tus ventas se ha Cancelado."
 msgstr ""
 
 #: .\orders\models.py:142
+msgid "ticket"
+msgstr ""
+
+#: .\orders\models.py:147
+msgid "subtotal"
+msgstr ""
+
+#: .\orders\models.py:151
+msgid "ticket de compra"
+msgstr ""
+
+#: .\orders\models.py:152
 msgid "tickets de compra"
 msgstr ""
 
-#: .\orders\models.py:148
+#: .\orders\models.py:158
 msgid "Liquidacion vendedor"
 msgstr ""
 
-#: .\orders\models.py:149
+#: .\orders\models.py:159
 msgid "Liquidaciones vendedor"
 msgstr ""
 

@@ -71,12 +71,7 @@ def send_tracking_email(sender, instance, created, update_fields, **kwargs):
         if ticket.row!= None:
             product_detail = product_detail + ' ' + _('Fila') + ": " + str(ticket.row)
 
-        context = {
-            'user': seller,
-            'my_account_url': get_frontend_url('my_account', get_country_from_language_code(seller.language_code)),
-            'mail_nombre_evento': event.title + ' ' + section.name,
-            'order_number': instance.identifier,
-            'details': {
+        details = {
                 'product_name': product_name,
                 'product_detail': product_detail,
                 'product_quant': order_tickets.quantity,
@@ -89,12 +84,21 @@ def send_tracking_email(sender, instance, created, update_fields, **kwargs):
                     'total': _('Total'),
                 }
             }
+
+        context = {
+            'user': seller,
+            'my_account_url': get_frontend_url('my_account', get_country_from_language_code(seller.language_code)),
+            'mail_nombre_evento': event.title + ' ' + section.name,
+            'order_number': instance.identifier,
+            'details': details
         }
 
         context_buyer = {
             'user': buyer,
             'my_account_url': get_frontend_url('my_account', get_country_from_language_code(buyer.language_code)),
-            'mail_nombre_evento': event.title + ' ' + section.name
+            'mail_nombre_evento': event.title + ' ' + section.name,
+            'order_number': instance.identifier,
+            'details': details
         }
         #if instance.status == 'in_progress':
             #seller
@@ -105,19 +109,24 @@ def send_tracking_email(sender, instance, created, update_fields, **kwargs):
 
         if instance.status == 'pending_payment_confirmation':
             send_mail('seller_pending_payment', _('¡ Tenemos un posible Comprador para tus entradas !'), context, seller.email)
-            send_mail('buyer_pending_payment', _('¡ Tenemos un posible Comprador para tus entradas !'), context, seller.email)
         
         elif instance.status == 'paid':
-            send_mail('seller_paid', _('¡ Tenemos un posible Comprador para tus entradas !'), context, 'info@claveglobal.com')
+            send_mail('seller_paid', _('¡ Tenemos un posible Comprador para tus entradas !'), context, seller.email)
+            send_mail('buyer_pending_payment', _('¡ Tenemos un posible Comprador para tus entradas !'), context_buyer, buyer.email)
         
         elif instance.status == 'confirmed':
-            send_mail('seller_confirmed', _('¡ Tenemos un posible Comprador para tus entradas !'), context, 'info@claveglobal.com')
+            send_mail('buyer_confirmed', _('¡ Tenemos un posible Comprador para tus entradas !'), context_buyer, buyer.email)
         
         elif instance.status == 'completed':
-            send_mail('seller_completed', _('Venta Completada'), context, 'info@claveglobal.com')
+            send_mail('seller_completed', _('Venta Completada'), context, seller.email)
+            send_mail('buyer_completed', _('Tu Ticket ha sido entregado!'), context_buyer, buyer.email)
         
         elif instance.status == 'on_transit':
-            send_mail('seller_on_transit', _('En Tránsito'), context, 'info@claveglobal.com')
+            send_mail('seller_on_transit', _('En Tránsito'), context, context, seller.email)
+            send_mail('buyer_on_transit', _('Tu Ticket está en camino!'), context_buyer, context, buyer.email)
+
+        elif instance.status == 'reserved':
+            send_mail('buyer_reserved', _('Tu Ticket está reservado!'), context_buyer, buyer.email)
         
         elif instance.status == 'cancelled':
             send_mail('seller_cancelled', _('Lamentablemente una de tus ventas se ha Cancelado.'), context, seller.email)

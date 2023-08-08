@@ -1,0 +1,14 @@
+{% extends "emails/base.html" %}
+{% load i18n %}
+
+{% block content %}
+    {% blocktranslate with details=details %}
+    <h2>[Orden {{ order_number }}]</h2>
+    
+    <p style="color: #ffffff;">Tu ticket ha sido entregado! Felicitaciones!</p>
+
+    {% endblocktranslate %}
+
+    {% include 'emails/product_table.html' with details=details  %}
+    
+{% endblock %}
