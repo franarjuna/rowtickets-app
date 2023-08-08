@@ -1,0 +1,15 @@
+
+{% extends "emails/base.html" %}
+{% load i18n %}
+
+{% block content %}
+    {% blocktranslate with details=details %}
+    <h2>[Orden {{ order_number }}]</h2>
+
+    <p style="color: #ffffff;">Pudimos validar con éxito tu identidad! ¡Tu entrada ya está reservada!  Por favor seguí con atención los próximos pasos que te iremos indicando para que puedas ir al show!</p>
+
+    {% endblocktranslate %}
+
+    {% include 'emails/product_table.html' with details=details  %}
+    
+{% endblock %}

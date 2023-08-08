@@ -1,0 +1,16 @@
+{% extends "emails/base.html" %}
+{% load i18n %}
+
+{% block content %}
+    {% blocktranslate with details=details %}
+    <p style="color: #ffffff;">Lamentablemente tu venta para {{ details.product_name }} se ha Cancelado.</p>
+    <br>
+    <p style="color: #ffffff;">Hemos cancelado la venta ya que el pago no pudo superar el proceso de validación y seguridad del mismo. No te preocupes, no hace falta volver a publicar tus entradas, las mismas fueron puestas a la venta automáticamente en la plataforma.</p>
+    <br>
+    <p style="color: #ffffff;">No tenés que hacer más nada.</p>
+
+    {% endblocktranslate %}
+
+    {% include 'emails/product_table.html' with details=details  %}
+    
+{% endblock %}

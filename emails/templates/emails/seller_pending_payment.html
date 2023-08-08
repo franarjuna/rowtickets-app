@@ -1,0 +1,30 @@
+{% extends "emails/base.html" %}
+{% load i18n %}
+
+{% block content %}
+  <h2>[Orden {{ order_number }}]</h2>
+  
+  <p style="margin: 0 0 16px;">
+    {% blocktranslate with user_name=user.first_name %}Hola {{ user_name }},{% endblocktranslate %}
+  </p>
+  <p style="margin: 0 0 16px;">
+    {% blocktranslate with mail_nombre_evento=mail_nombre_evento %}
+    Tenemos un posible comprador para tus entradas de {{ mail_nombre_evento }}!!<br>
+	
+    Estamos validando el pago del pedido, este proceso suele demorar muy poco tiempo. En un máximo de 24 hs te responderemos otro correo de la venta o la cancelación de la misma.<br>
+    
+    Recordá pausar o retirar tus entradas en tal caso que las mismas estén ofrecidas en otro sitio web.<br>
+    
+    No tenés que hacer nada mas!<br><br>
+    
+    {% endblocktranslate %}
+    <a href="{{ my_account_url }}" rel="nofollow" style="color: #feb12a; font-weight: normal; text-decoration: underline;">{{ my_account_url }}</a>
+  </p>
+  <p>
+    {{ product_detail }}
+  </p>
+  
+  {% include 'emails/product_table.html' with details=details  %}
+
+  <p style="margin: 0 0 16px;">{% translate "Esperamos verte pronto." %}</p>
+{% endblock %}

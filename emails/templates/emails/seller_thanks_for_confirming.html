@@ -1,0 +1,16 @@
+{% extends "emails/base.html" %}
+{% load i18n %}
+
+{% block content %}
+<p style="color: #ffffff; font-weight: bolder;">Gracias por haber confirmado las entradas para <?php echo $mail_nombre_evento ?>!</p>
+<br>
+<p style="color: #ffffff;">Debes enviar las entradas lo antes posible, como muy tarde el <span style="font-weight: bolder;"><?php echo $mail_start_datetime_minus_2 ?></span> </p>
+<br>
+<p style="color: #ffffff; font-weight: bolder;">Si no envías las entradas antes de dicha fecha la venta puede ser cancelada y se ofrecerán al comprador entradas de sustitución, que te serán cobradas.</p>
+<br>
+<p style="color: #ffffff;">ESTO ES LO QUE TENÉS QUE HACER A CONTINUACIÓN:</p>
+<br>
+<p style="color: #ffffff;">Utiliza <a href="<?php echo $text1 ?>">este enlace</a> sólo cuando estés listo para enviar las entradas, ya que puede que, mientras tanto, tengamos que actualizar la dirección de entrega del comprador. <a href="<?php echo $text2 ?>">Hacé clic acá</a> para recibir instrucciones sobre cómo y dónde enviar las entradas.</p>
+<br>
+<p style="color: #ffffff;">Si tenés alguna pregunta <a href="<?php echo $text3 ?>">hacé clic acá</a> para obtener ayuda.</p>
+{% endblock %}

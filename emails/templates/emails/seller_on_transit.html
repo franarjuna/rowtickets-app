@@ -1,0 +1,16 @@
+{% extends "emails/base.html" %}
+{% load i18n %}
+
+{% block content %}
+
+{% blocktranslate with order_number=order_number %}
+<p style="color: #ffffff; font-weight: bolder;">Estimado vendedor: gracias por enviar las entradas referentes a la operacion #{{ order_number }}</p>
+<br>
+<p style="color: #ffffff;">Recordá que vas a recibir la liquidación dentro de los próximos 10 dias luego que tenga lugar el evento, para garantizar el ingreso o cualquier inconveniente que nos informe el comprador.</span></p>
+<br>
+<p style="color: #ffffff;">Muchas gracias por vender en Rowticket!</p>
+{% endblocktranslate %}
+
+{% include 'emails/product_table.html' with details=details  %}
+
+{% endblock %}

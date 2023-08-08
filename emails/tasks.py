@@ -4,10 +4,11 @@ from django.template.loader import render_to_string
 
 
 def send_mail(template_name, subject, template_context, recipient, attachments=None):
-    text_template = f'emails/{template_name}.txt'
+    #text_template = f'emails/{template_name}.txt'
     html_template = f'emails/{template_name}.html'
 
-    text_content = render_to_string(text_template, template_context)
+    #text_content = render_to_string(text_template, template_context)
+    text_content = ''
     html_content = render_to_string(html_template, template_context)
 
     msg = EmailMultiAlternatives(subject, text_content, settings.EMAILS_FROM, [recipient])

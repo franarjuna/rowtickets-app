@@ -2,13 +2,13 @@
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
-#
+# 
 #, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-03-08 20:30-0300\n"
+"POT-Creation-Date: 2023-08-08 19:13-0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,21 +17,166 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: emails/templates/emails/base.html:6 emails/templates/emails/base.html:15
-#: emails/templates/emails/base.html:70 emails/templates/emails/base.txt:2
+#: .\addresses\models.py:16
+msgid "Facturación"
+msgstr ""
+
+#: .\addresses\models.py:17
+msgid "Envío"
+msgstr ""
+
+#: .\addresses\models.py:26 .\users\models.py:19
+msgid "Consumidor Final"
+msgstr ""
+
+#: .\addresses\models.py:27 .\users\models.py:17
+msgid "Responsable Inscripto"
+msgstr ""
+
+#: .\addresses\models.py:33
+msgid "Usuario"
+msgstr ""
+
+#: .\addresses\models.py:35
+msgid "tipo de dirección"
+msgstr ""
+
+#: .\addresses\models.py:37
+msgid "Nombre"
+msgstr ""
+
+#: .\addresses\models.py:38
+msgid "Apellido"
+msgstr ""
+
+#: .\addresses\models.py:39
+msgid "Nombre de la empresa (opcional)"
+msgstr ""
+
+#: .\addresses\models.py:41
+msgid "Dirección (línea 1)"
+msgstr ""
+
+#: .\addresses\models.py:42
+msgid "Dirección (línea 2)"
+msgstr ""
+
+#: .\addresses\models.py:43
+msgid "Ciudad / Localidad"
+msgstr ""
+
+#: .\addresses\models.py:44
+msgid "Estado / Provincia / Región"
+msgstr ""
+
+#: .\addresses\models.py:45
+msgid "Código postal"
+msgstr ""
+
+#: .\addresses\models.py:47
+msgid "Teléfono"
+msgstr ""
+
+#: .\addresses\models.py:48
+msgid "Email"
+msgstr ""
+
+#: .\addresses\models.py:52
+msgid "DNI"
+msgstr ""
+
+#: .\addresses\models.py:54
+msgid "Condición frente al IVA"
+msgstr ""
+
+#: .\addresses\models.py:58
+msgid "RUT"
+msgstr ""
+
+#: .\addresses\models.py:80
+msgid "Dirección"
+msgstr ""
+
+#: .\addresses\models.py:81
+msgid "Direcciones"
+msgstr ""
+
+#: .\countries\models.py:10
+msgid "service charge"
+msgstr ""
+
+#: .\countries\models.py:13
+msgid "cargo plataforma (porcentaje sobre precio vendedor)"
+msgstr ""
+
+#: .\countries\models.py:21
+msgid "configuración de país"
+msgstr ""
+
+#: .\countries\models.py:22
+msgid "configuraciones de país"
+msgstr ""
+
+#: .\emails\templates\emails\base.html:6
+#: .\emails\templates\emails\base.html:15
+#: .\emails\templates\emails\base.html:70 .\emails\templates\emails\base.txt:2
 msgid "ROW Ticket Argentina"
 msgstr "ROW Ticket Chile"
 
-#: emails/templates/emails/signup.html:4 emails/templates/emails/signup.txt:5
-msgid "Bienvenido a ROW Ticket Argentina"
-msgstr "¡Bienvenido a ROW Ticket Chile!"
+#: .\emails\templates\emails\seller_completed.html:5
+#, python-format
+msgid ""
+"\n"
+"    <p >Estimado vendedor: hemos iniciado el proceso de pago para la "
+"operacion #%(order_number)s</p>\n"
+"    <br>\n"
+"    <p >Recordá que vas a recibir la liquidación dentro de los próximos 10 "
+"dias luego que tenga lugar el evento, para garantizar el ingreso o cualquier "
+"inconveniente que nos informe el comprador.</span></p>\n"
+"    <br>\n"
+"    <p >Muchas gracias por vender en Rowticket!</p>\n"
+"\n"
+"    "
+msgstr ""
 
-#: emails/templates/emails/signup.html:8 emails/templates/emails/signup.txt:8
+#: .\emails\templates\emails\seller_pending_payment.html:6
+#: .\emails\templates\emails\signup.html:8
+#: .\emails\templates\emails\signup.txt:8
 #, python-format
 msgid "Hola %(user_name)s,"
 msgstr "Hola %(user_name)s,"
 
-#: emails/templates/emails/signup.html:11
+#: .\emails\templates\emails\seller_pending_payment.html:9
+#, python-format
+msgid ""
+"\n"
+"    Tenemos un posible comprador para tus entradas de "
+"%(mail_nombre_evento)s!!<br>\n"
+"\t\n"
+"    Estamos validando el pago del pedido, este proceso suele demorar muy "
+"poco tiempo. En un máximo de 24 hs te responderemos otro correo de la venta "
+"o la cancelación de la misma.<br>\n"
+"    \n"
+"    Recordá pausar o retirar tus entradas en tal caso que las mismas estén "
+"ofrecidas en otro sitio web.<br>\n"
+"    \n"
+"    No tenés que hacer nada mas!<br><br>\n"
+"    \n"
+"    "
+msgstr ""
+
+#: .\emails\templates\emails\seller_pending_payment.html:25
+#: .\emails\templates\emails\signup.html:17
+#: .\emails\templates\emails\signup.txt:12
+msgid "Esperamos verte pronto."
+msgstr "Esperamos verte pronto."
+
+#: .\emails\templates\emails\signup.html:4
+#: .\emails\templates\emails\signup.txt:5
+msgid "Bienvenido a ROW Ticket Argentina"
+msgstr "¡Bienvenido a ROW Ticket Chile!"
+
+#: .\emails\templates\emails\signup.html:11
 msgid ""
 "\n"
 "    Gracias por crear una cuenta en ROW Ticket Argentina. Podés acceder al "
@@ -45,11 +190,7 @@ msgstr ""
 "    tu contraseña y más en:\n"
 "    "
 
-#: emails/templates/emails/signup.html:17 emails/templates/emails/signup.txt:12
-msgid "Esperamos verte pronto."
-msgstr "Esperamos verte pronto."
-
-#: emails/templates/emails/signup.txt:10
+#: .\emails\templates\emails\signup.txt:10
 msgid ""
 "Gracias por crear una cuenta en ROW Ticket Argentina. Podés acceder al área "
 "de tu cuenta para ver pedidos, cambiar tu contraseña y más en:"
@@ -57,400 +198,832 @@ msgstr ""
 "Gracias por crear una cuenta en ROW Ticket Chile. Podés acceder al área de "
 "tu cuenta para ver pedidos, cambiar tu contraseña y más en:"
 
-#: events/models.py:11
+#: .\events\models.py:19
 msgid "Azul"
 msgstr ""
 
-#: events/models.py:12
+#: .\events\models.py:20
 msgid "Verde"
 msgstr ""
 
-#: events/models.py:13
+#: .\events\models.py:21
 msgid "Naranja"
 msgstr ""
 
-#: events/models.py:14
+#: .\events\models.py:22
 msgid "Rosa"
 msgstr ""
 
-#: events/models.py:15
+#: .\events\models.py:23
 msgid "Rojo"
 msgstr ""
 
-#: events/models.py:20 events/models.py:48 events/models.py:60
-#: events/models.py:72 users/models.py:64
+#: .\events\models.py:27
+msgid "Papel"
+msgstr ""
+
+#: .\events\models.py:28
+msgid "E Ticket"
+msgstr ""
+
+#: .\events\models.py:29
+msgid "Transferencia de entradas electrónicas"
+msgstr ""
+
+#: .\events\models.py:33
+msgid "Sin preferencia"
+msgstr ""
+
+#: .\events\models.py:34
+msgid "Se venden juntas"
+msgstr ""
+
+#: .\events\models.py:35
+msgid "No dejar 1 sin vender"
+msgstr ""
+
+#: .\events\models.py:36
+msgid "Se venden de a pares"
+msgstr ""
+
+#: .\events\models.py:41 .\events\models.py:69 .\events\models.py:83
+#: .\events\models.py:108 .\events\models.py:209 .\users\models.py:70
 msgid "nombre"
 msgstr ""
 
-#: events/models.py:21
+#: .\events\models.py:42
 msgid "publicada"
 msgstr ""
 
-#: events/models.py:22
+#: .\events\models.py:43 .\events\models.py:212
 msgid "color"
 msgstr ""
 
-#: events/models.py:27
+#: .\events\models.py:48
 msgid "imagen de cabecera"
 msgstr ""
 
-#: events/models.py:30
+#: .\events\models.py:51
 msgid "ancho de imagen de cabecera"
 msgstr ""
 
-#: events/models.py:31
+#: .\events\models.py:52
 msgid "alto de imagen de cabecera"
 msgstr ""
 
-#: events/models.py:42 events/models.py:74
+#: .\events\models.py:63 .\events\models.py:110
 msgid "categoría"
 msgstr ""
 
-#: events/models.py:43
+#: .\events\models.py:64
 msgid "categorías"
 msgstr ""
 
-#: events/models.py:49
+#: .\events\models.py:70
 msgid "dirección"
 msgstr ""
 
-#: events/models.py:55 events/models.py:79
-msgid "sede"
-msgstr ""
-
-#: events/models.py:56
-msgid "sedes"
-msgstr ""
-
-#: events/models.py:61
-msgid "usuario de Twitter"
-msgstr ""
-
-#: events/models.py:67 homepages/models.py:81
-msgid "organizador"
-msgstr ""
-
-#: events/models.py:68
-msgid "organizadores"
-msgstr ""
-
-#: events/models.py:76
-msgid "fecha y hora"
-msgstr ""
-
-#: events/models.py:77
-msgid "fecha (texto)"
-msgstr ""
-
-#: events/models.py:81
-msgid "evento online"
-msgstr ""
-
-#: events/models.py:82
-msgid "destacado"
-msgstr ""
-
-#: events/models.py:83
-msgid "publicado"
-msgstr ""
-
-#: events/models.py:87
+#: .\events\models.py:71 .\events\models.py:85 .\events\models.py:132
 msgid "imagen principal"
 msgstr ""
 
-#: events/models.py:90
+#: .\events\models.py:72 .\events\models.py:86
+msgid "imagen header"
+msgstr ""
+
+#: .\events\models.py:78 .\events\models.py:118
+msgid "sede"
+msgstr ""
+
+#: .\events\models.py:79
+msgid "sedes"
+msgstr ""
+
+#: .\events\models.py:84
+msgid "usuario de Twitter"
+msgstr ""
+
+#: .\events\models.py:92 .\events\models.py:113 .\homepages\models.py:81
+msgid "organizador"
+msgstr ""
+
+#: .\events\models.py:93
+msgid "organizadores"
+msgstr ""
+
+#: .\events\models.py:115
+msgid "fecha y hora"
+msgstr ""
+
+#: .\events\models.py:116
+msgid "fecha (texto)"
+msgstr ""
+
+#: .\events\models.py:120
+msgid "evento online"
+msgstr ""
+
+#: .\events\models.py:121
+msgid "destacado"
+msgstr ""
+
+#: .\events\models.py:122
+msgid "publicado"
+msgstr ""
+
+#: .\events\models.py:125
+msgid "dia de liquidacion"
+msgstr ""
+
+#: .\events\models.py:127
+msgid "coeficiente de venta especial"
+msgstr ""
+
+#: .\events\models.py:135
 msgid "ancho de imagen principal"
 msgstr ""
 
-#: events/models.py:91
+#: .\events\models.py:136
 msgid "alto de imagen principal"
 msgstr ""
 
-#: events/models.py:103
+#: .\events\models.py:155
 msgid "Seleccione una sede para el evento presencial"
 msgstr ""
 
-#: events/models.py:107 events/models.py:114 events/models.py:135
-#: homepages/models.py:77
+#: .\events\models.py:159 .\events\models.py:166 .\events\models.py:187
+#: .\events\models.py:207 .\events\models.py:243 .\homepages\models.py:77
 msgid "evento"
 msgstr ""
 
-#: events/models.py:108
+#: .\events\models.py:160
 msgid "eventos"
 msgstr ""
 
-#: events/models.py:117 events/models.py:138 homepages/models.py:87
+#: .\events\models.py:169 .\events\models.py:190 .\events\models.py:264
+#: .\homepages\models.py:87
 msgid "imagen"
 msgstr ""
 
-#: events/models.py:120 events/models.py:141
+#: .\events\models.py:172 .\events\models.py:193
 msgid "ancho"
 msgstr ""
 
-#: events/models.py:121 events/models.py:142
+#: .\events\models.py:173 .\events\models.py:194
 msgid "alto"
 msgstr ""
 
-#: events/models.py:128
+#: .\events\models.py:180
 msgid "imagen de evento"
 msgstr ""
 
-#: events/models.py:129
+#: .\events\models.py:181
 msgid "imágenes de evento"
 msgstr ""
 
-#: events/models.py:149
+#: .\events\models.py:201
 msgid "imagen de galería de evento"
 msgstr ""
 
-#: events/models.py:150
+#: .\events\models.py:202
 msgid "imágenes de galería de evento"
 msgstr ""
 
-#: faqs/models.py:10
+#: .\events\models.py:210
+msgid "sub-sector"
+msgstr ""
+
+#: .\events\models.py:218 .\events\models.py:219
+msgid "sectores del evento"
+msgstr ""
+
+#: .\events\models.py:246
+msgid "vendedor"
+msgstr ""
+
+#: .\events\models.py:249
+msgid "sector"
+msgstr ""
+
+#: .\events\models.py:250
+msgid "subsector"
+msgstr ""
+
+#: .\events\models.py:251 .\orders\models.py:135
+msgid "precio final"
+msgstr ""
+
+#: .\events\models.py:252 .\orders\models.py:136
+msgid "precio"
+msgstr ""
+
+#: .\events\models.py:253
+msgid "tipo de entrada"
+msgstr ""
+
+#: .\events\models.py:254
+msgid "fila"
+msgstr ""
+
+#: .\events\models.py:255
+msgid "listo para enviar"
+msgstr ""
+
+#: .\events\models.py:256
+msgid "dia de disponibilidad"
+msgstr ""
+
+#: .\events\models.py:257
+msgid "información extra"
+msgstr ""
+
+#: .\events\models.py:258 .\orders\models.py:134
+msgid "cantidad"
+msgstr ""
+
+#: .\events\models.py:260
+msgid "condición de venta"
+msgstr ""
+
+#: .\events\models.py:262
+msgid "status"
+msgstr ""
+
+#: .\events\models.py:272 .\events\models.py:273
+msgid "entradas"
+msgstr ""
+
+#: .\faqs\models.py:10
 msgid "pregunta"
 msgstr ""
 
-#: faqs/models.py:11
+#: .\faqs\models.py:11
 msgid "respuesta"
 msgstr ""
 
-#: faqs/models.py:18
+#: .\faqs\models.py:18
 msgid "pregunta frecuente"
 msgstr ""
 
-#: faqs/models.py:19
+#: .\faqs\models.py:19
 msgid "preguntas frecuentes"
 msgstr ""
 
-#: homepages/models.py:13
+#: .\fiserv_payments\models.py:18 .\mobbex_payments\models.py:18
+#: .\viumi_payments\models.py:18
+msgid "API Key"
+msgstr ""
+
+#: .\fiserv_payments\models.py:19 .\mercadopago_payments\models.py:15
+#: .\mobbex_payments\models.py:19 .\viumi_payments\models.py:19
+msgid "Access token"
+msgstr ""
+
+#: .\fiserv_payments\models.py:20 .\mobbex_payments\models.py:20
+#: .\viumi_payments\models.py:20
+msgid "modo test"
+msgstr ""
+
+#: .\fiserv_payments\models.py:88
+msgid "Método de pago Fiserv"
+msgstr ""
+
+#: .\fiserv_payments\models.py:89
+msgid "Métodos de pago Fiserv"
+msgstr ""
+
+#: .\fiserv_payments\models.py:94 .\mobbex_payments\models.py:94
+#: .\orders\models.py:51 .\orders\models.py:129 .\viumi_payments\models.py:94
+msgid "compra"
+msgstr ""
+
+#: .\fiserv_payments\models.py:98 .\mobbex_payments\models.py:98
+#: .\viumi_payments\models.py:98
+msgid "medio de pago"
+msgstr ""
+
+#: .\fiserv_payments\models.py:102 .\fiserv_payments\models.py:120
+#: .\mobbex_payments\models.py:102 .\mobbex_payments\models.py:120
+#: .\viumi_payments\models.py:102 .\viumi_payments\models.py:120
+msgid "data (request)"
+msgstr ""
+
+#: .\fiserv_payments\models.py:103 .\mobbex_payments\models.py:103
+#: .\viumi_payments\models.py:103
+msgid "data (response)"
+msgstr ""
+
+#: .\fiserv_payments\models.py:104 .\mobbex_payments\models.py:104
+#: .\viumi_payments\models.py:104
+msgid "checkout ID"
+msgstr ""
+
+#: .\fiserv_payments\models.py:110 .\fiserv_payments\models.py:117
+msgid "Pago Fiserv"
+msgstr ""
+
+#: .\fiserv_payments\models.py:111
+msgid "Pagos Fiserv"
+msgstr ""
+
+#: .\fiserv_payments\models.py:123
+msgid "IPN Fiserv"
+msgstr ""
+
+#: .\fiserv_payments\models.py:124
+msgid "IPNs Fiserv"
+msgstr ""
+
+#: .\homepages\models.py:13
 msgid "módulo vender: título"
 msgstr ""
 
-#: homepages/models.py:17
+#: .\homepages\models.py:17
 msgid "módulo vender: texto"
 msgstr ""
 
-#: homepages/models.py:22
+#: .\homepages\models.py:22
 msgid "módulo vender: texto botón"
 msgstr ""
 
-#: homepages/models.py:25
+#: .\homepages\models.py:25
 msgid "módulo garantía: texto compra venta"
 msgstr ""
 
-#: homepages/models.py:29
+#: .\homepages\models.py:29
 msgid "módulo garantía: texto servicio al cliente"
 msgstr ""
 
-#: homepages/models.py:33
+#: .\homepages\models.py:33
 msgid "módulo garantía: texto garantía"
 msgstr ""
 
-#: homepages/models.py:37
+#: .\homepages\models.py:37
 msgid "módulo quienes somos: encabezado"
 msgstr ""
 
-#: homepages/models.py:41
+#: .\homepages\models.py:41
 msgid "módulo quienes somos: título"
 msgstr ""
 
-#: homepages/models.py:45
+#: .\homepages\models.py:45
 msgid "módulo quienes somos: subtítulo"
 msgstr ""
 
-#: homepages/models.py:49
+#: .\homepages\models.py:49
 msgid "módulo quienes somos: texto"
 msgstr ""
 
-#: homepages/models.py:53
+#: .\homepages\models.py:53
 msgid "módulo quienes somos: texto botón"
 msgstr ""
 
-#: homepages/models.py:55
+#: .\homepages\models.py:55
 msgid "módulo contacto: ¿el evento es hoy?"
 msgstr ""
 
-#: homepages/models.py:59
+#: .\homepages\models.py:59
 msgid "módulo contacto: texto"
 msgstr ""
 
-#: homepages/models.py:66
+#: .\homepages\models.py:66
 msgid "página principal"
 msgstr ""
 
-#: homepages/models.py:67
+#: .\homepages\models.py:67
 msgid "páginas principales"
 msgstr ""
 
-#: homepages/models.py:73
+#: .\homepages\models.py:73
 msgid "texto fecha"
 msgstr ""
 
-#: homepages/models.py:74
+#: .\homepages\models.py:74
 msgid "texto sede"
 msgstr ""
 
-#: homepages/models.py:75
+#: .\homepages\models.py:75
 msgid "texto botón"
 msgstr ""
 
-#: homepages/models.py:84
+#: .\homepages\models.py:84
 msgid "link"
 msgstr ""
 
-#: homepages/models.py:91
+#: .\homepages\models.py:91
 msgid "ancho de imagen"
 msgstr ""
 
-#: homepages/models.py:92
+#: .\homepages\models.py:92
 msgid "alto de imagen"
 msgstr ""
 
-#: homepages/models.py:99
+#: .\homepages\models.py:99
 msgid "Por favor especifique un evento, organizador o link"
 msgstr ""
 
-#: homepages/models.py:102
+#: .\homepages\models.py:102
 msgid "Por favor especifica sólo un ítem entre evento, organizador y link"
 msgstr ""
 
-#: homepages/models.py:105
+#: .\homepages\models.py:105
 msgid "slide"
 msgstr ""
 
-#: homepages/models.py:106
+#: .\homepages\models.py:106
 msgid "slides"
 msgstr ""
 
-#: rowticket/models.py:10
+#: .\mercadopago_payments\models.py:16
+msgid "Public key"
+msgstr ""
+
+#: .\mercadopago_payments\models.py:71
+msgid "Método de pago Mercado Pago"
+msgstr ""
+
+#: .\mercadopago_payments\models.py:72
+msgid "Métodos de pago Mercado Pago"
+msgstr ""
+
+#: .\mobbex_payments\models.py:88
+msgid "Método de pago Mobbex"
+msgstr ""
+
+#: .\mobbex_payments\models.py:89
+msgid "Métodos de pago Mobbex"
+msgstr ""
+
+#: .\mobbex_payments\models.py:110 .\mobbex_payments\models.py:117
+msgid "Pago Mobbex"
+msgstr ""
+
+#: .\mobbex_payments\models.py:111
+msgid "Pagos Mobbex"
+msgstr ""
+
+#: .\mobbex_payments\models.py:123
+msgid "IPN Mobbex"
+msgstr ""
+
+#: .\mobbex_payments\models.py:124
+msgid "IPNs Mobbex"
+msgstr ""
+
+#: .\orders\apps.py:8
+msgid "Compras"
+msgstr ""
+
+#: .\orders\models.py:24
+msgid "comprador"
+msgstr ""
+
+#: .\orders\models.py:26
+msgid "estado"
+msgstr ""
+
+#: .\orders\models.py:28 .\users\models.py:73
+msgid "Dirección de facturación"
+msgstr ""
+
+#: .\orders\models.py:32 .\users\models.py:77
+msgid "Dirección de envío"
+msgstr ""
+
+#: .\orders\models.py:36
+msgid "cargo de servicio por entrada"
+msgstr ""
+
+#: .\orders\models.py:39
+msgid "porcentaje de recargo al precio base"
+msgstr ""
+
+#: .\orders\models.py:42
+msgid "subtotal de tickets"
+msgstr ""
+
+#: .\orders\models.py:43 .\orders\models.py:138
+msgid "subtotal por cargo de servicio"
+msgstr ""
+
+#: .\orders\models.py:44
+msgid "total"
+msgstr ""
+
+#: .\orders\models.py:52
+msgid "compras"
+msgstr ""
+
+#: .\orders\models.py:67
+msgid "Sector"
+msgstr ""
+
+#: .\orders\models.py:72
+msgid "Fila"
+msgstr ""
+
+#: .\orders\models.py:86
+msgid "Producto"
+msgstr ""
+
+#: .\orders\models.py:87
+msgid "Cantidad"
+msgstr ""
+
+#: .\orders\models.py:88
+msgid "Precio"
+msgstr ""
+
+#: .\orders\models.py:89
+msgid "Total"
+msgstr ""
+
+#: .\orders\models.py:107 .\orders\models.py:110 .\orders\models.py:113
+msgid "¡ Tenemos un posible Comprador para tus entradas !"
+msgstr ""
+
+#: .\orders\models.py:116
+msgid "Venta Completada"
+msgstr ""
+
+#: .\orders\models.py:119
+msgid "En Tránsito"
+msgstr ""
+
+#: .\orders\models.py:122
+msgid "Lamentablemente una de tus ventas se ha Cancelado."
+msgstr ""
+
+#: .\orders\models.py:132
+msgid "ticket"
+msgstr ""
+
+#: .\orders\models.py:137
+msgid "subtotal"
+msgstr ""
+
+#: .\orders\models.py:141
+msgid "ticket de compra"
+msgstr ""
+
+#: .\orders\models.py:142
+msgid "tickets de compra"
+msgstr ""
+
+#: .\orders\models.py:148
+msgid "Liquidacion vendedor"
+msgstr ""
+
+#: .\orders\models.py:149
+msgid "Liquidaciones vendedor"
+msgstr ""
+
+#: .\payments\models.py:63
+msgid "método de pago"
+msgstr ""
+
+#: .\payments\models.py:64
+msgid "métodos de pago"
+msgstr ""
+
+#: .\payments\models.py:71
+msgid "Nombre para mostrar"
+msgstr ""
+
+#: .\payments\models.py:72
+msgid "Active"
+msgstr ""
+
+#: .\payments\models.py:76
+msgid "content type"
+msgstr ""
+
+#: .\payments\models.py:81
+msgid "created on"
+msgstr ""
+
+#: .\payments\models.py:82
+msgid "modified on"
+msgstr ""
+
+#: .\rowticket\models.py:10
 msgid "identificador"
 msgstr ""
 
-#: rowticket/models.py:11 users/models.py:74
+#: .\rowticket\models.py:11 .\users\models.py:94
 msgid "creado"
 msgstr ""
 
-#: rowticket/models.py:12 users/models.py:75
+#: .\rowticket\models.py:12 .\users\models.py:95
 msgid "modificado"
 msgstr ""
 
-#: rowticket/models.py:33 rowticket/models.py:40
+#: .\rowticket\models.py:33 .\rowticket\models.py:40
 msgid "país"
 msgstr ""
 
-#: rowticket/models.py:47
+#: .\rowticket\models.py:47
 msgid "nombre en URL"
 msgstr ""
 
-#: rowticket/models.py:67
+#: .\rowticket\models.py:67
 msgid "Ya existe otro ítem con este nombre en URL para este país"
 msgstr ""
 
-#: rowticket/settings/base.py:114
+#: .\rowticket\settings\base.py:126
 msgid "Argentina"
 msgstr ""
 
-#: rowticket/settings/base.py:115
+#: .\rowticket\settings\base.py:127
 msgid "Chile"
 msgstr ""
 
-#: rowticket/settings/base.py:127
+#: .\rowticket\settings\base.py:128
+msgid "Brasil"
+msgstr ""
+
+#: .\rowticket\settings\base.py:141
 msgid "Español (Argentina)"
 msgstr ""
 
-#: rowticket/settings/base.py:128
+#: .\rowticket\settings\base.py:142
 msgid "Español (Chile)"
 msgstr ""
 
-#: rowticket/settings/base.py:169
-msgid "<ROW Ticket Argentina> info@rowticket.com"
+#: .\rowticket\settings\base.py:143
+msgid "Portugues"
+msgstr ""
+
+#: .\rowticket\settings\base.py:184
+#, fuzzy
+#| msgid "<ROW Ticket Argentina> info@rowticket.com"
+msgid "ROW Ticket Argentina <info@rowticket.com>"
 msgstr "<ROW Ticket Chile> info@rowticket.com"
 
-#: tncs/models.py:10
+#: .\rowticket\settings\base.py:307
+msgid "En proceso"
+msgstr ""
+
+#: .\rowticket\settings\base.py:308
+msgid "Esperando confirmación de pago"
+msgstr ""
+
+#: .\rowticket\settings\base.py:309
+msgid "A la espera"
+msgstr ""
+
+#: .\rowticket\settings\base.py:310
+msgid "Completada"
+msgstr ""
+
+#: .\rowticket\settings\base.py:311
+msgid "Paga"
+msgstr ""
+
+#: .\rowticket\settings\base.py:312
+msgid "Cancelada"
+msgstr ""
+
+#: .\tncs\models.py:10
 msgid "título"
 msgstr ""
 
-#: tncs/models.py:11
+#: .\tncs\models.py:11
 msgid "contenido"
 msgstr ""
 
-#: tncs/models.py:18
+#: .\tncs\models.py:18
 msgid "término"
 msgstr ""
 
-#: tncs/models.py:19
+#: .\tncs\models.py:19
 msgid "términos y condiciones"
 msgstr ""
 
-#: users/admin.py:13
+#: .\users\admin.py:13
 msgid "Información personal"
 msgstr ""
 
-#: users/admin.py:14
+#: .\users\admin.py:14
 msgid "Permisos"
 msgstr ""
 
-#: users/admin.py:15
+#: .\users\admin.py:15
 msgid "Fechas importantes"
 msgstr ""
 
-#: users/models.py:22
+#: .\users\models.py:18
+msgid "Monotributo"
+msgstr ""
+
+#: .\users\models.py:20
+msgid "Exento"
+msgstr ""
+
+#: .\users\models.py:28
 msgid "El campo email es obligatorio"
 msgstr ""
 
-#: users/models.py:25
+#: .\users\models.py:31
 msgid "El campo nombre es obligatorio"
 msgstr ""
 
-#: users/models.py:28
+#: .\users\models.py:34
 msgid "El campo apellido es obligatorio"
 msgstr ""
 
-#: users/models.py:63
+#: .\users\models.py:69
 msgid "email"
 msgstr ""
 
-#: users/models.py:65
+#: .\users\models.py:71
 msgid "apellido"
 msgstr ""
 
-#: users/models.py:67
+#: .\users\models.py:81
 msgid "es staff"
 msgstr ""
 
-#: users/models.py:68
+#: .\users\models.py:82
 msgid "activo"
 msgstr ""
 
-#: users/models.py:69
+#: .\users\models.py:83
 msgid "código de idioma"
 msgstr ""
 
-#: users/models.py:86
+#: .\users\models.py:84
+msgid "condicion IVA"
+msgstr ""
+
+#: .\users\models.py:85
+msgid "Banco"
+msgstr ""
+
+#: .\users\models.py:86
+msgid "tipo de cuenta"
+msgstr ""
+
+#: .\users\models.py:87
+msgid "cuenta bancaria"
+msgstr ""
+
+#: .\users\models.py:88
+msgid "cbu"
+msgstr ""
+
+#: .\users\models.py:89
+msgid "cuit"
+msgstr ""
+
+#: .\users\models.py:106
 msgid "nombre completo"
 msgstr ""
 
-#: users/models.py:106
+#: .\users\models.py:126
 msgid "Ya existe un usuario con este email"
 msgstr "Ya existe un usuario con este email"
 
-#: users/models.py:117
+#: .\users\models.py:137
 msgid "usuario"
 msgstr ""
 
-#: users/models.py:118
+#: .\users\models.py:138
 msgid "usuarios"
 msgstr ""
 
-#: users/models.py:131
+#: .\users\models.py:151
 msgid "¡Se ha creado tu cuenta en ROW Ticket Argentina!"
 msgstr "¡Se ha creado tu cuenta en ROW Ticket Chile!"
 
-#: users/serializers.py:27
+#: .\users\serializers.py:31
 msgid "Ya existe un usuario con este email."
 msgstr "Ya existe un usuario con este email"
 
-#: users/serializers.py:37
+#: .\users\serializers.py:41
 msgid "Las dos contraseñas no coinciden"
+msgstr ""
+
+#: .\viumi_payments\models.py:88
+msgid "Método de pago Viumi"
+msgstr ""
+
+#: .\viumi_payments\models.py:89
+msgid "Métodos de pago Viumi"
+msgstr ""
+
+#: .\viumi_payments\models.py:110 .\viumi_payments\models.py:117
+msgid "Pago Viumi"
+msgstr ""
+
+#: .\viumi_payments\models.py:111
+msgid "Pagos Viumi"
+msgstr ""
+
+#: .\viumi_payments\models.py:123
+msgid "IPN Viumi"
+msgstr ""
+
+#: .\viumi_payments\models.py:124
+msgid "IPNs Viumi"
 msgstr ""

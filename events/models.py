@@ -6,10 +6,14 @@ from colorfield.fields import ColorField
 from imagekit.models import ImageSpecField
 from imagekit.processors import ResizeToFill, ResizeToFit
 
-from orders.models import ORDER_STATUSES
+#from orders.models import ORDER_STATUSES
 from rowticket.models import AbstractBaseModel, CountrySlugModel
 from django_better_admin_arrayfield.models.fields import ArrayField
 from django_better_admin_arrayfield.admin.mixins import DynamicArrayMixin
+from django.conf import settings
+
+ORDER_STATUSES = settings.ORDER_STATUSES
+
 
 COLOR_CHOICES = [
     ('blue', _('Azul')),

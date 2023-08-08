@@ -61,5 +61,16 @@ class MobbexViewSet(viewsets.GenericViewSet):
                 # Payment status is OK and total matches order, mark order as paid
                 payment.order.status = ORDER_STATUSES['PAID']
                 payment.order.save()
+                # Send email to seller and buyer
+
+            elif payment_data['status']['code'] == '400':
+                #cancelada
+                payment.order.status = ORDER_STATUSES['CANCELLED']
+                payment.order.save()
+
+            elif payment_data['status']['code'] == '401' or payment_data['status']['code'] == '402':
+                #abandonada
+                payment.order.status = ORDER_STATUSES['CANCELLED']
+                payment.order.save()
 
         return Response({})

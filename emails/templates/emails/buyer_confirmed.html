@@ -1,0 +1,14 @@
+{% extends "emails/base.html" %}
+{% load i18n %}
+
+{% block content %}
+    {% blocktranslate with details=details %}
+    <h2>[Orden {{ order_number }}]</h2>
+    
+    <p style="color: #ffffff;">Felicitaciones, tu entrada ya está asignada!  Ahora solo resta coordinar el envío. Te estaremos avisando cómo y de qué forma vas a hacerte de tu entrada!</p>
+
+    {% endblocktranslate %}
+
+    {% include 'emails/product_table.html' with details=details  %}
+    
+{% endblock %}

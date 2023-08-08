@@ -3,22 +3,20 @@ from django.db import models
 from django.utils.translation import gettext_lazy as _
 
 from rowticket.models import AbstractBaseModel, CountrySpecificModel
+from django.db.models.signals import post_save
+from django.dispatch import receiver
+from countries.utils import get_country_from_language_code
+from emails.tasks import send_mail
+from rowticket.fields import LanguageCodeField
+from rowticket.frontend_urls import get_frontend_url
+from events.models import Ticket, Event, Section
+from users.models import User
 
+from django.conf import settings
 
-ORDER_STATUSES = {
-    'IN_PROGRESS': 'in_progress',
-    'PENDING_PAYMENT_CONFIRMATION': 'pending_payment_confirmation',
-    'PAID': 'paid',
-    'CANCELLED': 'cancelled'
-}
+ORDER_STATUSES = settings.ORDER_STATUSES
+ORDER_STATUS_CHOICES = settings.ORDER_STATUS_CHOICES
 
-
-ORDER_STATUS_CHOICES = (
-    (ORDER_STATUSES['IN_PROGRESS'], _('En proceso')),
-    (ORDER_STATUSES['PENDING_PAYMENT_CONFIRMATION'], _('Esperando confirmación de pago')),
-    (ORDER_STATUSES['PAID'], _('Paga')),
-    (ORDER_STATUSES['CANCELLED'], _('Cancelada'))
-)
 
 
 class Order(CountrySpecificModel):
@@ -45,6 +43,7 @@ class Order(CountrySpecificModel):
     service_charge_subtotal = models.DecimalField(_('subtotal por cargo de servicio'), max_digits=10, decimal_places=2)
     total = models.DecimalField(_('total'), max_digits=10, decimal_places=2)
 
+
     def __str__(self):
         return f'#{self.identifier}'
 
@@ -52,6 +51,79 @@ class Order(CountrySpecificModel):
         verbose_name = _('compra')
         verbose_name_plural = _('compras')
 
+@receiver(post_save, sender= Order)
+def send_tracking_email(sender, instance, created, update_fields, **kwargs):
+    if created == False and 'status' in update_fields:
+        #tickets 
+        order_tickets = OrderTicket.objects.get(order = instance.id)
+        ticket = Ticket.objects.get(id = order_tickets.ticket_id)
+        section = Section.objects.get(id = ticket.section_id) 
+        event = Event.objects.get(id = ticket.event_id) 
+        seller = User.objects.get(id = ticket.seller_id) 
+        buyer = User.objects.get(id = instance.user_id) 
+        
+        product_name = str(event.title) + ' ' + event.date.strftime('%x %X')
+
+        product_detail = _('Sector') + ": " + str(section.name) 
+        if ticket.subsection!= None:
+            product_detail = product_detail + ' - ' + str(ticket.subsection)
+        
+        if ticket.row!= None:
+            product_detail = product_detail + ' ' + _('Fila') + ": " + str(ticket.row)
+
+        context = {
+            'user': seller,
+            'my_account_url': get_frontend_url('my_account', get_country_from_language_code(seller.language_code)),
+            'mail_nombre_evento': event.title + ' ' + section.name,
+            'order_number': instance.identifier,
+            'details': {
+                'product_name': product_name,
+                'product_detail': product_detail,
+                'product_quant': order_tickets.quantity,
+                'product_price': order_tickets.cost,
+                'product_price_total': order_tickets.quantity * order_tickets.cost,
+                'titles': {
+                    'product': _('Producto'),
+                    'quantity': _('Cantidad'),
+                    'price': _('Precio'),
+                    'total': _('Total'),
+                }
+            }
+        }
+
+        context_buyer = {
+            'user': buyer,
+            'my_account_url': get_frontend_url('my_account', get_country_from_language_code(buyer.language_code)),
+            'mail_nombre_evento': event.title + ' ' + section.name
+        }
+        #if instance.status == 'in_progress':
+            #seller
+            #send_mail('seller_pending_payment', _('¡ Tenemos un posible Comprador para tus entradas !'), context, 'info@claveglobal.com')
+            #buyer
+            #send_mail('seller_pending_payment', _('¡ Tenemos un posible Comprador para tus entradas !'), context, 'info@claveglobal.com')
+        #el
+
+        if instance.status == 'pending_payment_confirmation':
+            send_mail('seller_pending_payment', _('¡ Tenemos un posible Comprador para tus entradas !'), context, seller.email)
+            send_mail('buyer_pending_payment', _('¡ Tenemos un posible Comprador para tus entradas !'), context, seller.email)
+        
+        elif instance.status == 'paid':
+            send_mail('seller_paid', _('¡ Tenemos un posible Comprador para tus entradas !'), context, 'info@claveglobal.com')
+        
+        elif instance.status == 'confirmed':
+            send_mail('seller_confirmed', _('¡ Tenemos un posible Comprador para tus entradas !'), context, 'info@claveglobal.com')
+        
+        elif instance.status == 'completed':
+            send_mail('seller_completed', _('Venta Completada'), context, 'info@claveglobal.com')
+        
+        elif instance.status == 'on_transit':
+            send_mail('seller_on_transit', _('En Tránsito'), context, 'info@claveglobal.com')
+        
+        elif instance.status == 'cancelled':
+            send_mail('seller_cancelled', _('Lamentablemente una de tus ventas se ha Cancelado.'), context, seller.email)
+
+
+#{'_state': <django.db.models.base.ModelState object at 0x000001F8D5E1CCD0>, 'id': 29, 'identifier': '2alp44c495', 'created': datetime.datetime(2023, 7, 31, 15, 22, 37, 555708, tzinfo=datetime.timezone.utc), 'modified': datetime.datetime(2023, 8, 4, 22, 9, 29, 162720, tzinfo=datetime.timezone.utc), 'country': 'ar', 'user_id': 18, 'status': 'pending_payment_confirmation', 'billing_address_id': None, 'shipping_address_id': None, 'per_ticket_service_charge': Decimal('6000.00'), 'ticket_price_surcharge_percentage': Decimal('20.00'), 'tickets_subtotal': Decimal('65000.00'), 'service_charge_subtotal': Decimal('6000.00'), 'total': Decimal('71000.00')}
 
 class OrderTicket(AbstractBaseModel):
     order = models.ForeignKey(
