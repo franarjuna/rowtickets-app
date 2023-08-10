@@ -9,7 +9,5 @@ collected_static
 media
 .env
 rowticket/settings/local.py
-.env
+.env*
 rowticket/settings/-local.py
-.env
-.env
