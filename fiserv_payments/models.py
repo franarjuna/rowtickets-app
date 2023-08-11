@@ -27,7 +27,7 @@ class FiservPaymentMethod(PaymentMethod):
         response = dict()
 
         # PROD
-        response['url'] = "https://www5.ipg-online.com/connect/gateway/processing"
+        url = "https://www5.ipg-online.com/connect/gateway/processing"
         
         # DEV
         # response['url'] = "https://test.ipg-online.com/connect/gateway/processing"
@@ -43,7 +43,7 @@ class FiservPaymentMethod(PaymentMethod):
 
 
         response = {
-             'url': "https://test.ipg-online.com/connect/gateway/processing",
+             'url': url,
              'ipg_args': {
                 'timezone' : "America/Buenos_Aires",
                 'txndatetime' : txndatetime,
