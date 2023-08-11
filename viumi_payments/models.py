@@ -109,7 +109,7 @@ class ViumiPaymentMethod(PaymentMethod):
             response_data=response_data,
             order=order,
             payment_method=self,
-            checkout_id=checkout_id
+            checkout_id=response_data
         )
 
         return response_data
