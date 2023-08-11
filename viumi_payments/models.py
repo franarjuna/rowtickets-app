@@ -72,27 +72,7 @@ class ViumiPaymentMethod(PaymentMethod):
                 }
             }
         }
-        """
-            'total': float(order.total),
-            'currency': 'ARS',
-            'reference': order.identifier,
-            'description': 'Compra en ROW Ticket',
-            'items': order_items,
-            'options': {
-                'domain': urlparse(settings.FRONTEND_BASE_URL).netloc,
-                'embed': True
-            },
-            'customer': {
-                'email': order.user.email,
-                'name': order.user.get_full_name(),
-                'identification': '12345678'
-            },
-            'sources': ['visa', 'mastercard'],
-            'test': self.test_mode,
-            'return_url': f'{settings.FRONTEND_BASE_URL}/ar/compra-exitosa',
-            'webhook': f'{settings.BACKEND_BASE_URL}/countries/ar/viumi/ipn/'
-        }
-"""
+
         headers = {
             'cache-control': 'no-cache',
             'Content-Type': 'application/vnd.api+json',
@@ -109,7 +89,7 @@ class ViumiPaymentMethod(PaymentMethod):
             response_data=response_data,
             order=order,
             payment_method=self,
-            checkout_id=response_data
+            checkout_id=response_data.id
         )
 
         return response_data

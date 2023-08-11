@@ -37,9 +37,9 @@ class FiservViewSet(viewsets.GenericViewSet):
                 identifier=serializer.validated_data['payment_method_identifier'],
                 active=True
             )
-            checkout_id = fiserv.create_checkout(order, '')
+            checkout_form = fiserv.create_checkout(order, '')
 
-            return Response({ 'checkout_id': checkout_id })
+            return Response({ 'checkout_form': checkout_form })
         except (Order.DoesNotExist, FiservPaymentMethod.DoesNotExist):
             raise Http404
 
