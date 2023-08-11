@@ -103,7 +103,6 @@ class ViumiPaymentMethod(PaymentMethod):
         response = requests.request('POST', url, headers=headers, data=json.dumps(payload))
 
         response_data = response.json()
-        checkout_id = response_data['data']['id']
 
         ViumiPayment.objects.create(
             request_data=payload,
