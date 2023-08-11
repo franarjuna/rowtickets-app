@@ -27,10 +27,10 @@ class FiservPaymentMethod(PaymentMethod):
         response = dict()
 
         # PROD
-        # response['url'] = "https://www5.ipg-online.com/connect/gateway/processing"
+        response['url'] = "https://www5.ipg-online.com/connect/gateway/processing"
         
         # DEV
-        response['url'] = "https://test.ipg-online.com/connect/gateway/processing"
+        # response['url'] = "https://test.ipg-online.com/connect/gateway/processing"
 
         #$this->createRequestHash($txndatetime, $order->order_total, $currency)
         txndatetime = datetime.datetime.now()
