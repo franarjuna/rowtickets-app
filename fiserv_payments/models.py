@@ -1,6 +1,8 @@
 from decimal import Decimal
 import json
+import datetime
 import requests
+import binascii
 from urllib.parse import urlparse
 
 from django.conf import settings
@@ -15,13 +17,97 @@ from rowticket.models import AbstractBaseModel
 
 
 class FiservPaymentMethod(PaymentMethod):
-    api_key = models.CharField(_('API Key'), max_length=255, blank=False)
-    access_token = models.CharField(_('Access token'), max_length=255, blank=False)
+    api_key = models.CharField(_('Shared Secret'), max_length=255, blank=False)
+    access_token = models.CharField(_('Store name'), max_length=255, blank=False)
     test_mode = models.BooleanField(_('modo test'))
 
     payment_method = 'fiserv'
 
     def create_checkout(self, order, root_url):
+        response = dict()
+
+        # PROD
+        # response['url'] = "https://www5.ipg-online.com/connect/gateway/processing"
+        
+        # DEV
+        response['url'] = "https://test.ipg-online.com/connect/gateway/processing"
+
+        #$this->createRequestHash($txndatetime, $order->order_total, $currency)
+        txndatetime = datetime.datetime.now()
+        storename = self.access_token
+        sharedsecret = self.api_key
+        binaryData = storename + str(txndatetime) + str(order.total) + 'ARS' + sharedsecret
+        hashs = binascii.hexlify(b'binaryData')
+
+
+
+
+        response = {
+             'url': "https://test.ipg-online.com/connect/gateway/processing",
+             'ipg_args': {
+                'timezone' : "America/Buenos_Aires",
+                'txndatetime' : txndatetime,
+                'hash' : hashs,
+                'currency' : 'ARS',
+                'mode' : 'hosted',
+                'storename' : storename,
+                'chargetotal' : order.total,
+                'language' : 'es',
+                'responseSuccessURL' : f'{settings.FRONTEND_BASE_URL}/ar/compra-exitosa',
+                'responseFailURL' : f'{settings.FRONTEND_BASE_URL}/ar/compra-fail',
+                'transactionNotificationURL' : f'{settings.BACKEND_BASE_URL}/countries/ar/mobbex/ipn/',
+                'txntype' : 'yes',
+                'checkoutoption' : '',
+                'dynamicMerchantName' : 'RowTicket Argentina',
+                'authenticateTransaction' : 'true',
+                'dccSkipOffer' : 'false',
+                'oid' : order.identifier,
+             }
+        }
+        return response
+        """
+        $ipg_args['bname'] = $order->get_billing_first_name() . ' ' . $order->get_billing_last_name();
+        $ipg_args['bcompany'] = $order->get_billing_company();
+        $ipg_args['baddr1'] = $order->get_billing_address_1();
+        $ipg_args['baddr2'] = $order->get_billing_address_2();
+        $ipg_args['bcity'] = $order->get_billing_city();
+        $ipg_args['bstate'] = $order->get_billing_state();
+        $ipg_args['bcountry'] = $order->get_billing_country();
+        $ipg_args['bzip'] = $order->get_billing_postcode();
+        $ipg_args['phone'] = $order->get_billing_phone();
+        $ipg_args['email'] = $order->get_billing_email();
+        $ipg_args['fax'] = '';
+        $ipg_args['sname'] = $order->get_shipping_first_name() . ' ' . $order->get_shipping_last_name();
+        $ipg_args['saddr1'] = $order->get_shipping_address_1();
+        $ipg_args['saddr2'] = $order->get_shipping_address_2();
+        $ipg_args['scity'] = $order->get_shipping_city();
+        $ipg_args['sstate'] = $order->get_shipping_state();
+        $ipg_args['scountry'] = $order->get_shipping_country();
+        $ipg_args['szip'] = $order->get_shipping_postcode();
+
+        $token_id = wc_clean(WC()->session->get($this->id . '-token'));
+        WC()->session->__unset($this->id . '-token');
+        if ('yes' == $this->tokenisation && is_user_logged_in() == true) {
+            if ($token_id != 'new' && !empty($token_id)) {
+                $token = WC_Payment_Tokens::get($token_id);
+                // Token user ID does not match the current user... bail out of payment processing.
+                if ($token->get_user_id() !== wp_get_current_user()->ID) {
+                    // Optionally display a notice with `wc_add_notice`
+                    $this->log('malfunction ' . wp_get_current_user()->ID . ' user tried to access differnt user token ' . $token->get_user_id(), 'Error');
+                    return;
+                }
+                if ($token) {
+                    $ipg_args['hosteddataid'] = $token->get_token();
+                    $ipg_args['hosteddatastoreid'] = $storename;
+                }
+            } else {
+                $ipg_args['assignToken'] = 'true';
+            }
+        }
+
+
+        return response
+        "" "
         url = 'https://api.fiserv.com/p/checkout'
 
         order_items = [
@@ -83,6 +169,7 @@ class FiservPaymentMethod(PaymentMethod):
         )
 
         return checkout_id
+        """
 
     class Meta:
         verbose_name = _('Método de pago Fiserv')

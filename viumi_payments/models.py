@@ -15,32 +15,64 @@ from rowticket.models import AbstractBaseModel
 
 
 class ViumiPaymentMethod(PaymentMethod):
-    api_key = models.CharField(_('API Key'), max_length=255, blank=False)
-    access_token = models.CharField(_('Access token'), max_length=255, blank=False)
+    api_key = models.CharField(_('ID Cliente'), max_length=255, blank=False)
+    access_token = models.CharField(_('Client Secret'), max_length=255, blank=False)
     test_mode = models.BooleanField(_('modo test'))
 
     payment_method = 'viumi'
 
     def create_checkout(self, order, root_url):
-        url = 'https://api.viumi.com/p/checkout'
+
+        json_data = {
+            "grant_type": "client_credentials",
+            "client_id": self.access_token,
+            "client_secret": self.api_key,
+            "scope": "*"
+        }
+
+        response_token = requests.post('https://auth.geopagos.com/oauth/token', json=json_data)
+        response_token_data = response_token.json()
+        print(response_token_data)
+
+        url = 'https://api.viumi.com.ar/api/v2/orders'
 
         order_items = [
             {
-                'title': f'{order_ticket.ticket.event.title} - {order_ticket.ticket.section}',
+                'id': 1,
+                'name': f'{order_ticket.ticket.event.title} - {order_ticket.ticket.section}',
                 'quantity': order_ticket.quantity,
-                'unit_price': float(order_ticket.ticket.price),
+                'unitPrice': {
+                    'currency': '032',
+                    'amount': float(order_ticket.ticket.price)*100
+                },
             } for order_ticket in order.order_tickets.all()
         ]
 
         order_items.append(
             {
-                'title': 'Tasa general por servicio',
+                'id':2,
+                'name': 'Tasa general por servicio',
                 'quantity': 1,
-                'unit_price': float(order.service_charge_subtotal)
+                'unitPrice': {
+                    'currency': '032',
+                    'amount': float(order.service_charge_subtotal)*100
+                }
             }
         )
-
+        external_data = ''
         payload = {
+            'data': {
+                'attributes': {
+                    'items': order_items,
+                    "redirect_urls": {
+                        "success": f'{settings.FRONTEND_BASE_URL}/ar/compra-exitosa',
+                        "failed": f'{settings.FRONTEND_BASE_URL}/ar/compra-fail',
+                    },
+                    'externalData': external_data
+                }
+            }
+        }
+        """
             'total': float(order.total),
             'currency': 'ARS',
             'reference': order.identifier,
@@ -60,13 +92,12 @@ class ViumiPaymentMethod(PaymentMethod):
             'return_url': f'{settings.FRONTEND_BASE_URL}/ar/compra-exitosa',
             'webhook': f'{settings.BACKEND_BASE_URL}/countries/ar/viumi/ipn/'
         }
-
+"""
         headers = {
             'cache-control': 'no-cache',
-            'Content-Type': 'application/json',
-            'x-api-key': self.api_key,
-            'x-access-token': self.access_token,
-            'x-lang': 'es'
+            'Content-Type': 'application/vnd.api+json',
+            'Accept': 'application/vnd.api+json',
+            'Authorization': 'Bearer ' + response_token_data['access_token']
         }
 
         response = requests.request('POST', url, headers=headers, data=json.dumps(payload))
@@ -82,7 +113,7 @@ class ViumiPaymentMethod(PaymentMethod):
             checkout_id=checkout_id
         )
 
-        return checkout_id
+        return response_data
 
     class Meta:
         verbose_name = _('Método de pago Viumi')

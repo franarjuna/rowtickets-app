@@ -5,9 +5,9 @@ from rest_framework import mixins, viewsets
 from rest_framework import status
 from rest_framework.response import Response
 
-from events.models import Category, Event, Ticket, Section
+from events.models import Category, Event, Ticket, Section, Organizer
 from events.serializers import (
-    CategorySerializer, CategoryBasicSerializer, EventDetailSerializer, EventListingSerializer, EventSerializer, TicketSerializer,TicketCreateSerializer,SectionSerializer
+    CategorySerializer, CategoryBasicSerializer, EventDetailSerializer, EventListingSerializer, EventSerializer, TicketSerializer,TicketCreateSerializer,SectionSerializer,OrganizerSerializer
 )
 from users.models import User
 
@@ -134,4 +134,15 @@ class TicketViewSet(viewsets.ModelViewSet):
     
     def list(self, request, *args, **kwargs):
         my_tickets = TicketSerializer(Ticket.objects.with_availability().filter(seller=request.user), many=True).data
+        return Response({'status': 'success','data': (my_tickets) })
+
+class OrganizerViewSet(viewsets.ModelViewSet):
+    queryset = Organizer.objects.all()
+    lookup_field = 'slug'
+    
+    def get_serializer_class(self):
+        return OrganizerSerializer    
+    
+    def list(self, request, *args, **kwargs):
+        my_tickets = EventListingSerializer(Event.objects.filter(organizer=request.user), many=True).data
         return Response({'status': 'success','data': (my_tickets) })

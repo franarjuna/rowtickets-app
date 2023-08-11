@@ -10,7 +10,7 @@ from rest_framework.response import Response
 from orders.models import Order, ORDER_STATUSES
 from payments.serializers import CreateCheckoutSerializer
 from viumi_payments.models import ViumiIPN, ViumiPayment, ViumiPaymentMethod
-
+import requests
 
 class ViumiViewSet(viewsets.GenericViewSet):
     permission_classes = [permissions.IsAuthenticated]
