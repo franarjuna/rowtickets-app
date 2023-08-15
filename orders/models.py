@@ -52,7 +52,7 @@ class Order(CountrySpecificModel):
         verbose_name_plural = _('compras')
 
 @receiver(pre_save, sender= Order)
-def send_tracking_email(sender, instance, created, update_fields, **kwargs):
+def send_tracking_email(sender, instance, **kwargs):
     #if created == False and 'status' in update_fields:
 
     try:
