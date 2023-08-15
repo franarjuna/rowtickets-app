@@ -20,15 +20,6 @@ class OrderAdmin(admin.ModelAdmin):
         'service_charge_subtotal', 'total'
     )
     list_filter = ('identifier', 'status', 'user', 'created', 'country', )
-    
-    def save_model(self, request, obj, form, change):
-        update_fields = []
-        for key, value in form.cleaned_data.items():
-            # True if something changed in model
-            if value != form.initial[key]:
-                update_fields.append(key)
-
-        obj.save(update_fields=update_fields)
 
 
 class SellerTicketAdmin(admin.ModelAdmin):
