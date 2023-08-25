@@ -21,11 +21,6 @@ class CategorySerializer(serializers.ModelSerializer):
         model = Category
         fields = ('name', 'slug', 'order', 'color', 'header_image_large')
 
-class EventSerializer(serializers.ModelSerializer):
-
-    class Meta:
-        model = Event
-        fields = ('id','title','formatted_date', 'date', 'sections')
 
 class SectionSerializer(serializers.ModelSerializer):
     event = EventSerializer()
@@ -33,6 +28,11 @@ class SectionSerializer(serializers.ModelSerializer):
         model = Section
         fields = ('id','name', 'color', 'event', 'sub_section')
 
+class EventSerializer(serializers.ModelSerializer):
+    sections = SectionSerializer(many=True)
+    class Meta:
+        model = Event
+        fields = ('id','title','formatted_date', 'date', 'sections')
 class OrganizerSerializer(serializers.ModelSerializer):
     class Meta:
         model = Organizer
