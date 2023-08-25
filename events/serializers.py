@@ -30,7 +30,7 @@ class EventSerializer(serializers.ModelSerializer):
     sections = SectionEventSerializer(many=True)
     class Meta:
         model = Event
-        fields = ('id','title','formatted_date', 'date', 'sections')
+        fields = ('identifier','title','formatted_date', 'date', 'sections')
 
 class SectionSerializer(serializers.ModelSerializer):
     event = EventSerializer()
