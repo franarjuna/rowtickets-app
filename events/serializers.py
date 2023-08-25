@@ -25,23 +25,23 @@ class CategorySerializer(serializers.ModelSerializer):
 class SectionEventSerializer(serializers.ModelSerializer):
     class Meta:
         model = Section
-        fields = ('id','name', 'color', 'sub_section')
+        fields = ('id','identifier','name', 'color', 'sub_section')
 class EventSerializer(serializers.ModelSerializer):
     sections = SectionEventSerializer(many=True)
     class Meta:
         model = Event
-        fields = ('identifier','title','formatted_date', 'date', 'sections')
+        fields = ('id','identifier','title','formatted_date', 'date', 'sections')
 
 class SectionSerializer(serializers.ModelSerializer):
     event = EventSerializer()
     class Meta:
         model = Section
-        fields = ('id','name', 'color', 'event', 'sub_section')
+        fields = ('id','identifier','name', 'color', 'event', 'sub_section')
 
 class OrganizerSerializer(serializers.ModelSerializer):
     class Meta:
         model = Organizer
-        fields = ('id','name','slug','main_image','header_image','header_image')
+        fields = ('id','identifier','name','slug','main_image','header_image','header_image')
 
 
 class TicketSerializer(serializers.ModelSerializer):
@@ -56,7 +56,7 @@ class TicketSerializer(serializers.ModelSerializer):
     class Meta:
         model = Ticket
         fields = (
-            'identifier', 'event', 'section', 'subsection', 'cost', 'price', 'ticket_type', 'ready_to_ship', 'extra_info', 'quantity',
+            'id','identifier', 'event', 'section', 'subsection', 'cost', 'price', 'ticket_type', 'ready_to_ship', 'extra_info', 'quantity',
             'selling_condition', 'available_quantity', 'row','seller','status', 'ready_date'
         )
 class TicketCreateSerializer(serializers.ModelSerializer):
@@ -65,7 +65,7 @@ class TicketCreateSerializer(serializers.ModelSerializer):
     class Meta:
         model = Ticket
         fields = (
-            'identifier', 'section', 'cost', 'price', 'ticket_type', 'ready_to_ship', 'extra_info', 'quantity',
+            'id','identifier', 'section', 'cost', 'price', 'ticket_type', 'ready_to_ship', 'extra_info', 'quantity',
             'selling_condition', 'row','seller','status', 'subsection'
         )
 
@@ -124,7 +124,7 @@ class EventListingSerializer(serializers.ModelSerializer):
     class Meta:
         model = Event
         fields = (
-            'id','title', 'slug', 'date', 'date_text', 'venue_name', 'main_image_thumb',
+            'id','identifier','title', 'slug', 'date', 'date_text', 'venue_name', 'main_image_thumb',
             'starting_price', 'sections', 'organizer','formatted_date'
         )
 
@@ -140,7 +140,7 @@ class EventDetailSerializer(serializers.ModelSerializer):
     class Meta:
         model = Event
         fields = (
-            'identifier', 'title', 'slug', 'date', 'date_text', 'venue',
+            'id','identifier', 'title', 'slug', 'date', 'date_text', 'venue',
             'main_image_large', 'event_images', 'event_gallery_images',
             'tickets', 'organizer', 'individual_percentage'
         )
