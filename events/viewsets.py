@@ -10,7 +10,7 @@ from events.serializers import (
     CategorySerializer, CategoryBasicSerializer, EventDetailSerializer, EventListingSerializer, EventSerializer, TicketSerializer,TicketCreateSerializer,SectionSerializer,OrganizerSerializer
 )
 from users.models import User
-
+from datetime import datetime
 
 class CategoryViewSet(mixins.RetrieveModelMixin, mixins.ListModelMixin, viewsets.GenericViewSet):
     serializer_class = CategoryBasicSerializer
@@ -134,7 +134,8 @@ class TicketViewSet(viewsets.ModelViewSet):
         return Response(serializer.data, status=status.HTTP_201_CREATED, headers=headers)
     
     def list(self, request, *args, **kwargs):
-        my_tickets = TicketSerializer(Ticket.objects.with_availability().filter(seller=request.user), many=True).data
+        now = datetime.datetime.now()
+        my_tickets = TicketSerializer(Ticket.objects.with_availability().filter(seller=request.user, event__date__gte=now.date()), many=True).data
         return Response({'status': 'success','data': (my_tickets) })
 
 class OrganizerViewSet(viewsets.ModelViewSet):
