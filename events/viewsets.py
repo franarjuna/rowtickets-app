@@ -134,7 +134,7 @@ class TicketViewSet(viewsets.ModelViewSet):
         return Response(serializer.data, status=status.HTTP_201_CREATED, headers=headers)
     
     def list(self, request, *args, **kwargs):
-        now = datetime.datetime.now()
+        now = datetime.now()
         my_tickets = TicketSerializer(Ticket.objects.with_availability().filter(seller=request.user, event__date__gte=now.date()), many=True).data
         return Response({'status': 'success','data': (my_tickets) })
 
