@@ -11,7 +11,7 @@ def send_mail(template_name, subject, template_context, recipient, attachments=N
     text_content = ''
     html_content = render_to_string(html_template, template_context)
 
-    msg = EmailMultiAlternatives(subject, text_content, settings.EMAILS_FROM, [recipient,'info@claveglobal.com'])
+    msg = EmailMultiAlternatives(subject, text_content, settings.EMAILS_FROM, [recipient])
     msg.attach_alternative(html_content, 'text/html')
 
     if attachments:
