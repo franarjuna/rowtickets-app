@@ -72,6 +72,8 @@ STATIC_URL = "https://%s/%s/" % (AWS_S3_CUSTOM_DOMAIN, AWS_LOCATION)
 
 DEFAULT_FILE_STORAGE = 'rowticket.storage.bucketeer.MediaStorage'  # <-- here is where we reference it
 
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_USE_TLS = False
 #EMAIL SMTP
 if 'EMAIL_HOST' in os.environ:
     EMAIL_HOST = os.environ["EMAIL_HOST"]
