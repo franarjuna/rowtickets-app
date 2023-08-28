@@ -272,3 +272,5 @@ class Ticket(AbstractBaseModel):
         verbose_name = _('entradas')
         verbose_name_plural = _('entradas')
         ordering = ('event', 'price')
+
+        indexes = [models.Index(fields=['seller',]),]

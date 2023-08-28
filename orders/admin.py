@@ -10,6 +10,7 @@ class OrderTicketInline(admin.TabularInline):
 
 
 class OrderAdmin(admin.ModelAdmin):
+    actions = ['canelar_masivo']
     inlines = [OrderTicketInline]
     extra = 0
     list_display = (
@@ -21,6 +22,11 @@ class OrderAdmin(admin.ModelAdmin):
     )
     list_filter = ('identifier', 'status', 'user', 'created', 'country', )
 
+    @admin.action(description="Cancelar evento(s) seleccionado")
+    def canelar_masivo(modeladmin, request, queryset):
+        for book in queryset:
+            book.status = 'cancelled'
+            book.save()
 
 class SellerTicketAdmin(admin.ModelAdmin):
     extra = 0
@@ -31,6 +37,8 @@ class SellerTicketAdmin(admin.ModelAdmin):
 
     def has_add_permission(self, request, obj=None):
         return False
+
+
 
 admin.site.register(Order, OrderAdmin)
 admin.site.register(SellerTicket, SellerTicketAdmin)

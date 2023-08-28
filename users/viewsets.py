@@ -3,16 +3,16 @@ from rest_framework import viewsets
 from rest_framework.response import Response
 from rest_framework.permissions import AllowAny, IsAuthenticated
 from django.shortcuts import get_object_or_404
-
+from django.db.models import Q
 from rowticket.decorators import query_debugger_detailed
-
+from rest_framework import pagination
 from events.serializers import TicketSerializer
 from users.serializers import AccountSerializer
-from orders.serializers import OrderSerializer
+from orders.serializers import OrderSerializer, OrderTicketListSerializer
 from addresses.serializers import AddressesSerializer
 from users.models import User
 from events.models import Ticket
-from orders.models import Order
+from orders.models import Order,OrderTicket
 from addresses.models import Address
 
 class AccountViewSet(mixins.RetrieveModelMixin, mixins.ListModelMixin, mixins.UpdateModelMixin, viewsets.GenericViewSet):
@@ -104,17 +104,18 @@ class OnSaleViewSet(mixins.RetrieveModelMixin, mixins.ListModelMixin, viewsets.G
 
 class SoldViewSet(mixins.RetrieveModelMixin, mixins.ListModelMixin, viewsets.GenericViewSet):
     permission_classes = (IsAuthenticated,)
-    queryset = Ticket.objects.all()
+    queryset = OrderTicket.objects.all()
+    pagination.PageNumberPagination.page_size = 10
 
     def get_serializer_class(self):
-        return TicketSerializer
+        return OrderTicketListSerializer
 
     def list(self, request, *args, **kwargs):
-        queryset = Ticket.objects.with_availability().order_by('price').filter(seller=request.user)
+        queryset = OrderTicket.objects.filter(ticket__seller=request.user).exclude(order__status='CANCELLED')
 
         serializer = self.get_serializer(queryset, many=True)
         response = {
-            'total': 0,
+            'total': queryset.count(),
             'data': serializer.data
         }
 

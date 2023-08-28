@@ -50,6 +50,7 @@ class Order(CountrySpecificModel):
     class Meta:
         verbose_name = _('compra')
         verbose_name_plural = _('compras')
+        indexes = [models.Index(fields=['status',]),]
 
 @receiver(pre_save, sender= Order)
 def send_tracking_email(sender, instance, **kwargs):
@@ -120,10 +121,10 @@ def send_tracking_email(sender, instance, **kwargs):
             
             elif instance.status == 'paid':
                 send_mail('seller_paid', _('¡ Tenemos un posible Comprador para tus entradas !'), context, seller.email)
-                send_mail('buyer_paid', _('¡ Compraste !'), context_buyer, buyer.email)
+                send_mail('buyer_paid', _('¡ Gracias por tu compra !'), context_buyer, buyer.email)
             
             elif instance.status == 'confirmed':
-                send_mail('buyer_confirmed', _('¡ Tenemos un posible Comprador para tus entradas !'), context_buyer, buyer.email)
+                send_mail('buyer_confirmed', _('¡ Gracias por tu compra !'), context_buyer, buyer.email)
             
             elif instance.status == 'completed':
                 send_mail('seller_completed', _('Venta Completada'), context, seller.email)
