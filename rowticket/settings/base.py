@@ -312,6 +312,7 @@ ORDER_STATUS_CHOICES = (
     (ORDER_STATUSES['COMPLETED'], _('Completada')),
     (ORDER_STATUSES['PAID'], _('Paga')),
     (ORDER_STATUSES['ON_TRANSIT'], _('En transito')),
+    (ORDER_STATUSES['APPROVED'], _('Aprobada por el vendedor')),
     (ORDER_STATUSES['RESERVED'], _('Reservada')),
     (ORDER_STATUSES['CANCELLED'], _('Cancelada'))
 )
