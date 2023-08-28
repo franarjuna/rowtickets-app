@@ -13,7 +13,7 @@ from utils.validation import validate_country
 
 
 class OrderViewset(
-    mixins.RetrieveModelMixin, mixins.ListModelMixin, mixins.CreateModelMixin, viewsets.GenericViewSet
+    mixins.RetrieveModelMixin, mixins.ListModelMixin, mixins.CreateModelMixin, viewsets.GenericViewSet, mixins.UpdateModelMixin
 ):
     queryset = Order.objects.all()
     lookup_field = 'identifier'
