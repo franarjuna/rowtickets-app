@@ -295,8 +295,10 @@ QUILL_CONFIGS = {
 ORDER_STATUSES = {
     'IN_PROGRESS': 'in_progress',
     'PENDING_PAYMENT_CONFIRMATION': 'pending_payment_confirmation',
+    'ON_TRANSIT': 'on_transit',
     'ON_HOLD': 'on_hold',
     'APPROVED': 'approved',
+    'RESERVED': 'reserved',
     'PAID': 'paid',
     'COMPLETED': 'completed',
     'CANCELLED': 'cancelled'
@@ -309,5 +311,7 @@ ORDER_STATUS_CHOICES = (
     (ORDER_STATUSES['ON_HOLD'], _('A la espera')),
     (ORDER_STATUSES['COMPLETED'], _('Completada')),
     (ORDER_STATUSES['PAID'], _('Paga')),
+    (ORDER_STATUSES['ON_TRANSIT'], _('En transito')),
+    (ORDER_STATUSES['RESERVED'], _('Reservada')),
     (ORDER_STATUSES['CANCELLED'], _('Cancelada'))
 )
