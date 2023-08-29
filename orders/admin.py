@@ -29,11 +29,12 @@ class OrderAdmin(admin.ModelAdmin):
             book.save()
 
 class SellerTicketAdmin(admin.ModelAdmin):
+    actions = ['create_report']
     extra = 0
     list_display = (
-        'identifier', 'quantity', 'price', 'cost', 'ticket','order'
+        'identifier', 'quantity', 'price', 'cost', 'ticket','order','order__date'
     )
-    list_filter = ('ticket__seller', 'order__identifier', 'order__status', )
+    list_filter = ('ticket__seller', 'order__identifier', 'order__date', 'order__status', )
 
     def has_add_permission(self, request, obj=None):
         return False
@@ -43,6 +44,11 @@ class SellerTicketAdmin(admin.ModelAdmin):
         queryset = super().get_queryset(request)
         queryset = queryset.exclude(order__status='cancelled')
         return queryset
+    
+    @admin.action(description="Exportar reporte")
+    def create_report():
+        print('cccc')
+
 
 admin.site.register(Order, OrderAdmin)
 admin.site.register(SellerTicket, SellerTicketAdmin)
