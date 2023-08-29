@@ -32,7 +32,7 @@ class SellerTicketAdmin(admin.ModelAdmin):
     actions = ['create_report']
     extra = 0
     list_display = (
-        'identifier', 'quantity', 'price', 'cost', 'ticket','order','order__date'
+        'identifier', 'quantity', 'price', 'cost', 'ticket','order','order__created'
     )
     list_filter = ('ticket__seller', 'order__identifier', 'order__date', 'order__status', )
 
