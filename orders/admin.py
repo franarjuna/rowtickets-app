@@ -38,7 +38,11 @@ class SellerTicketAdmin(admin.ModelAdmin):
     def has_add_permission(self, request, obj=None):
         return False
 
-
+    def get_queryset(self, request):
+        # Customize this queryset filter based on your requirements
+        queryset = super().get_queryset(request)
+        queryset = queryset.exclude(order__status='cancelled')
+        return queryset
 
 admin.site.register(Order, OrderAdmin)
 admin.site.register(SellerTicket, SellerTicketAdmin)
