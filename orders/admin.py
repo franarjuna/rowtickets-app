@@ -1,7 +1,11 @@
 from django.contrib import admin
 
 from orders.models import Order, OrderTicket, SellerTicket
+from django.contrib.contenttypes.models import ContentType
+from django.http import HttpResponseRedirect
 
+import csv
+from django.http import HttpResponse
 
 class OrderTicketInline(admin.TabularInline):
     model = OrderTicket
@@ -32,9 +36,9 @@ class SellerTicketAdmin(admin.ModelAdmin):
     actions = ['create_report']
     extra = 0
     list_display = (
-        'identifier', 'quantity', 'price', 'cost', 'ticket','order','order__created'
+        'identifier', 'quantity', 'price', 'cost', 'ticket','order','created'
     )
-    list_filter = ('ticket__seller', 'order__identifier', 'order__created', 'order__status', )
+    list_filter = ('ticket__seller', 'order__identifier', 'order__status', )
 
     def has_add_permission(self, request, obj=None):
         return False
@@ -46,8 +50,19 @@ class SellerTicketAdmin(admin.ModelAdmin):
         return queryset
     
     @admin.action(description="Exportar reporte")
-    def create_report():
-        print('cccc')
+    def create_report(modeladmin, request, queryset):
+        meta = modeladmin.model._meta
+        field_names = [field.name for field in meta.fields]
+
+        response = HttpResponse(content_type='text/csv')
+        response['Content-Disposition'] = 'attachment; filename={}.csv'.format(meta)
+        writer = csv.writer(response, delimiter=';')
+
+        writer.writerow(field_names)
+        for obj in queryset:
+            row = writer.writerow([getattr(obj, field) for field in field_names])
+
+        return response
 
 
 admin.site.register(Order, OrderAdmin)
