@@ -122,6 +122,7 @@ def send_tracking_email(sender, instance, **kwargs):
             elif instance.status == 'paid':
                 send_mail('seller_paid', _('¡ Tenemos un posible Comprador para tus entradas !'), context, seller.email)
                 send_mail('buyer_paid', _('¡ Gracias por tu compra !'), context_buyer, buyer.email)
+                send_mail('buyer_paid', _('Se registro una nueva compra'), context_buyer, 'sbrugnoli@rowticket.com')
             
             elif instance.status == 'confirmed':
                 send_mail('buyer_confirmed', _('¡ Gracias por tu compra !'), context_buyer, buyer.email)
@@ -139,6 +140,7 @@ def send_tracking_email(sender, instance, **kwargs):
             
             elif instance.status == 'cancelled':
                 send_mail('seller_cancelled', _('Lamentablemente una de tus ventas se ha Cancelado.'), context, seller.email)
+                send_mail('buyer_paid', _('Se canceló una compra'), context_buyer, 'mvigo@rowticket.com')
 
 
 #{'_state': <django.db.models.base.ModelState object at 0x000001F8D5E1CCD0>, 'id': 29, 'identifier': '2alp44c495', 'created': datetime.datetime(2023, 7, 31, 15, 22, 37, 555708, tzinfo=datetime.timezone.utc), 'modified': datetime.datetime(2023, 8, 4, 22, 9, 29, 162720, tzinfo=datetime.timezone.utc), 'country': 'ar', 'user_id': 18, 'status': 'pending_payment_confirmation', 'billing_address_id': None, 'shipping_address_id': None, 'per_ticket_service_charge': Decimal('6000.00'), 'ticket_price_surcharge_percentage': Decimal('20.00'), 'tickets_subtotal': Decimal('65000.00'), 'service_charge_subtotal': Decimal('6000.00'), 'total': Decimal('71000.00')}
