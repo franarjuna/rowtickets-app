@@ -2,6 +2,7 @@ from django.http import Http404
 
 from rest_framework import permissions, viewsets
 from rest_framework.decorators import action
+from django.shortcuts import get_object_or_404
 from rest_framework.response import Response
 
 from orders.models import Order
@@ -56,6 +57,7 @@ class MercadoPagoViewSet(viewsets.GenericViewSet):
 
         print(merchant_order)
 
+        payment = get_object_or_404(MercadoPagoPayment, checkout_id=merchant_order)
 
         MercadoPagoIPN.objects.create(
             payment=payment,
