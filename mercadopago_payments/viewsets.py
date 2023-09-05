@@ -6,7 +6,7 @@ from rest_framework.response import Response
 
 from orders.models import Order
 from mercadopago_payments.serializers import CreatePreferenceSerializer
-from mercadopago_payments.models import MercadoPagoPaymentMethod
+from mercadopago_payments.models import MercadoPagoPaymentMethod, MercadoPagoPayment, MercadoPagoIPN
 
 
 class MercadoPagoViewSet(viewsets.GenericViewSet):
@@ -55,5 +55,12 @@ class MercadoPagoViewSet(viewsets.GenericViewSet):
             merchant_order = mp.get_merchant_order_from_payment(request.GET.get('data.id'))
 
         print(merchant_order)
+
+
+        MercadoPagoIPN.objects.create(
+            payment=payment,
+            data=request.data
+        )
+
 
         return Response({})

@@ -9,6 +9,7 @@ from django.db import models
 import mercadopago
 
 from payments.models import PaymentMethod
+from rowticket.models import AbstractBaseModel
 
 
 class MercadoPagoPaymentMethod(PaymentMethod):
@@ -53,6 +54,15 @@ class MercadoPagoPaymentMethod(PaymentMethod):
         preference_response = sdk.preference().create(preference_data)
         preference = preference_response['response']
 
+
+        MercadoPagoPayment.objects.create(
+            request_data=preference_data,
+            response_data=preference_response,
+            order=order,
+            payment_method=self,
+            checkout_id=preference['id']
+        )
+
         return preference['id']
 
     def get_merchant_order_from_payment(self, payment_id):
@@ -70,3 +80,41 @@ class MercadoPagoPaymentMethod(PaymentMethod):
     class Meta:
         verbose_name = _('Método de pago Mercado Pago')
         verbose_name_plural = _('Métodos de pago Mercado Pago')
+
+
+
+class MercadoPagoPayment(AbstractBaseModel):
+    order = models.ForeignKey(
+        'orders.Order', related_name='MercadoPago_payments', verbose_name=_('compra'),
+        blank=True, null=True, on_delete=models.PROTECT
+    )
+    payment_method = models.ForeignKey(
+        MercadoPagoPaymentMethod, verbose_name=_('medio de pago'), on_delete=models.PROTECT,
+        related_name='MercadoPago_payments'
+    )
+
+    request_data = models.JSONField(verbose_name=_('data (request)'))
+    response_data = models.JSONField(verbose_name=_('data (response)'))
+    checkout_id = models.CharField(_('checkout ID'), max_length=255, blank=True, unique=True, db_index=True)
+
+    def __str__(self):
+        return f'#{self.identifier}'
+
+    class Meta:
+        verbose_name = _('Pago MercadoPago')
+        verbose_name_plural = _('Pagos MercadoPago')
+        ordering = ('-created', )
+
+
+
+class MercadoPagoIPN(AbstractBaseModel):
+    payment = models.ForeignKey(
+        MercadoPagoPayment, verbose_name=_('Pago MercadoPago'), on_delete=models.PROTECT,related_name='ipns'
+    )
+
+    data = models.JSONField(verbose_name=_('data (request)'))
+
+    class Meta:
+        verbose_name = _('IPN MercadoPago')
+        verbose_name_plural = _('IPNs MercadoPago')
+        ordering = ('-created', )
