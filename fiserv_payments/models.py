@@ -41,7 +41,7 @@ class FiservPaymentMethod(PaymentMethod):
         #hashs = binascii.hexlify(hashString.encode())
 
         hash = hashlib.sha256()
-        hash.update(hashString)
+        hash.update(hashString.encode())
 
 
         response = {
