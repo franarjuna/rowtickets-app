@@ -3,6 +3,7 @@ import json
 import datetime
 import requests
 import binascii
+import hashlib
 from urllib.parse import urlparse
 
 from django.conf import settings
@@ -37,9 +38,10 @@ class FiservPaymentMethod(PaymentMethod):
         storename = self.access_token
         sharedsecret = self.api_key
         hashString = storename + str(txndatetime) + str(order.total) + 'ARS' + sharedsecret
-        hashs = binascii.hexlify(hashString.encode())
+        #hashs = binascii.hexlify(hashString.encode())
 
-
+        hash = hashlib.sha256()
+        hash.update(hashString)
 
 
         response = {
@@ -47,21 +49,31 @@ class FiservPaymentMethod(PaymentMethod):
              'ipg_args': {
                 'timezone' : "America/Buenos_Aires",
                 'txndatetime' : txndatetime,
-                'hash' : hashs,
-                'currency' : 'ARS',
-                'mode' : 'hosted',
+                'hash' : hash.hexdigest(),
+                'currency' : '032',
+                'mode' : 'fullpay',
                 'storename' : storename,
                 'chargetotal' : order.total,
-                'language' : 'es',
+                'language' : 'es_AR',
                 'responseSuccessURL' : f'{settings.FRONTEND_BASE_URL}/ar/compra-exitosa',
                 'responseFailURL' : f'{settings.FRONTEND_BASE_URL}/ar/compra-fail',
                 'transactionNotificationURL' : f'{settings.BACKEND_BASE_URL}/countries/ar/fiserv/ipn/',
-                'txntype' : 'yes',
-                'checkoutoption' : '',
+                'txntype' : 'sale',
+                'checkoutoption' : 'classic',
                 'dynamicMerchantName' : 'RowTicket Argentina',
                 'authenticateTransaction' : 'true',
                 'dccSkipOffer' : 'false',
                 'oid' : order.identifier,
+                'bname':'Name',
+                'bcompany':'Name',
+                'baddr1':'Name',
+                'bcity':'Buenos Aires',
+                'bstate':'B',
+                'bcountry':'AR',
+                'bzip':'1414',
+                'phone':'123456789',
+                'email':'test@test.com',
+                'sname':'',
              }
         }
         return response
