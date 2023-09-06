@@ -1,6 +1,7 @@
 from decimal import Decimal
 import json
 import datetime
+import locale
 import requests
 import binascii
 import hashlib
@@ -33,7 +34,8 @@ class FiservPaymentMethod(PaymentMethod):
         # DEV
         # response['url'] = "https://test.ipg-online.com/connect/gateway/processing"
 
-        #$this->createRequestHash($txndatetime, $order->order_total, $currency)
+        locale.setlocale(locale.LC_ALL, 'es_AR')
+
         txndatetime = datetime.datetime.now()
         storename = self.access_token
         sharedsecret = self.api_key
