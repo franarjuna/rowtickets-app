@@ -44,6 +44,9 @@ class FiservPaymentMethod(PaymentMethod):
         hashString = storename + str(txndatetimetxt) + str(order.total) + currency + sharedsecret
         #hashs = binascii.hexlify(hashString.encode())
 
+        hashString = '53fedaeccbda6a541aadb9de33d842cc4b423add'
+        txndatetimetxt = '2023:09:06-14:02:59'
+
         hash = hashlib.sha1()
         hash.update(hashString.encode())
 
@@ -57,7 +60,7 @@ class FiservPaymentMethod(PaymentMethod):
                 'currency' : currency,
                 'mode' : 'fullpay',
                 'storename' : storename,
-                'chargetotal' : order.total,
+                'chargetotal' : 69900.00,
                 'language' : 'es_AR',
                 'responseSuccessURL' : f'{settings.FRONTEND_BASE_URL}/ar/compra-exitosa',
                 'responseFailURL' : f'{settings.FRONTEND_BASE_URL}/ar/compra-fail',
