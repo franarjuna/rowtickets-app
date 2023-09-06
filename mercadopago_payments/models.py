@@ -73,9 +73,7 @@ class MercadoPagoPaymentMethod(PaymentMethod):
         if payment['status'] == 404:
             return None
 
-        print(payment)
-
-        return payment['response']['order']['id']
+        return payment['response']
     
     def get_preference(self, payment_id):
         sdk = mercadopago.SDK(self.access_token)
@@ -85,9 +83,16 @@ class MercadoPagoPaymentMethod(PaymentMethod):
         if preference['status'] == 404:
             return None
 
-        print(preference)
+        #print(preference)
 
         return preference
+    
+    def get_merchant(self, merchant_id):
+        sdk = mercadopago.SDK(self.access_token)
+
+        merchant_order = sdk.merchant_order().get(merchant_id)
+
+        return merchant_order
 
     class Meta:
         verbose_name = _('Método de pago Mercado Pago')

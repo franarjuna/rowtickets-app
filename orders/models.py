@@ -123,6 +123,7 @@ def send_tracking_email(sender, instance, **kwargs):
                 send_mail('seller_paid', _('¡ Tenemos un posible Comprador para tus entradas !'), context, seller.email)
                 send_mail('buyer_paid', _('¡ Gracias por tu compra !'), context_buyer, buyer.email)
                 send_mail('buyer_paid', _('Se registro una nueva compra'), context_buyer, 'sbrugnoli@rowticket.com')
+                send_mail('buyer_paid', _('Se registro una nueva compra'), context_buyer, 'rowticket@gmail.com')
             
             elif instance.status == 'confirmed':
                 send_mail('buyer_confirmed', _('¡ Gracias por tu compra !'), context_buyer, buyer.email)
