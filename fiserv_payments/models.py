@@ -56,7 +56,7 @@ class FiservPaymentMethod(PaymentMethod):
              'ipg_args': {
                 'timezone' : "America/Buenos_Aires",
                 'txndatetime' : txndatetimetxt,
-                'hash' : hash.hexdigest(),
+                'hash' : hashString,
                 'currency' : currency,
                 'mode' : 'fullpay',
                 'storename' : storename,
