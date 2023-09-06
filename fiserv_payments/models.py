@@ -43,7 +43,7 @@ class FiservPaymentMethod(PaymentMethod):
         hashString = storename + str(txndatetimetxt) + str(order.total) + '032' + sharedsecret
         #hashs = binascii.hexlify(hashString.encode())
 
-        hash = hashlib.sha256()
+        hash = hashlib.sha1()
         hash.update(hashString.encode())
 
 
