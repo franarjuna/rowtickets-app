@@ -38,9 +38,10 @@ class FiservPaymentMethod(PaymentMethod):
 
         txndatetime = datetime.datetime.now()
         storename = self.access_token
+        currency = '032'
         sharedsecret = self.api_key
         txndatetimetxt = str(txndatetime.year) + ":" + str(txndatetime.month) + ":" + str(txndatetime.day) + "-" + str(txndatetime.hour) + ":" + str(txndatetime.minute) + ":" + str(txndatetime.second)
-        hashString = storename + str(txndatetimetxt) + str(order.total) + '032' + sharedsecret
+        hashString = storename + str(txndatetimetxt) + str(order.total) + currency + sharedsecret
         #hashs = binascii.hexlify(hashString.encode())
 
         hash = hashlib.sha1()
@@ -53,7 +54,7 @@ class FiservPaymentMethod(PaymentMethod):
                 'timezone' : "America/Buenos_Aires",
                 'txndatetime' : txndatetimetxt,
                 'hash' : hash.hexdigest(),
-                'currency' : '032',
+                'currency' : currency,
                 'mode' : 'fullpay',
                 'storename' : storename,
                 'chargetotal' : order.total,
@@ -65,7 +66,7 @@ class FiservPaymentMethod(PaymentMethod):
                 'checkoutoption' : 'classic',
                 'dynamicMerchantName' : 'RowTicket Argentina',
                 'authenticateTransaction' : 'true',
-                'dccSkipOffer' : 'false',
+                'dccSkipOffer' : 'true',
                 'oid' : order.identifier,
                 'bname':'Name',
                 'bcompany':'Name',
