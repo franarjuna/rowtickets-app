@@ -47,15 +47,17 @@ class MercadoPagoViewSet(viewsets.GenericViewSet):
         print(kwargs)
 
         merchant_order = None
-
         if request.GET.get('topic') == 'merchant_order':
             merchant_order = request.GET.get('id')
         elif request.GET.get('type') == 'payment':
             mp = MercadoPagoPaymentMethod.objects.get()
 
+            merchant_order_get_preference = mp.get_preference(request.GET.get('data.id'))
             merchant_order = mp.get_merchant_order_from_payment(request.GET.get('data.id'))
+            print(merchant_order_get_preference)
 
         print(merchant_order)
+        merchant_order = '58833378-9a719a36-7d1d-4f42-bf14-b330b52ae44b'
 
         payment = get_object_or_404(MercadoPagoPayment, checkout_id=merchant_order)
 
