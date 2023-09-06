@@ -36,8 +36,9 @@ class FiservPaymentMethod(PaymentMethod):
         txndatetime = datetime.datetime.now()
         storename = self.access_token
         sharedsecret = self.api_key
-        binaryData = storename + str(txndatetime) + str(order.total) + 'ARS' + sharedsecret
-        hashs = binascii.hexlify(b'binaryData')
+        hashString = storename + str(txndatetime) + str(order.total) + 'ARS' + sharedsecret
+        binaryData = ' '.join(format(x, 'b') for x in bytearray(hashString, 'utf-8'))
+        hashs = binascii.hexlify(binaryData)
 
 
 
@@ -55,7 +56,7 @@ class FiservPaymentMethod(PaymentMethod):
                 'language' : 'es',
                 'responseSuccessURL' : f'{settings.FRONTEND_BASE_URL}/ar/compra-exitosa',
                 'responseFailURL' : f'{settings.FRONTEND_BASE_URL}/ar/compra-fail',
-                'transactionNotificationURL' : f'{settings.BACKEND_BASE_URL}/countries/ar/mobbex/ipn/',
+                'transactionNotificationURL' : f'{settings.BACKEND_BASE_URL}/countries/ar/fiserv/ipn/',
                 'txntype' : 'yes',
                 'checkoutoption' : '',
                 'dynamicMerchantName' : 'RowTicket Argentina',
