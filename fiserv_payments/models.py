@@ -34,7 +34,7 @@ class FiservPaymentMethod(PaymentMethod):
         # DEV
         # response['url'] = "https://test.ipg-online.com/connect/gateway/processing"
 
-        locale.setlocale(locale.LC_ALL, 'es_AR')
+        locale.setlocale(locale.LC_ALL, '')
 
         txndatetime = datetime.datetime.now()
         storename = self.access_token
