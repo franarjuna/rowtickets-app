@@ -60,7 +60,7 @@ class FiservPaymentMethod(PaymentMethod):
                 'currency' : currency,
                 'mode' : 'fullpay',
                 'storename' : storename,
-                'chargetotal' : 69900.00,
+                'chargetotal' : '69900.00',
                 'language' : 'es_AR',
                 'responseSuccessURL' : f'{settings.FRONTEND_BASE_URL}/ar/compra-exitosa',
                 'responseFailURL' : f'{settings.FRONTEND_BASE_URL}/ar/compra-fail',
