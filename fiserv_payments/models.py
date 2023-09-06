@@ -37,8 +37,7 @@ class FiservPaymentMethod(PaymentMethod):
         storename = self.access_token
         sharedsecret = self.api_key
         hashString = storename + str(txndatetime) + str(order.total) + 'ARS' + sharedsecret
-        binaryData = ' '.join(format(ord(x), 'b') for x in hashString)
-        hashs = binascii.hexlify(binaryData)
+        hashs = binascii.hexlify(hashString.encode())
 
 
 
