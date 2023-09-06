@@ -40,12 +40,10 @@ class FiservPaymentMethod(PaymentMethod):
         storename = self.access_token
         currency = '032'
         sharedsecret = self.api_key
-        txndatetimetxt = str(txndatetime.year) + ":" + str(txndatetime.month) + ":" + str(txndatetime.day) + "-" + str(txndatetime.hour) + ":" + str(txndatetime.minute) + ":" + str(txndatetime.second)
+        #txndatetimetxt = str(txndatetime.year) + ":" + str(txndatetime.month) + ":" + str(txndatetime.day) + "-" + str(txndatetime.hour) + ":" + str(txndatetime.minute) + ":" + str(txndatetime.second)
+        txndatetimetxt = txndatetime.strftime("%Y:%m/%d-%H:%M:%S")
         hashString = storename + str(txndatetimetxt) + str(order.total) + currency + sharedsecret
         #hashs = binascii.hexlify(hashString.encode())
-
-        hashString = '53fedaeccbda6a541aadb9de33d842cc4b423add'
-        txndatetimetxt = '2023:09:06-14:02:59'
 
         hash = hashlib.sha1()
         hash.update(hashString.encode())
@@ -56,11 +54,11 @@ class FiservPaymentMethod(PaymentMethod):
              'ipg_args': {
                 'timezone' : "America/Buenos_Aires",
                 'txndatetime' : txndatetimetxt,
-                'hash' : hashString,
+                'hash' : hash.hexdigest(),
                 'currency' : currency,
                 'mode' : 'fullpay',
                 'storename' : storename,
-                'chargetotal' : '69900.00',
+                'chargetotal' : order.total,
                 'language' : 'es_AR',
                 'responseSuccessURL' : f'{settings.FRONTEND_BASE_URL}/ar/compra-exitosa',
                 'responseFailURL' : f'{settings.FRONTEND_BASE_URL}/ar/compra-fail',
