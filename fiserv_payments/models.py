@@ -37,7 +37,8 @@ class FiservPaymentMethod(PaymentMethod):
         txndatetime = datetime.datetime.now()
         storename = self.access_token
         sharedsecret = self.api_key
-        hashString = storename + str(txndatetime) + str(order.total) + 'ARS' + sharedsecret
+        txndatetimetxt = str(txndatetime.year) + ":" + str(txndatetime.month) + ":" + str(txndatetime.day) + "-" + str(txndatetime.hour) + ":" + str(txndatetime.minute) + ":" + str(txndatetime.second)
+        hashString = storename + str(txndatetimetxt) + str(order.total) + '032' + sharedsecret
         #hashs = binascii.hexlify(hashString.encode())
 
         hash = hashlib.sha256()
@@ -48,7 +49,7 @@ class FiservPaymentMethod(PaymentMethod):
              'url': url,
              'ipg_args': {
                 'timezone' : "America/Buenos_Aires",
-                'txndatetime' : txndatetime,
+                'txndatetime' : txndatetimetxt,
                 'hash' : hash.hexdigest(),
                 'currency' : '032',
                 'mode' : 'fullpay',
