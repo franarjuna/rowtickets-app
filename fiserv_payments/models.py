@@ -41,7 +41,7 @@ class FiservPaymentMethod(PaymentMethod):
         currency = '032'
         sharedsecret = self.api_key
         #txndatetimetxt = str(txndatetime.year) + ":" + str(txndatetime.month) + ":" + str(txndatetime.day) + "-" + str(txndatetime.hour) + ":" + str(txndatetime.minute) + ":" + str(txndatetime.second)
-        txndatetimetxt = txndatetime.strftime("%Y:%m/%d-%H:%M:%S")
+        txndatetimetxt = txndatetime.strftime("%Y:%m:%d-%H:%M:%S")
         hashString = storename + str(txndatetimetxt) + str(order.total) + currency + sharedsecret
         #hashs = binascii.hexlify(hashString.encode())
 
