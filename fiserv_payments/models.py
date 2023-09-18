@@ -3,8 +3,9 @@ import json
 import datetime
 import locale
 import requests
-import binascii
+import hmac
 import hashlib
+import base64
 from urllib.parse import urlparse
 
 from django.conf import settings
@@ -43,11 +44,10 @@ class FiservPaymentMethod(PaymentMethod):
         sharedsecret = self.api_key
         #txndatetimetxt = str(txndatetime.year) + ":" + str(txndatetime.month) + ":" + str(txndatetime.day) + "-" + str(txndatetime.hour) + ":" + str(txndatetime.minute) + ":" + str(txndatetime.second)
         txndatetimetxt = txndatetime.strftime("%Y:%m:%d-%H:%M:%S")
-        hashString = storename + str(txndatetimetxt) + str(order.total) + currency + sharedsecret
+        hashString = storename + "|" +  str(txndatetimetxt) + "|" + str(order.total) + "|" + currency
         #hashs = binascii.hexlify(hashString.encode())
-
-        hash = hashlib.sha256()
-        hash.update(hashString.encode())
+        digest = hmac.new(sharedsecret, msg=hashString, digestmod=hashlib.sha256).digest()
+        signature = base64.b64encode(digest).decode()
 
         response = {
              'url': url,
@@ -56,7 +56,7 @@ class FiservPaymentMethod(PaymentMethod):
                 'timezone' : "America/Buenos_Aires",
                 'txndatetime' : txndatetimetxt,
                 'hash_algorithm' : 'HMACSHA256',
-                'hashExtended' : hash.digest(),
+                'hashExtended' : signature,
                 'currency' : currency,
                 'mode' : 'payonly',
                 'storename' : storename,
