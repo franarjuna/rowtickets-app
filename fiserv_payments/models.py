@@ -46,7 +46,7 @@ class FiservPaymentMethod(PaymentMethod):
         txndatetimetxt = txndatetime.strftime("%Y:%m:%d-%H:%M:%S")
         hashString = storename + "|" +  str(txndatetimetxt) + "|" + str(order.total) + "|" + currency
         #hashs = binascii.hexlify(hashString.encode())
-        digest = hmac.new(sharedsecret, msg=hashString.encode(), digestmod=hashlib.sha256).digest()
+        digest = hmac.new(sharedsecret.encode(), msg=hashString.encode(), digestmod=hashlib.sha256).digest()
         signature = base64.b64encode(digest).decode()
 
         response = {
