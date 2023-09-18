@@ -61,7 +61,6 @@ class FiservPaymentMethod(PaymentMethod):
                 'mode' : 'payonly',
                 'storename' : storename,
                 'chargetotal' : order.total,
-                'language' : 'es_AR',
                 'responseSuccessURL' : f'{settings.FRONTEND_BASE_URL}/ar/compra-exitosa',
                 'responseFailURL' : f'{settings.FRONTEND_BASE_URL}/ar/compra-fail',
                 'transactionNotificationURL' : f'{settings.BACKEND_BASE_URL}/countries/ar/fiserv/ipn/',
