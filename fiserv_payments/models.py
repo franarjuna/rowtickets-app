@@ -68,6 +68,7 @@ class FiservPaymentMethod(PaymentMethod):
                 'chargetotal' : order.total,
              }
         }
+        return response
         """
         response = {
              'url': url,
