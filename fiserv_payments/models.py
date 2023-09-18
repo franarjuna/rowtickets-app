@@ -41,12 +41,15 @@ class FiservPaymentMethod(PaymentMethod):
         txndatetime = datetime.datetime.now()
         storename = self.access_token
         currency = '032'
+        timezone = 'America/Buenos_Aires'
+        responseSuccessURL = f'{settings.FRONTEND_BASE_URL}/ar/compra-exitosa'
+        responseFailURL = f'{settings.FRONTEND_BASE_URL}/ar/compra-fail'
+        ipn = f'{settings.BACKEND_BASE_URL}/countries/ar/fiserv/ipn/'
         sharedsecret = self.api_key
         #txndatetimetxt = str(txndatetime.year) + ":" + str(txndatetime.month) + ":" + str(txndatetime.day) + "-" + str(txndatetime.hour) + ":" + str(txndatetime.minute) + ":" + str(txndatetime.second)
         txndatetimetxt = txndatetime.strftime("%Y:%m:%d-%H:%M:%S")
         #storename + "|" +  str(txndatetimetxt) + + 
-        hashString = str(order.total) + "|" + currency + "|" + order.identifier + "|" + f'{settings.BACKEND_BASE_URL}/countries/ar/fiserv/ipn/' + "|" + f'{settings.FRONTEND_BASE_URL}/ar/compra-fail' + "|" + f'{settings.FRONTEND_BASE_URL}/ar/compra-exitosa' + "|mode|" + storename + "|America/Buenos_Aires|" +  str(txndatetimetxt) + "|sale" 
-        #hashs = binascii.hexlify(hashString.encode())
+        hashString = str(order.total) + "|" + currency + "|" + order.identifier + "|" + responseFailURL + "|" + responseSuccessURL + "|" + storename + "|" + timezone + "|" + ipn + "|" +  str(txndatetimetxt) + "|sale" 
         digest = hmac.new(sharedsecret.encode(), msg=hashString.encode(), digestmod=hashlib.sha256).digest()
         signature = base64.b64encode(digest).decode()
         #chargetotal|currency|paymentMethod|responseFailURL|responseSuccessURL|storename|timezone|tr ansactionNotificationURL|txndatetime|txntype;
@@ -55,14 +58,14 @@ class FiservPaymentMethod(PaymentMethod):
              'ipg_args': {
                 'txntype' : 'sale',
                 'txndatetime' : txndatetimetxt,
-                'timezone' : "America/Buenos_Aires",
+                'timezone' : timezone,
                 'hash_algorithm' : 'HMACSHA256',
                 'hashExtended' : signature,
                 'storename' : storename,
                 'mode' : 'payonly',
-                'responseSuccessURL' : f'{settings.FRONTEND_BASE_URL}/ar/compra-exitosa',
-                'responseFailURL' : f'{settings.FRONTEND_BASE_URL}/ar/compra-fail',
-                'transactionNotificationURL' : f'{settings.BACKEND_BASE_URL}/countries/ar/fiserv/ipn/',
+                'responseSuccessURL' : responseSuccessURL,
+                'responseFailURL' : responseFailURL,
+                'transactionNotificationURL' : ipn,
                 'oid' : order.identifier,
                 'currency' : currency,
                 'chargetotal' : order.total,
