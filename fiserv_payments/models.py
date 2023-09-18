@@ -29,7 +29,8 @@ class FiservPaymentMethod(PaymentMethod):
         response = dict()
 
         # PROD
-        url = "https://www5.ipg-online.com/connect/gateway/processing"
+        #url = "https://www5.ipg-online.com/connect/gateway/processing"
+        url = "https://test.ipg-online.com/connect/gateway/processing"
         
         # DEV
         # response['url'] = "https://test.ipg-online.com/connect/gateway/processing"
@@ -45,18 +46,38 @@ class FiservPaymentMethod(PaymentMethod):
         hashString = storename + str(txndatetimetxt) + str(order.total) + currency + sharedsecret
         #hashs = binascii.hexlify(hashString.encode())
 
-        hash = hashlib.sha1()
+        hash = hashlib.sha256()
         hash.update(hashString.encode())
 
-
+        response = {
+             'url': url,
+             'ipg_args': {
+                'txntype' : 'sale',
+                'timezone' : "America/Buenos_Aires",
+                'txndatetime' : txndatetimetxt,
+                'hash_algorithm' : 'HMACSHA256',
+                'hashExtended' : hash.digest(),
+                'currency' : currency,
+                'mode' : 'payonly',
+                'storename' : storename,
+                'chargetotal' : order.total,
+                'language' : 'es_AR',
+                'responseSuccessURL' : f'{settings.FRONTEND_BASE_URL}/ar/compra-exitosa',
+                'responseFailURL' : f'{settings.FRONTEND_BASE_URL}/ar/compra-fail',
+                'transactionNotificationURL' : f'{settings.BACKEND_BASE_URL}/countries/ar/fiserv/ipn/',
+                'oid' : order.identifier,
+             }
+        }
+        """
         response = {
              'url': url,
              'ipg_args': {
                 'timezone' : "America/Buenos_Aires",
                 'txndatetime' : txndatetimetxt,
+                'hash_algorithm' : 'HMACSHA256',
                 'hash' : hash.hexdigest(),
                 'currency' : currency,
-                'mode' : 'fullpay',
+                'mode' : 'payonly',
                 'storename' : storename,
                 'chargetotal' : order.total,
                 'language' : 'es_AR',
@@ -81,6 +102,7 @@ class FiservPaymentMethod(PaymentMethod):
                 'sname':'',
              }
         }
+             """
         return response
         """
         $ipg_args['bname'] = $order->get_billing_first_name() . ' ' . $order->get_billing_last_name();
