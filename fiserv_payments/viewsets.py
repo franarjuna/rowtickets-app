@@ -45,6 +45,18 @@ class FiservViewSet(viewsets.GenericViewSet):
 
     @action(detail=False, methods=['post'])
     def ipn(self, request, *args, **kwargs):
+        print(request.data)
+        print(kwargs)        
+        payment = get_object_or_404(FiservPayment, checkout_id='2mq8sf1556')
+        FiservIPN.objects.create(
+            payment=payment,
+            data=request.data
+        )
+        FiservIPN.objects.create(
+            payment=payment,
+            data=kwargs
+        )
+        """
         checkout_id = request.data['data']['checkout']['uid']
 
         payment = get_object_or_404(FiservPayment, checkout_id=checkout_id)
@@ -61,5 +73,5 @@ class FiservViewSet(viewsets.GenericViewSet):
                 # Payment status is OK and total matches order, mark order as paid
                 payment.order.status = ORDER_STATUSES['PAID']
                 payment.order.save()
-
+        """
         return Response({})
