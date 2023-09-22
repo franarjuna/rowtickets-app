@@ -48,7 +48,7 @@ class FiservPaymentMethod(PaymentMethod):
         hash_algorithm = 'HMACSHA256'
         sharedsecret = self.api_key
         txndatetimetxt = txndatetime.strftime("%Y:%m:%d-%H:%M:%S")
-        chargetotal = round(order.total*100, 0)
+        chargetotal = round(order.total, 0)
         hashString = str(chargetotal) + "|" + currency + "|" + hash_algorithm + "|payonly|" + order.identifier + "|" + responseFailURL + "|" + responseSuccessURL + "|" + storename + "|" + timezone + "|" + ipn + "|" +  str(txndatetimetxt) + "|sale" 
         digest = hmac.new(sharedsecret.encode(), msg=hashString.encode(), digestmod=hashlib.sha256).digest()
         signature = base64.b64encode(digest).decode()
