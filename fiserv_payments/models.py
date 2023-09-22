@@ -45,14 +45,13 @@ class FiservPaymentMethod(PaymentMethod):
         responseSuccessURL = f'{settings.FRONTEND_BASE_URL}/ar/compra-exitosa'
         responseFailURL = f'{settings.FRONTEND_BASE_URL}/ar/compra-fail'
         ipn = f'{settings.BACKEND_BASE_URL}/countries/ar/fiserv/ipn/'
+        hash_algorithm = 'HMACSHA256'
         sharedsecret = self.api_key
-        #txndatetimetxt = str(txndatetime.year) + ":" + str(txndatetime.month) + ":" + str(txndatetime.day) + "-" + str(txndatetime.hour) + ":" + str(txndatetime.minute) + ":" + str(txndatetime.second)
         txndatetimetxt = txndatetime.strftime("%Y:%m:%d-%H:%M:%S")
-        #storename + "|" +  str(txndatetimetxt) + + 
-        hashString = str(order.total) + "|" + currency + "|" + order.identifier + "|" + responseFailURL + "|" + responseSuccessURL + "|" + storename + "|" + timezone + "|" + ipn + "|" +  str(txndatetimetxt) + "|sale" 
+        hashString = str(order.total) + "|" + currency + "|" + hash_algorithm + "|payonly|" + order.identifier + "|" + responseFailURL + "|" + responseSuccessURL + "|" + storename + "|" + timezone + "|" + ipn + "|" +  str(txndatetimetxt) + "|sale" 
         digest = hmac.new(sharedsecret.encode(), msg=hashString.encode(), digestmod=hashlib.sha256).digest()
         signature = base64.b64encode(digest).decode()
-        #chargetotal|currency|paymentMethod|responseFailURL|responseSuccessURL|storename|timezone|tr ansactionNotificationURL|txndatetime|txntype;
+
         response = {
              'url': url,
              'ipg_args': [
@@ -70,7 +69,7 @@ class FiservPaymentMethod(PaymentMethod):
                  },
                  {
                      'key':'hash_algorithm',
-                     'value': 'HMACSHA256'
+                     'value': hash_algorithm
                  },
                  {
                      'key':'hashExtended',
