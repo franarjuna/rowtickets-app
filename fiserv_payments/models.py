@@ -54,6 +54,7 @@ class FiservPaymentMethod(PaymentMethod):
 
         response = {
              'url': url,
+             'hashString': hashString,
              'ipg_args': [
                  {
                      'key':'txntype',
