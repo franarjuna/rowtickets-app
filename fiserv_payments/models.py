@@ -55,21 +55,60 @@ class FiservPaymentMethod(PaymentMethod):
         #chargetotal|currency|paymentMethod|responseFailURL|responseSuccessURL|storename|timezone|tr ansactionNotificationURL|txndatetime|txntype;
         response = {
              'url': url,
-             'ipg_args': {
-                'txntype' : 'sale',
-                'txndatetime' : txndatetimetxt,
-                'timezone' : timezone,
-                'hash_algorithm' : 'HMACSHA256',
-                'hashExtended' : signature,
-                'storename' : storename,
-                'mode' : 'payonly',
-                'responseSuccessURL' : responseSuccessURL,
-                'responseFailURL' : responseFailURL,
-                'transactionNotificationURL' : ipn,
-                'oid' : order.identifier,
-                'currency' : currency,
-                'chargetotal' : order.total,
-             }
+             'ipg_args': [
+                 {
+                     'key':'txntype',
+                     'value': 'sale'
+                 },
+                 {
+                     'key':'txndatetime',
+                     'value': txndatetimetxt
+                 },
+                 {
+                     'key':'timezone',
+                     'value': timezone
+                 },
+                 {
+                     'key':'hash_algorithm',
+                     'value': 'HMACSHA256'
+                 },
+                 {
+                     'key':'hashExtended',
+                     'value': signature
+                 },
+                 {
+                     'key':'storename',
+                     'value': storename
+                 },
+                 {
+                     'key':'mode',
+                     'value': 'payonly'
+                 },
+                 {
+                     'key':'responseSuccessURL',
+                     'value': responseSuccessURL
+                 },
+                 {
+                     'key':'responseFailURL',
+                     'value': responseFailURL
+                 },
+                 {
+                     'key':'transactionNotificationURL',
+                     'value': ipn
+                 },
+                 {
+                     'key':'oid',
+                     'value': order.identifier
+                 },
+                 {
+                     'key':'currency',
+                     'value': currency
+                 },
+                 {
+                     'key':'chargetotal',
+                     'value': order.total
+                 }
+             ]
         }
         return response
 
