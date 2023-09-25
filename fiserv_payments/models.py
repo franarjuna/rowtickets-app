@@ -53,6 +53,14 @@ class FiservPaymentMethod(PaymentMethod):
         digest = hmac.new(sharedsecret.encode(), msg=hashString.encode(), digestmod=hashlib.sha256).digest()
         signature = base64.b64encode(digest).decode()
 
+        FiservPayment.objects.create(
+            request_data=hashString,
+            response_data=hashString,
+            order=order,
+            payment_method=self,
+            checkout_id=signature
+        )
+
         response = {
              'url': url,
              'hashString': hashString,
