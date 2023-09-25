@@ -58,7 +58,7 @@ class FiservPaymentMethod(PaymentMethod):
             response_data=hashString,
             order=order,
             payment_method=self,
-            checkout_id=signature
+            checkout_id=order.identifier
         )
 
         response = {
