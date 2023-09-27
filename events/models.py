@@ -219,13 +219,17 @@ class Section(AbstractBaseModel,DynamicArrayMixin):
         verbose_name_plural = _('sectores del evento')
         ordering = ('event', 'name')
 
-
 class TicketManager(models.Manager):
     def with_availability(self):
         return self.annotate(
             sold_quantity=Sum(
                 Case(
                     When(order_tickets__order__status__in=[
+                        ORDER_STATUSES['IN_PROGRESS'],
+                        ORDER_STATUSES['ON_TRANSIT'],
+                        ORDER_STATUSES['APPROVED'],
+                        ORDER_STATUSES['RESERVED'],
+                        ORDER_STATUSES['COMPLETED'],
                         ORDER_STATUSES['PENDING_PAYMENT_CONFIRMATION'],
                         ORDER_STATUSES['PAID']
                     ], then='order_tickets__quantity'),
