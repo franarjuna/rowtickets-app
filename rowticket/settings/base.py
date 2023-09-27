@@ -70,6 +70,7 @@ INSTALLED_APPS = [
     'mobbex_payments',
     'fiserv_payments',
     'viumi_payments',
+    'stripe_payments',
     'orders',
     'payments',
     'tncs',
