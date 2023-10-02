@@ -301,6 +301,7 @@ ORDER_STATUSES = {
     'APPROVED': 'approved',
     'RESERVED': 'reserved',
     'PAID': 'paid',
+    'DELIVERED': 'delivered',
     'COMPLETED': 'completed',
     'CANCELLED': 'cancelled'
 }
@@ -311,6 +312,7 @@ ORDER_STATUS_CHOICES = (
     (ORDER_STATUSES['PENDING_PAYMENT_CONFIRMATION'], _('Esperando confirmación de pago')),
     (ORDER_STATUSES['ON_HOLD'], _('A la espera')),
     (ORDER_STATUSES['COMPLETED'], _('Completada')),
+    (ORDER_STATUSES['DELIVERED'], _('Enviada')),
     (ORDER_STATUSES['PAID'], _('Pendiente de validación')),
     (ORDER_STATUSES['ON_TRANSIT'], _('En transito')),
     (ORDER_STATUSES['APPROVED'], _('Aprobada por el vendedor')),

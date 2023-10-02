@@ -210,6 +210,7 @@ class Section(AbstractBaseModel,DynamicArrayMixin):
     sub_section = ArrayField(models.TextField(_('sub-sector')), null=True, blank=True)
     #ArrayField(_('sub-sector'), help_text="This is the grey text", default='', blank=True)
     color = ColorField(verbose_name=_('color'))
+    allow_row  = models.BooleanField(_('admite fila?'),default=True, blank=False, null=False)
 
     def __str__(self):
         return self.name

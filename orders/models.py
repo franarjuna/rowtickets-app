@@ -132,6 +132,11 @@ def send_tracking_email(sender, instance, **kwargs):
                 send_mail('seller_completed', _('Venta Completada'), context, seller.email)
                 send_mail('buyer_completed', _('Tu Ticket ha sido entregado!'), context_buyer, buyer.email)
             
+            elif instance.status == 'delivered':
+                #
+                send_mail('seller_on_transit', _('En Tránsito'),  context, seller.email)
+                send_mail('buyer_on_transit', _('Tu Ticket está en camino!'), context_buyer,  buyer.email)
+            
             elif instance.status == 'on_transit':
                 send_mail('seller_on_transit', _('En Tránsito'),  context, seller.email)
                 send_mail('buyer_on_transit', _('Tu Ticket está en camino!'), context_buyer,  buyer.email)
