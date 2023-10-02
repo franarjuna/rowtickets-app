@@ -111,7 +111,7 @@ class SoldViewSet(mixins.RetrieveModelMixin, mixins.ListModelMixin, viewsets.Gen
         return OrderTicketListSerializer
 
     def list(self, request, *args, **kwargs):
-        queryset = OrderTicket.objects.filter(ticket__seller=request.user, status__in=['paid','reserved','approved','completed']).exclude(order__status='cancelled')
+        queryset = OrderTicket.objects.filter(ticket__seller=request.user, order__status__in=['paid','reserved','approved','completed']).exclude(order__status='cancelled')
 
         serializer = self.get_serializer(queryset, many=True)
         response = {
