@@ -36,7 +36,7 @@ class SectionSerializer(serializers.ModelSerializer):
     event = EventSerializer()
     class Meta:
         model = Section
-        fields = ('id','identifier','name', 'color', 'event', 'sub_section')
+        fields = ('id','identifier','name', 'color', 'event', 'sub_section', 'allow_row')
 
 class OrganizerSerializer(serializers.ModelSerializer):
     class Meta:
