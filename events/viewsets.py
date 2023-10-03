@@ -89,7 +89,7 @@ class EventViewSet(mixins.RetrieveModelMixin, mixins.ListModelMixin, viewsets.Ge
         return Response(response)
 
 
-class TicketViewSet(viewsets.ViewSet, mixins.UpdateModelMixin):
+class TicketViewSet(mixins.RetrieveModelMixin, mixins.ListModelMixin, mixins.CreateModelMixin, viewsets.GenericViewSet, mixins.UpdateModelMixin):
     queryset = Ticket.objects.with_availability().all()
     serializer_class = TicketSerializer
     lookup_field = 'identifier'
