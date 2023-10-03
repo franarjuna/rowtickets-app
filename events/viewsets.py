@@ -48,7 +48,7 @@ class EventViewSet(mixins.RetrieveModelMixin, mixins.ListModelMixin, viewsets.Ge
             queryset = queryset.prefetch_related(
                 Prefetch(
                     'tickets',
-                    queryset=Ticket.objects.with_availability().order_by('price').filter(available_quantity__gt=0)
+                    queryset=Ticket.objects.with_availability().order_by('price').filter(available_quantity__gt=0, status=True)
                 ),
                 'tickets__section'
             )
@@ -89,7 +89,7 @@ class EventViewSet(mixins.RetrieveModelMixin, mixins.ListModelMixin, viewsets.Ge
         return Response(response)
 
 
-class TicketViewSet(viewsets.ModelViewSet, mixins.UpdateModelMixin):
+class TicketViewSet(viewsets.ViewSet, mixins.UpdateModelMixin):
     queryset = Ticket.objects.with_availability().all()
     serializer_class = TicketSerializer
     lookup_field = 'identifier'
@@ -128,7 +128,6 @@ class TicketViewSet(viewsets.ModelViewSet, mixins.UpdateModelMixin):
         )
 
         serializer_create = TicketCreateSerializer(ticket)
-        print(serializer_create)
         headers = self.get_success_headers(serializer_create.data)
         # Return a response
         return Response(serializer.data, status=status.HTTP_201_CREATED, headers=headers)
