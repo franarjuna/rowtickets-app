@@ -121,7 +121,7 @@ msgstr ""
 #: .\emails\templates\emails\base.html:15
 #: .\emails\templates\emails\base.html:70 .\emails\templates\emails\base.txt:2
 msgid "ROW Ticket Argentina"
-msgstr "ROW Ticket Chile"
+msgstr ""
 
 #: .\emails\templates\emails\buyer_completed.html:5
 #, python-format
@@ -227,7 +227,7 @@ msgstr ""
 #: .\emails\templates\emails\signup.txt:8
 #, python-format
 msgid "Hola %(user_name)s,"
-msgstr "Hola %(user_name)s,"
+msgstr ""
 
 #: .\emails\templates\emails\seller_paid.html:11
 #: .\emails\templates\emails\seller_pending_payment.html:11
@@ -254,12 +254,12 @@ msgstr ""
 #: .\emails\templates\emails\signup.html:17
 #: .\emails\templates\emails\signup.txt:12
 msgid "Esperamos verte pronto."
-msgstr "Esperamos verte pronto."
+msgstr ""
 
 #: .\emails\templates\emails\signup.html:4
 #: .\emails\templates\emails\signup.txt:5
 msgid "Bienvenido a ROW Ticket Argentina"
-msgstr "¡Bienvenido a ROW Ticket Chile!"
+msgstr ""
 
 #: .\emails\templates\emails\signup.html:11
 msgid ""
@@ -275,8 +275,6 @@ msgid ""
 "Gracias por crear una cuenta en ROW Ticket Argentina. Podés acceder al área "
 "de tu cuenta para ver pedidos, cambiar tu contraseña y más en:"
 msgstr ""
-"Gracias por crear una cuenta en ROW Ticket Chile. Podés acceder al área de "
-"tu cuenta para ver pedidos, cambiar tu contraseña y más en:"
 
 #: .\events\models.py:19
 msgid "Azul"
@@ -991,10 +989,8 @@ msgid "Portugues"
 msgstr ""
 
 #: .\rowticket\settings\base.py:185
-#, fuzzy
-#| msgid "<ROW Ticket Argentina> info@rowticket.com"
 msgid "ROW Ticket Argentina <row@claveglobal.com>"
-msgstr "<ROW Ticket Chile> info@rowticket.com"
+msgstr ""
 
 #: .\rowticket\settings\base.py:311
 msgid "En proceso"
@@ -1166,7 +1162,7 @@ msgstr ""
 
 #: .\users\models.py:126
 msgid "Ya existe un usuario con este email"
-msgstr "Ya existe un usuario con este email"
+msgstr ""
 
 #: .\users\models.py:137
 msgid "usuario"
@@ -1178,11 +1174,11 @@ msgstr ""
 
 #: .\users\models.py:151
 msgid "¡Se ha creado tu cuenta en ROW Ticket Argentina!"
-msgstr "¡Se ha creado tu cuenta en ROW Ticket Chile!"
+msgstr ""
 
 #: .\users\serializers.py:31
 msgid "Ya existe un usuario con este email."
-msgstr "Ya existe un usuario con este email"
+msgstr ""
 
 #: .\users\serializers.py:41
 msgid "Las dos contraseñas no coinciden"
@@ -1211,16 +1207,3 @@ msgstr ""
 #: .\viumi_payments\models.py:134
 msgid "IPNs Viumi"
 msgstr ""
-
-#~ msgid ""
-#~ "\n"
-#~ "    Gracias por crear una cuenta en ROW Ticket Argentina. Podés acceder "
-#~ "al área de tu cuenta para ver pedidos, cambiar \n"
-#~ "    tu contraseña y más en:\n"
-#~ "    "
-#~ msgstr ""
-#~ "\n"
-#~ "    Gracias por crear una cuenta en ROW Ticket Chile. Puedes acceder al "
-#~ "área de tu cuenta para ver pedidos, cambiar \n"
-#~ "    tu contraseña y más en:\n"
-#~ "    "

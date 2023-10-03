@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-08-08 20:01-0300\n"
+"POT-Creation-Date: 2023-10-03 11:44-0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -153,7 +153,7 @@ msgstr ""
 #, python-format
 msgid ""
 "\n"
-"    <h2>[Orden %(order_number)s]</h2>\n"
+"    <h2>[Orden #%(order_number)s]</h2>\n"
 "    \n"
 "    <p style=\"color: #ffffff;\">Felicitaciones, tu entrada está en camino! "
 "Cuando ya la tengas asegurate de disfrutar!!</p>\n"
@@ -161,6 +161,7 @@ msgid ""
 "    "
 msgstr ""
 
+#: .\emails\templates\emails\buyer_paid.html:6
 #: .\emails\templates\emails\buyer_reserved.html:6
 #, python-format
 msgid ""
@@ -221,6 +222,7 @@ msgid ""
 "<p style=\"color: #ffffff;\">Muchas gracias por vender en Rowticket!</p>\n"
 msgstr ""
 
+#: .\emails\templates\emails\seller_paid.html:8
 #: .\emails\templates\emails\seller_pending_payment.html:8
 #: .\emails\templates\emails\signup.html:8
 #: .\emails\templates\emails\signup.txt:8
@@ -228,6 +230,7 @@ msgstr ""
 msgid "Hola %(user_name)s,"
 msgstr ""
 
+#: .\emails\templates\emails\seller_paid.html:11
 #: .\emails\templates\emails\seller_pending_payment.html:11
 #, python-format
 msgid ""
@@ -247,6 +250,7 @@ msgid ""
 "    "
 msgstr ""
 
+#: .\emails\templates\emails\seller_paid.html:29
 #: .\emails\templates\emails\seller_pending_payment.html:29
 #: .\emails\templates\emails\signup.html:17
 #: .\emails\templates\emails\signup.txt:12
@@ -261,9 +265,9 @@ msgstr ""
 #: .\emails\templates\emails\signup.html:11
 msgid ""
 "\n"
-"    Gracias por crear una cuenta en ROW Ticket Argentina. Podés acceder al "
-"área de tu cuenta para ver pedidos, cambiar \n"
-"    tu contraseña y más en:\n"
+"    Bienvenido a RowTicket, el sitio preferido para comprar y vender "
+"entradas. Garantizamos y aseguramos el intercambio de tickets entre "
+"compradores y vendedores !\n"
 "    "
 msgstr ""
 
@@ -427,7 +431,7 @@ msgid "Seleccione una sede para el evento presencial"
 msgstr ""
 
 #: .\events\models.py:159 .\events\models.py:166 .\events\models.py:187
-#: .\events\models.py:207 .\events\models.py:243 .\homepages\models.py:77
+#: .\events\models.py:207 .\events\models.py:248 .\homepages\models.py:77
 msgid "evento"
 msgstr ""
 
@@ -435,7 +439,7 @@ msgstr ""
 msgid "eventos"
 msgstr ""
 
-#: .\events\models.py:169 .\events\models.py:190 .\events\models.py:264
+#: .\events\models.py:169 .\events\models.py:190 .\events\models.py:269
 #: .\homepages\models.py:87
 msgid "imagen"
 msgstr ""
@@ -468,63 +472,67 @@ msgstr ""
 msgid "sub-sector"
 msgstr ""
 
-#: .\events\models.py:218 .\events\models.py:219
+#: .\events\models.py:213
+msgid "admite fila?"
+msgstr ""
+
+#: .\events\models.py:219 .\events\models.py:220
 msgid "sectores del evento"
 msgstr ""
 
-#: .\events\models.py:246
+#: .\events\models.py:251
 msgid "vendedor"
 msgstr ""
 
-#: .\events\models.py:249
+#: .\events\models.py:254
 msgid "sector"
 msgstr ""
 
-#: .\events\models.py:250
+#: .\events\models.py:255
 msgid "subsector"
 msgstr ""
 
-#: .\events\models.py:251 .\orders\models.py:145
+#: .\events\models.py:256 .\orders\models.py:162
 msgid "precio final"
 msgstr ""
 
-#: .\events\models.py:252 .\orders\models.py:146
+#: .\events\models.py:257 .\orders\models.py:163
 msgid "precio"
 msgstr ""
 
-#: .\events\models.py:253
+#: .\events\models.py:258
 msgid "tipo de entrada"
 msgstr ""
 
-#: .\events\models.py:254
+#: .\events\models.py:259
 msgid "fila"
 msgstr ""
 
-#: .\events\models.py:255
+#: .\events\models.py:260
 msgid "listo para enviar"
 msgstr ""
 
-#: .\events\models.py:256
+#: .\events\models.py:261
 msgid "dia de disponibilidad"
 msgstr ""
 
-#: .\events\models.py:257
+#: .\events\models.py:262
 msgid "información extra"
 msgstr ""
 
-#: .\events\models.py:258 .\orders\models.py:144
+#: .\events\models.py:263 .\orders\models.py:161
 msgid "cantidad"
 msgstr ""
 
-#: .\events\models.py:260
+#: .\events\models.py:265
 msgid "condición de venta"
 msgstr ""
 
-#: .\events\models.py:262
+#: .\events\models.py:267
 msgid "status"
 msgstr ""
 
-#: .\events\models.py:272 .\events\models.py:273
+#: .\events\models.py:277 .\events\models.py:278
 msgid "entradas"
 msgstr ""
 
@@ -544,68 +552,72 @@ msgstr ""
 msgid "preguntas frecuentes"
 msgstr ""
 
-#: .\fiserv_payments\models.py:18 .\mobbex_payments\models.py:18
-#: .\viumi_payments\models.py:18
-msgid "API Key"
+#: .\fiserv_payments\models.py:23
+msgid "Shared Secret"
 msgstr ""
 
-#: .\fiserv_payments\models.py:19 .\mercadopago_payments\models.py:15
-#: .\mobbex_payments\models.py:19 .\viumi_payments\models.py:19
-msgid "Access token"
+#: .\fiserv_payments\models.py:24
+msgid "Store name"
 msgstr ""
 
-#: .\fiserv_payments\models.py:20 .\mobbex_payments\models.py:20
-#: .\viumi_payments\models.py:20
+#: .\fiserv_payments\models.py:25 .\mobbex_payments\models.py:20
+#: .\stripe_payments\models.py:20 .\viumi_payments\models.py:20
 msgid "modo test"
 msgstr ""
 
-#: .\fiserv_payments\models.py:88
+#: .\fiserv_payments\models.py:125
 msgid "Método de pago Fiserv"
 msgstr ""
 
-#: .\fiserv_payments\models.py:89
+#: .\fiserv_payments\models.py:126
 msgid "Métodos de pago Fiserv"
 msgstr ""
 
-#: .\fiserv_payments\models.py:94 .\mobbex_payments\models.py:94
-#: .\orders\models.py:51 .\orders\models.py:139 .\viumi_payments\models.py:94
+#: .\fiserv_payments\models.py:131 .\mercadopago_payments\models.py:105
+#: .\mobbex_payments\models.py:94 .\orders\models.py:51 .\orders\models.py:156
+#: .\stripe_payments\models.py:104 .\viumi_payments\models.py:104
 msgid "compra"
 msgstr ""
 
-#: .\fiserv_payments\models.py:98 .\mobbex_payments\models.py:98
-#: .\viumi_payments\models.py:98
+#: .\fiserv_payments\models.py:135 .\mercadopago_payments\models.py:109
+#: .\mobbex_payments\models.py:98 .\stripe_payments\models.py:108
+#: .\viumi_payments\models.py:108
 msgid "medio de pago"
 msgstr ""
 
-#: .\fiserv_payments\models.py:102 .\fiserv_payments\models.py:120
+#: .\fiserv_payments\models.py:139 .\fiserv_payments\models.py:157
+#: .\mercadopago_payments\models.py:113 .\mercadopago_payments\models.py:132
 #: .\mobbex_payments\models.py:102 .\mobbex_payments\models.py:120
-#: .\viumi_payments\models.py:102 .\viumi_payments\models.py:120
+#: .\stripe_payments\models.py:112 .\stripe_payments\models.py:130
+#: .\viumi_payments\models.py:112 .\viumi_payments\models.py:130
 msgid "data (request)"
 msgstr ""
 
-#: .\fiserv_payments\models.py:103 .\mobbex_payments\models.py:103
-#: .\viumi_payments\models.py:103
+#: .\fiserv_payments\models.py:140 .\mercadopago_payments\models.py:114
+#: .\mobbex_payments\models.py:103 .\stripe_payments\models.py:113
+#: .\viumi_payments\models.py:113
 msgid "data (response)"
 msgstr ""
 
-#: .\fiserv_payments\models.py:104 .\mobbex_payments\models.py:104
-#: .\viumi_payments\models.py:104
+#: .\fiserv_payments\models.py:141 .\mercadopago_payments\models.py:115
+#: .\mobbex_payments\models.py:104 .\stripe_payments\models.py:114
+#: .\viumi_payments\models.py:114
 msgid "checkout ID"
 msgstr ""
 
-#: .\fiserv_payments\models.py:110 .\fiserv_payments\models.py:117
+#: .\fiserv_payments\models.py:147 .\fiserv_payments\models.py:154
 msgid "Pago Fiserv"
 msgstr ""
 
-#: .\fiserv_payments\models.py:111
+#: .\fiserv_payments\models.py:148
 msgid "Pagos Fiserv"
 msgstr ""
 
-#: .\fiserv_payments\models.py:123
+#: .\fiserv_payments\models.py:160
 msgid "IPN Fiserv"
 msgstr ""
 
-#: .\fiserv_payments\models.py:124
+#: .\fiserv_payments\models.py:161
 msgid "IPNs Fiserv"
 msgstr ""
 
@@ -709,16 +721,40 @@ msgstr ""
 msgid "slides"
 msgstr ""
 
-#: .\mercadopago_payments\models.py:16
+#: .\mercadopago_payments\models.py:16 .\mobbex_payments\models.py:19
+msgid "Access token"
+msgstr ""
+
+#: .\mercadopago_payments\models.py:17
 msgid "Public key"
 msgstr ""
 
-#: .\mercadopago_payments\models.py:71
+#: .\mercadopago_payments\models.py:98
 msgid "Método de pago Mercado Pago"
 msgstr ""
 
-#: .\mercadopago_payments\models.py:72
+#: .\mercadopago_payments\models.py:99
 msgid "Métodos de pago Mercado Pago"
+msgstr ""
+
+#: .\mercadopago_payments\models.py:121 .\mercadopago_payments\models.py:129
+msgid "Pago MercadoPago"
+msgstr ""
+
+#: .\mercadopago_payments\models.py:122
+msgid "Pagos MercadoPago"
+msgstr ""
+
+#: .\mercadopago_payments\models.py:135
+msgid "IPN MercadoPago"
+msgstr ""
+
+#: .\mercadopago_payments\models.py:136
+msgid "IPNs MercadoPago"
+msgstr ""
+
+#: .\mobbex_payments\models.py:18
+msgid "API Key"
 msgstr ""
 
 #: .\mobbex_payments\models.py:88
@@ -777,7 +813,7 @@ msgstr ""
 msgid "subtotal de tickets"
 msgstr ""
 
-#: .\orders\models.py:43 .\orders\models.py:148
+#: .\orders\models.py:43 .\orders\models.py:165
 msgid "subtotal por cargo de servicio"
 msgstr ""
 
@@ -789,80 +825,91 @@ msgstr ""
 msgid "compras"
 msgstr ""
 
-#: .\orders\models.py:67
+#: .\orders\models.py:76
 msgid "Sector"
 msgstr ""
 
-#: .\orders\models.py:72
+#: .\orders\models.py:81
 msgid "Fila"
 msgstr ""
 
-#: .\orders\models.py:81
+#: .\orders\models.py:90
 msgid "Producto"
 msgstr ""
 
-#: .\orders\models.py:82
+#: .\orders\models.py:91
 msgid "Cantidad"
 msgstr ""
 
-#: .\orders\models.py:83
+#: .\orders\models.py:92
 msgid "Precio"
 msgstr ""
 
-#: .\orders\models.py:84
+#: .\orders\models.py:93
 msgid "Total"
 msgstr ""
 
-#: .\orders\models.py:111 .\orders\models.py:114 .\orders\models.py:115
-#: .\orders\models.py:118
+#: .\orders\models.py:120 .\orders\models.py:123
 msgid "¡ Tenemos un posible Comprador para tus entradas !"
 msgstr ""
 
-#: .\orders\models.py:121
-msgid "Venta Completada"
+#: .\orders\models.py:124 .\orders\models.py:129
+msgid "¡ Gracias por tu compra !"
 msgstr ""
 
-#: .\orders\models.py:122
-msgid "Tu Ticket ha sido entregado!"
-msgstr ""
-
-#: .\orders\models.py:125
-msgid "En Tránsito"
-msgstr ""
-
-#: .\orders\models.py:126
-msgid "Tu Ticket está en camino!"
-msgstr ""
-
-#: .\orders\models.py:129
-msgid "Tu Ticket está reservado!"
+#: .\orders\models.py:125 .\orders\models.py:126
+msgid "Se registro una nueva compra"
 msgstr ""
 
 #: .\orders\models.py:132
+msgid "Venta Completada"
+msgstr ""
+
+#: .\orders\models.py:133
+msgid "Tu Ticket ha sido entregado!"
+msgstr ""
+
+#: .\orders\models.py:137 .\orders\models.py:141
+msgid "En Tránsito"
+msgstr ""
+
+#: .\orders\models.py:138 .\orders\models.py:142
+msgid "Tu Ticket está en camino!"
+msgstr ""
+
+#: .\orders\models.py:145
+msgid "Tu Ticket está reservado!"
+msgstr ""
+
+#: .\orders\models.py:148
 msgid "Lamentablemente una de tus ventas se ha Cancelado."
 msgstr ""
 
-#: .\orders\models.py:142
-msgid "ticket"
-msgstr ""
-
-#: .\orders\models.py:147
-msgid "subtotal"
-msgstr ""
-
-#: .\orders\models.py:151
-msgid "ticket de compra"
-msgstr ""
-
-#: .\orders\models.py:152
-msgid "tickets de compra"
-msgstr ""
-
-#: .\orders\models.py:158
-msgid "Liquidacion vendedor"
+#: .\orders\models.py:149
+msgid "Se canceló una compra"
 msgstr ""
 
 #: .\orders\models.py:159
+msgid "ticket"
+msgstr ""
+
+#: .\orders\models.py:164
+msgid "subtotal"
+msgstr ""
+
+#: .\orders\models.py:168
+msgid "ticket de compra"
+msgstr ""
+
+#: .\orders\models.py:169
+msgid "tickets de compra"
+msgstr ""
+
+#: .\orders\models.py:175
+msgid "Liquidacion vendedor"
+msgstr ""
+
+#: .\orders\models.py:176
 msgid "Liquidaciones vendedor"
 msgstr ""
 
@@ -918,56 +965,104 @@ msgstr ""
 msgid "Ya existe otro ítem con este nombre en URL para este país"
 msgstr ""
 
-#: .\rowticket\settings\base.py:126
+#: .\rowticket\settings\base.py:127
 msgid "Argentina"
 msgstr ""
 
-#: .\rowticket\settings\base.py:127
+#: .\rowticket\settings\base.py:128
 msgid "Chile"
 msgstr ""
 
-#: .\rowticket\settings\base.py:128
+#: .\rowticket\settings\base.py:129
 msgid "Brasil"
 msgstr ""
 
-#: .\rowticket\settings\base.py:141
+#: .\rowticket\settings\base.py:142
 msgid "Español (Argentina)"
 msgstr ""
 
-#: .\rowticket\settings\base.py:142
+#: .\rowticket\settings\base.py:143
 msgid "Español (Chile)"
 msgstr ""
 
-#: .\rowticket\settings\base.py:143
+#: .\rowticket\settings\base.py:144
 msgid "Portugues"
 msgstr ""
 
-#: .\rowticket\settings\base.py:184
-msgid "ROW Ticket Argentina <info@rowticket.com>"
-msgstr ""
-
-#: .\rowticket\settings\base.py:307
-msgid "En proceso"
-msgstr ""
-
-#: .\rowticket\settings\base.py:308
-msgid "Esperando confirmación de pago"
-msgstr ""
-
-#: .\rowticket\settings\base.py:309
-msgid "A la espera"
-msgstr ""
-
-#: .\rowticket\settings\base.py:310
-msgid "Completada"
+#: .\rowticket\settings\base.py:185
+msgid "ROW Ticket Argentina <row@claveglobal.com>"
 msgstr ""
 
 #: .\rowticket\settings\base.py:311
-msgid "Paga"
+msgid "En proceso"
 msgstr ""
 
 #: .\rowticket\settings\base.py:312
+msgid "Esperando confirmación de pago"
+msgstr ""
+
+#: .\rowticket\settings\base.py:313
+msgid "A la espera"
+msgstr ""
+
+#: .\rowticket\settings\base.py:314
+msgid "Completada"
+msgstr ""
+
+#: .\rowticket\settings\base.py:315
+msgid "Enviada"
+msgstr ""
+
+#: .\rowticket\settings\base.py:316
+msgid "Pendiente de validación"
+msgstr ""
+
+#: .\rowticket\settings\base.py:317
+msgid "En transito"
+msgstr ""
+
+#: .\rowticket\settings\base.py:318
+msgid "Aprobada por el vendedor"
+msgstr ""
+
+#: .\rowticket\settings\base.py:319
+msgid "Reservada"
+msgstr ""
+
+#: .\rowticket\settings\base.py:320
 msgid "Cancelada"
+msgstr ""
+
+#: .\stripe_payments\models.py:18 .\viumi_payments\models.py:18
+msgid "ID Cliente"
+msgstr ""
+
+#: .\stripe_payments\models.py:19 .\viumi_payments\models.py:19
+msgid "Client Secret"
+msgstr ""
+
+#: .\stripe_payments\models.py:98
+msgid "Método de pago Stripe"
+msgstr ""
+
+#: .\stripe_payments\models.py:99
+msgid "Métodos de pago Stripe"
+msgstr ""
+
+#: .\stripe_payments\models.py:120 .\stripe_payments\models.py:127
+msgid "Pago Stripe"
+msgstr ""
+
+#: .\stripe_payments\models.py:121
+msgid "Pagos Stripe"
+msgstr ""
+
+#: .\stripe_payments\models.py:133
+msgid "IPN Stripe"
+msgstr ""
+
+#: .\stripe_payments\models.py:134
+msgid "IPNs Stripe"
 msgstr ""
 
 #: .\tncs\models.py:10
@@ -1090,26 +1185,26 @@ msgstr ""
 msgid "Las dos contraseñas no coinciden"
 msgstr ""
 
-#: .\viumi_payments\models.py:88
+#: .\viumi_payments\models.py:98
 msgid "Método de pago Viumi"
 msgstr ""
 
-#: .\viumi_payments\models.py:89
+#: .\viumi_payments\models.py:99
 msgid "Métodos de pago Viumi"
 msgstr ""
 
-#: .\viumi_payments\models.py:110 .\viumi_payments\models.py:117
+#: .\viumi_payments\models.py:120 .\viumi_payments\models.py:127
 msgid "Pago Viumi"
 msgstr ""
 
-#: .\viumi_payments\models.py:111
+#: .\viumi_payments\models.py:121
 msgid "Pagos Viumi"
 msgstr ""
 
-#: .\viumi_payments\models.py:123
+#: .\viumi_payments\models.py:133
 msgid "IPN Viumi"
 msgstr ""
 
-#: .\viumi_payments\models.py:124
+#: .\viumi_payments\models.py:134
 msgid "IPNs Viumi"
 msgstr ""
