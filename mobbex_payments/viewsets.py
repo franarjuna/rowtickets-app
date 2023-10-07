@@ -65,12 +65,12 @@ class MobbexViewSet(viewsets.GenericViewSet):
 
             elif payment_data['status']['code'] == '400':
                 #cancelada
-                payment.order.status = ORDER_STATUSES['CANCELLED']
+                payment.order.status = ORDER_STATUSES['REJECTED']
                 payment.order.save()
 
             elif payment_data['status']['code'] == '401' or payment_data['status']['code'] == '402':
                 #abandonada
-                payment.order.status = ORDER_STATUSES['CANCELLED']
+                payment.order.status = ORDER_STATUSES['REJECTED']
                 payment.order.save()
 
         return Response({})

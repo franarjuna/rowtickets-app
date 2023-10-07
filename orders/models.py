@@ -126,7 +126,7 @@ def send_tracking_email(sender, instance, **kwargs):
                 send_mail('buyer_paid', _('Se registro una nueva compra'), context_buyer, 'rowticket@gmail.com')
             
             elif instance.status == 'confirmed':
-                send_mail('buyer_confirmed', _('¡ Gracias por tu compra !'), context_buyer, buyer.email)
+                send_mail('buyer_confirmed', _('¡ Tu ticket esta confirmado !'), context_buyer, buyer.email)
             
             elif instance.status == 'completed':
                 send_mail('seller_completed', _('Venta Completada'), context, seller.email)
@@ -143,8 +143,9 @@ def send_tracking_email(sender, instance, **kwargs):
 
             elif instance.status == 'reserved':
                 send_mail('buyer_reserved', _('Tu Ticket está reservado!'), context_buyer, buyer.email)
+                send_mail('seller_reserved', _('Vendiste tus entradas ! Felicitaciones'), context_buyer, buyer.email)
             
-            elif instance.status == 'cancelled':
+            elif instance.status == 'rejected':
                 send_mail('seller_cancelled', _('Lamentablemente una de tus ventas se ha Cancelado.'), context, seller.email)
                 send_mail('seller_cancelled', _('Se canceló una compra'), context_buyer, 'mvigo@rowticket.com')
 

@@ -1,0 +1,45 @@
+{% extends "emails/base.html" %}
+{% load i18n %}
+
+{% block content %}
+  <h2>[Orden {{ order_number }}]</h2>
+  
+  <p style="margin: 0 0 16px;">
+    {% blocktranslate with user_name=user.first_name %}Hola {{ user_name }},{% endblocktranslate %}
+  </p>
+  <p style="margin: 0 0 16px;">
+    {% blocktranslate with mail_nombre_evento=mail_nombre_evento %}	
+    Tus entradas para {{ mail_nombre_evento }} fueron vendidas.<br><br>
+
+    ESTO ES LO QUE TENES QUE HACER A CONTINUACIÓN:<br><br>
+    
+    Confirma que tenés las entradas haciendo <a href="{{ my_account_url }}">clic acá.</a>. Tenés que confirmar esta
+    venta en las próximas 48 horas.<br><br>
+    
+    Si todavía no recibiste las entradas, seguís pudiendo confirmar la venta siempre
+    y cuando puedas darle al comprador las mismas entradas que pusiste a la venta
+    y a tiempo para el evento.<br><br>
+    
+    Recordá: si no confirmas la venta en las próximas 48 horas, nos
+    reservamos el derecho de cobrarte los gastos incurridos al no completar el
+    pedido.<br><br>
+    
+    Si ya no podes entregar las entradas que pusiste a la venta, avisanos en un
+    plazo de 48 horas haciendo <a href="mailto:info@rowticket.com">clic acá.</a><br><br>
+    
+    Si las entradas se han enviado correctamente, podés esperar recibir el pago por
+    esta venta 8 días laborales después de la fecha del evento. Esto nos permite
+    comprobar que el comprador ha ingresado al evento sin problemas. Si tenés
+    más preguntas sobre tu pago, hacé <a href="mailto:info@rowticket.com">clic acá.</a><br><br>
+    
+    {% endblocktranslate %}
+    <a href="{{ my_account_url }}" rel="nofollow" style="color: #feb12a; font-weight: normal; text-decoration: underline;">{{ my_account_url }}</a>
+  </p>
+  <p>
+    {{ product_detail }}
+  </p>
+  
+  {% include 'emails/product_table.html' with details=details  %}
+
+  <p style="margin: 0 0 16px;">{% translate "Esperamos verte pronto." %}</p>
+{% endblock %}

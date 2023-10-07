@@ -61,7 +61,7 @@ class MercadoPagoViewSet(viewsets.GenericViewSet):
                 payment.order.save()
             elif(payment['status'] == 'cancelled'):
                 payment = get_object_or_404(MercadoPagoPayment, checkout_id=merchant_detail['response']['preference_id'])
-                payment.order.status = ORDER_STATUSES['CANCELLED']
+                payment.order.status = ORDER_STATUSES['REJECTED']
                 payment.order.save()
 
         

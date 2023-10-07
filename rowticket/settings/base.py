@@ -303,6 +303,7 @@ ORDER_STATUSES = {
     'PAID': 'paid',
     'DELIVERED': 'delivered',
     'COMPLETED': 'completed',
+    'REJECTED': 'rejected',
     'CANCELLED': 'cancelled'
 }
 
@@ -317,5 +318,6 @@ ORDER_STATUS_CHOICES = (
     (ORDER_STATUSES['ON_TRANSIT'], _('En transito')),
     (ORDER_STATUSES['APPROVED'], _('Aprobada por el vendedor')),
     (ORDER_STATUSES['RESERVED'], _('Reservada')),
+    (ORDER_STATUSES['REJECTED'], _('Rechazada')),
     (ORDER_STATUSES['CANCELLED'], _('Cancelada'))
 )

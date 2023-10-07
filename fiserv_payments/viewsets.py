@@ -57,7 +57,7 @@ class FiservViewSet(viewsets.GenericViewSet):
             payment.order.save()
         #elif request.data['processor_response_code'] == '00':
         else: 
-            payment.order.status = ORDER_STATUSES['CANCELLED']
+            payment.order.status = ORDER_STATUSES['REJECTED']
             payment.order.save()
 
         return Response({})
