@@ -64,6 +64,7 @@ class EventViewSet(mixins.RetrieveModelMixin, mixins.ListModelMixin, viewsets.Ge
     def list(self, request, *args, **kwargs):
         queryset = self.filter_queryset(self.get_queryset())
 
+        category_slug = request.GET.get('category', None)
         highlighted_count = request.GET.get('highlighted', None)
         highlighted_events = None
 
@@ -74,6 +75,9 @@ class EventViewSet(mixins.RetrieveModelMixin, mixins.ListModelMixin, viewsets.Ge
                 highlighted_events = queryset.filter(highlighted=True)[:highlighted_count]
 
                 # queryset = queryset.exclude(id__in=highlighted_events.values_list('id', flat=True))
+
+        if category_slug != '':
+            queryset = queryset.filter(category__slug=category_slug)
 
         serializer = self.get_serializer(queryset, many=True)
 
