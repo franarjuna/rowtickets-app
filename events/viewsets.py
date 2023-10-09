@@ -78,13 +78,13 @@ class EventViewSet(mixins.RetrieveModelMixin, mixins.ListModelMixin, viewsets.Ge
 
                 # queryset = queryset.exclude(id__in=highlighted_events.values_list('id', flat=True))
 
-        if category_slug != '':
-            queryset = queryset.filter(category__slug=category_slug)
+        if category_slug != None:
+            queryset = queryset.filter(category__slug=str(category_slug))
 
-        if organizer_slug != '':
-            queryset = queryset.filter(organizer__slug=organizer_slug)
+        if organizer_slug != None:
+            queryset = queryset.filter(organizer__slug=str(organizer_slug))
 
-        if venue_slug != '':
+        if venue_slug != None:
             queryset = queryset.filter(venue__slug=venue_slug)
 
         serializer = self.get_serializer(queryset, many=True)
@@ -92,7 +92,6 @@ class EventViewSet(mixins.RetrieveModelMixin, mixins.ListModelMixin, viewsets.Ge
         response = {
             'events': serializer.data
         }
-
         if highlighted_events is not None:
             response['highlighted_events'] = EventListingSerializer(
                 highlighted_events, many=True, context={ 'request': self.request }
