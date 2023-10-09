@@ -65,6 +65,8 @@ class EventViewSet(mixins.RetrieveModelMixin, mixins.ListModelMixin, viewsets.Ge
         queryset = self.filter_queryset(self.get_queryset())
 
         category_slug = request.GET.get('category', None)
+        venue_slug = request.GET.get('venue', None)
+        organizer_slug = request.GET.get('organizer', None)
         highlighted_count = request.GET.get('highlighted', None)
         highlighted_events = None
 
@@ -78,6 +80,12 @@ class EventViewSet(mixins.RetrieveModelMixin, mixins.ListModelMixin, viewsets.Ge
 
         if category_slug != '':
             queryset = queryset.filter(category__slug=category_slug)
+
+        if organizer_slug != '':
+            queryset = queryset.filter(organizer__slug=organizer_slug)
+
+        if venue_slug != '':
+            queryset = queryset.filter(venue__slug=venue_slug)
 
         serializer = self.get_serializer(queryset, many=True)
 
