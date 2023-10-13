@@ -9,7 +9,7 @@ from rest_framework.response import Response
 from countries.models import CountrySettings
 from countries.serializers import CountrySerializer
 from events.models import Category, Event, Ticket
-from events.serializers import CategoryBasicSerializer, EventListingSerializer
+from events.serializers import CategoryBasicSerializer, EventListingSerializer, EventHighSerializer
 from homepages.models import Homepage
 from homepages.serializers import HomepageDetailSerializer
 from rowticket.decorators import query_debugger_detailed
@@ -39,7 +39,7 @@ class CountryViewSet(viewsets.ViewSet):
         highlighted_events = Event.objects.filter(
             published=True, highlighted=True, country=country, date__gt=now
         ).prefetch_related('venue')[:8]
-        highlighted_events_data = EventListingSerializer(highlighted_events, many=True, context=request_context).data
+        highlighted_events_data = EventHighSerializer(highlighted_events, many=True, context=request_context).data
         highlighted_event_ids = [highlighted_event.id for highlighted_event in highlighted_events]
 
         # Events per category

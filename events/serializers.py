@@ -128,6 +128,27 @@ class EventListingSerializer(serializers.ModelSerializer):
             'starting_price', 'sections', 'organizer','formatted_date'
         )
 
+class EventHighSerializer(serializers.ModelSerializer):
+    main_image_thumb = serializers.ImageField(read_only=True)
+    venue_name = serializers.SerializerMethodField()
+    starting_price = serializers.SerializerMethodField()
+    organizer = OrganizerSerializer()
+
+    def get_starting_price(self, event):
+        starting_price = getattr(event, 'starting_price', None)
+
+        return starting_price
+
+    def get_venue_name(self, event):
+        return event.venue.name
+
+    class Meta:
+        model = Event
+        fields = (
+            'id','identifier','title', 'slug', 'date', 'date_text', 'venue_name', 'main_image_thumb',
+            'starting_price', 'organizer','formatted_date'
+        )
+
 
 class EventDetailSerializer(serializers.ModelSerializer):
     main_image_large = serializers.ImageField(read_only=True)

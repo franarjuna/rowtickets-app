@@ -7,7 +7,7 @@ from rest_framework.response import Response
 
 from events.models import Category, Event, Ticket, Section, Organizer
 from events.serializers import (
-    CategorySerializer, CategoryBasicSerializer, EventDetailSerializer, EventListingSerializer, EventSerializer, TicketSerializer,TicketCreateSerializer,SectionSerializer,OrganizerSerializer
+    CategorySerializer, CategoryBasicSerializer, EventDetailSerializer, EventListingSerializer, EventSerializer, TicketSerializer,TicketCreateSerializer,SectionSerializer,OrganizerSerializer,EventHighSerializer
 )
 from users.models import User
 from datetime import datetime
@@ -93,7 +93,7 @@ class EventViewSet(mixins.RetrieveModelMixin, mixins.ListModelMixin, viewsets.Ge
             'events': serializer.data
         }
         if highlighted_events is not None:
-            response['highlighted_events'] = EventListingSerializer(
+            response['highlighted_events'] = EventHighSerializer(
                 highlighted_events, many=True, context={ 'request': self.request }
             ).data
 
