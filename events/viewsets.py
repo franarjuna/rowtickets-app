@@ -57,7 +57,7 @@ class EventViewSet(mixins.RetrieveModelMixin, mixins.ListModelMixin, viewsets.Ge
 
     def get_serializer_class(self):
         if self.action == 'list':
-            return EventListingSerializer
+            return EventHighSerializer
 
         return EventDetailSerializer
 
