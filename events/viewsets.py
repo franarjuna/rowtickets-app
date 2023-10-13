@@ -75,6 +75,8 @@ class EventViewSet(mixins.RetrieveModelMixin, mixins.ListModelMixin, viewsets.Ge
 
             if highlighted_count > 0:
                 highlighted_events = queryset.filter(highlighted=True)[:highlighted_count]
+                if category_slug != None:
+                    highlighted_events = highlighted_events.filter(category__slug=str(category_slug))
 
                 # queryset = queryset.exclude(id__in=highlighted_events.values_list('id', flat=True))
 
