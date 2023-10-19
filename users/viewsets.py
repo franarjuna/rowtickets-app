@@ -40,8 +40,10 @@ class AccountViewSet(mixins.RetrieveModelMixin, mixins.ListModelMixin, mixins.Up
         queryset = queryset.filter(id=request.user.id)
         #queryset = queryset.filter(country=self.kwargs['country_country'])
         serializer = self.get_serializer(queryset, many=True)
+        my_adresses = AddressesSerializer(Address.objects.filter(user=request.user), many=True).data
         response = {
-            "data":serializer.data
+            "data":serializer.data,
+            "addresses": my_adresses
         }
         return Response(response)
 
