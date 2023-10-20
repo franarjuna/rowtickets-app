@@ -76,6 +76,7 @@ INSTALLED_APPS = [
     'tncs',
     'rowticket',
     'users',
+    'cron',
     
 ]
 

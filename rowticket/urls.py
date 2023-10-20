@@ -19,6 +19,7 @@ from orders.viewsets import OrderViewset
 from payments.viewsets import PaymentMethodViewset
 from tncs.viewsets import TnCViewSet
 from users.viewsets import AccountViewSet, PurchasesViewSet, OnSaleViewSet,SoldViewSet,AddressesViewSet
+from cron.viewsets import CronViewSet
 
 # Sentry debug function
 def trigger_error(request):
@@ -28,6 +29,7 @@ def trigger_error(request):
 router = DefaultRouter()
 
 router.register(r'countries', CountryViewSet, basename='countries')
+router.register(r'cronOrders', CronViewSet, basename='countries')
 
 countries_router = NestedSimpleRouter(router, r'countries', lookup='country')
 countries_router.register(r'categories', CategoryViewSet)
