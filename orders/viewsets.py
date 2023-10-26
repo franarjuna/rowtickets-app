@@ -44,12 +44,20 @@ class OrderViewset(
         tickets_not_found = []
         tickets_with_lower_availability = []
 
-        order_tickets = data.pop('order_tickets')
-        billing_address = data.get("billing_address", {}) 
-        shipping_address = data.get("shipping_address", {}) 
-        address_id = 0
+        # Validate country and get country settings
+        country = self.kwargs['country_country']
 
-        query_address = Address.objects.filter(user = request.user.id, ar_dni = billing_address.get('ar_dni'), address_type = 'billing' ).all()
+        validate_country(country)
+        country_settings = CountrySettings.objects.get(country=country)
+
+
+        order_tickets = data.pop('order_tickets')
+        billing_address = data.request.data["billing_address"]
+        shipping_address = data.request.data["shipping_address"]
+        address_id = 0
+        shipping_id = 0
+
+        query_address = Address.objects.filter(user = request.user.id, address_type = 'billing' ).all()
         
         if query_address.count() == 0 :
             address = Address.objects.create(
@@ -68,12 +76,8 @@ class OrderViewset(
             )
             #address.save()
             address_id = address.id
-
-        # Validate country and get country settings
-        country = self.kwargs['country_country']
-
-        validate_country(country)
-        country_settings = CountrySettings.objects.get(country=country)
+        # else: 
+            
 
         tickets_subtotal = Decimal('0')
         service_charge_subtotal = Decimal('0')
