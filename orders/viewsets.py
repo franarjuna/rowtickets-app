@@ -45,8 +45,8 @@ class OrderViewset(
         tickets_with_lower_availability = []
 
         order_tickets = data.pop('order_tickets')
-        billing_address = data.pop('billing_address')
-        shipping_address = data.pop('shipping_address')
+        billing_address = data.get("billing_address", {}) 
+        shipping_address = data.get("shipping_address", {}) 
         address_id = 0
 
         query_address = Address.objects.filter(user = request.user.id, ar_dni = billing_address.ar_dni, address_type = 'billing' ).all()
