@@ -59,7 +59,7 @@ class OrderViewset(
 
         query_address = Address.objects.filter(user = request.user.id, address_type = 'billing' ).first()
         
-        if query_address.count() == 0 :
+        if query_address is not None:
             address = Address.objects.create(
                 user_id = request.user.id,
                 name = billing_address.get('first_name'),
