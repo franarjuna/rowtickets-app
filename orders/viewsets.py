@@ -61,11 +61,13 @@ class OrderViewset(
         
         if query_address is not None:
             address = Address.objects.create(
+                country = country,
                 user_id = request.user.id,
                 name = billing_address.get('first_name'),
                 last_name = billing_address.get('last_name'),
-                street_address_1 = billing_address.get('street_address_1'),
-                street_address_2 = billing_address.get('street_address_2'),
+                street_address_1 = billing_address.get('street_address1'),
+                street_address_2 = billing_address.get('street_address2'),
+                company_name =  billing_address.get('company_name'),
                 city =  billing_address.get('city'),
                 country_area = billing_address.get('country_area'),
                 postal_code =  billing_address.get('postal_code'),
