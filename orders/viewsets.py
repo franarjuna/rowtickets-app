@@ -53,17 +53,17 @@ class OrderViewset(
         
         if query_address.count() == 0 :
             address = Address.objects.create(
-                user_id = request.user.id
-                name = billing_address.get('first_name')
-                last_name = billing_address.get('last_name')
-                street_address_1 = billing_address.get('street_address_1')
-                street_address_2 = billing_address.get('street_address_2')
-                city =  billing_address.get('city')
-                country_area = billing_address.get('country_area')
-                postal_code =  billing_address.get('postal_code')
-                phone =  billing_address.get('phone')
-                email = billing_address.get('email')
-                ar_dni = billing_address.get('ar_dni')
+                user_id = request.user.id,
+                name = billing_address.get('first_name'),
+                last_name = billing_address.get('last_name'),
+                street_address_1 = billing_address.get('street_address_1'),
+                street_address_2 = billing_address.get('street_address_2'),
+                city =  billing_address.get('city'),
+                country_area = billing_address.get('country_area'),
+                postal_code =  billing_address.get('postal_code'),
+                phone =  billing_address.get('phone'),
+                email = billing_address.get('email'),
+                ar_dni = billing_address.get('ar_dni'),
                 address_type = "billing"
             )
             #address.save()
