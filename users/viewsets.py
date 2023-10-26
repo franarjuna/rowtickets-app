@@ -29,7 +29,6 @@ class AccountViewSet(mixins.RetrieveModelMixin, mixins.ListModelMixin, mixins.Up
         queryset = super().get_queryset()
         if self.action == 'partial_update' or self.action == 'update':
             data = queryset.filter(pk=self.request.user.id)
-            print(data)
             return data
         else:
             return queryset.filter(published=True, country=self.kwargs['country_country'])

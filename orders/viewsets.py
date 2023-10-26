@@ -6,6 +6,7 @@ from rest_framework import permissions, status
 from rest_framework.response import Response
 
 from countries.models import CountrySettings
+from addresses.models import Address
 from events.models import Ticket
 from orders.models import Order, OrderTicket, ORDER_STATUSES
 from orders.serializers import OrderCreateSerializer, OrderSerializer
@@ -44,6 +45,14 @@ class OrderViewset(
         tickets_with_lower_availability = []
 
         order_tickets = data.pop('order_tickets')
+        billing_address = data.pop('billing_address')
+        shipping_address = data.pop('shipping_address')
+        address_id = 0
+
+        query_address = Address.objects.filter(user = request.user.id, ar_dni = billing_address.ar_dni, address_type = 'billing' ).all()
+
+        if query_address.count() == 0 :
+            address_id = Address.create(billing_address)
 
         # Validate country and get country settings
         country = self.kwargs['country_country']
@@ -91,7 +100,8 @@ class OrderViewset(
             ticket_price_surcharge_percentage=country_settings.ticket_price_surcharge_percentage,
             tickets_subtotal=tickets_subtotal,
             service_charge_subtotal=service_charge_subtotal,
-            total=order_total
+            total=order_total,
+            billing_address = address_id
         )
 
         for ticket_data in order_tickets:

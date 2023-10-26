@@ -6,7 +6,7 @@ from django.utils import timezone
 
 class CronViewSet(viewsets.ViewSet):
     def list(self, request):
-        time_threshold = datetime.now() - timedelta(hours=5)
+        time_threshold = datetime.now() - timedelta(minutes=30)
         newquery = Order.objects.filter(status = 'in_progress', created__lt = time_threshold ).all()
         total = newquery.count()  # Get the count of canceled orders
 

@@ -1,3 +1,4 @@
+APScheduler>=3.10,<4.0
 boto3
 Django==4.1.4
 django-admin-sortable2==2.1.4

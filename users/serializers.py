@@ -79,4 +79,4 @@ class RegisterSerializer(serializers.Serializer):
 class AccountSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
-        fields = ('first_name', 'last_name','vat_condition','bank_name','bank_type','bank_number','bank_cbu','bank_cuit','is_active','email')
+        fields = ('first_name', 'last_name','vat_condition','bank_name','bank_type','bank_number','bank_cbu','bank_cuit','is_active','email','billing_address','shipping_address')
