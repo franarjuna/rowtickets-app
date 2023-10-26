@@ -49,7 +49,7 @@ class OrderViewset(
         shipping_address = data.get("shipping_address", {}) 
         address_id = 0
 
-        query_address = Address.objects.filter(user = request.user.id, ar_dni = billing_address.ar_dni, address_type = 'billing' ).all()
+        query_address = Address.objects.filter(user = request.user.id, ar_dni = billing_address['ar_dni'], address_type = 'billing' ).all()
 
         if query_address.count() == 0 :
             address_id = Address.create(billing_address)
