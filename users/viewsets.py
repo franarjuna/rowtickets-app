@@ -72,7 +72,7 @@ class PurchasesViewSet(mixins.RetrieveModelMixin, mixins.ListModelMixin, viewset
     def list(self, request, *args, **kwargs):
         queryset = super().get_queryset()
 
-        queryset = queryset.filter(country=self.kwargs['country_country'],user=request.user, status__in=['paid','reserved','approved','completed']).order_by('-created_at')
+        queryset = queryset.filter(country=self.kwargs['country_country'],user=request.user, status__in=['paid','reserved','approved','completed']).order_by('-created')
         #queryset = queryset.filter(country=self.kwargs['country_country'])
         serializer = self.get_serializer(queryset, many=True)
         response = {
@@ -112,7 +112,7 @@ class SoldViewSet(mixins.RetrieveModelMixin, mixins.ListModelMixin, viewsets.Gen
         return OrderTicketListSerializer
 
     def list(self, request, *args, **kwargs):
-        queryset = OrderTicket.objects.filter(ticket__seller=request.user, order__status__in=['paid','reserved','approved','completed']).exclude(order__status='cancelled').order_by('-created_at')
+        queryset = OrderTicket.objects.filter(ticket__seller=request.user, order__status__in=['paid','reserved','approved','completed']).exclude(order__status='cancelled').order_by('-created')
 
         serializer = self.get_serializer(queryset, many=True)
         response = {
