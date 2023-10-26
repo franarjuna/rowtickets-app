@@ -52,7 +52,7 @@ class OrderViewset(
         query_address = Address.objects.filter(user = request.user.id, ar_dni = billing_address.get('ar_dni'), address_type = 'billing' ).all()
         
         if query_address.count() == 0 :
-            address = Address({
+            address = Address.objects.create({
                 "user_id": request.user.id,
                 "name": billing_address.get('first_name'),
                 "last_name": billing_address.get('last_name'),
@@ -66,7 +66,7 @@ class OrderViewset(
                 "ar_dni": billing_address.get('ar_dni'),
                 "address_type": "billing"
             })
-            address.save()
+            #address.save()
             address_id = address.id
 
         # Validate country and get country settings
