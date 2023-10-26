@@ -101,7 +101,7 @@ class OrderViewset(
             tickets_subtotal=tickets_subtotal,
             service_charge_subtotal=service_charge_subtotal,
             total=order_total,
-            billing_address = address_id
+            billing_address_id = address_id
         )
 
         for ticket_data in order_tickets:
