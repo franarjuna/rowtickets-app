@@ -54,8 +54,8 @@ class OrderViewset(
         order_tickets = data.pop('order_tickets')
         billing_address = request.data["billing_address"]
         shipping_address = request.data["shipping_address"]
-        address_id = 0
-        shipping_id = 0
+        address_id = None
+        shipping_id = None
 
         query_address = Address.objects.filter(user = request.user.id, address_type = 'billing' ).all()
         
