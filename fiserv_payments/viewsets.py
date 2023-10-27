@@ -54,10 +54,14 @@ class FiservViewSet(viewsets.GenericViewSet):
         )
         if request.data['processor_response_code'] == '00':
             payment.order.status = ORDER_STATUSES['PAID']
+            payment.order.payment_method = 'fiserv'
+            payment.order.payment_method_id = checkout_id
             payment.order.save()
         #elif request.data['processor_response_code'] == '00':
         else: 
             payment.order.status = ORDER_STATUSES['REJECTED']
+            payment.order.payment_method = 'fiserv'
+            payment.order.payment_method_id = checkout_id
             payment.order.save()
 
         return Response({})

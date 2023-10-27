@@ -58,10 +58,14 @@ class MercadoPagoViewSet(viewsets.GenericViewSet):
             if(payment['status'] == 'approved' and payment['transaction_amount'] == payment['transaction_details']['total_paid_amount'] ):
                 payment = get_object_or_404(MercadoPagoPayment, checkout_id=merchant_detail['response']['preference_id'])
                 payment.order.status = ORDER_STATUSES['PAID']
+                payment.order.payment_method = 'mercadopago'
+                payment.order.payment_method_id = merchant_detail['response']['preference_id']
                 payment.order.save()
             elif(payment['status'] == 'cancelled'):
                 payment = get_object_or_404(MercadoPagoPayment, checkout_id=merchant_detail['response']['preference_id'])
                 payment.order.status = ORDER_STATUSES['REJECTED']
+                payment.order.payment_method = 'mercadopago'
+                payment.order.payment_method_id = merchant_detail['response']['preference_id']
                 payment.order.save()
 
         
