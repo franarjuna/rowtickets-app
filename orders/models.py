@@ -43,7 +43,14 @@ class Order(CountrySpecificModel):
     service_charge_subtotal = models.DecimalField(_('subtotal por cargo de servicio'), max_digits=10, decimal_places=2)
     total = models.DecimalField(_('total'), max_digits=10, decimal_places=2)
 
+    
+    shipping_address = models.OneToOneField(
+        'addresses.Address', blank=True, null=True, verbose_name=_('Dirección de envío'),
+        on_delete=models.SET_NULL, related_name='order_shipping_address'
+    )
 
+    payment_method = models.CharField(_('metodo de pago'), max_length=50)
+    
     def __str__(self):
         return f'#{self.identifier}'
 

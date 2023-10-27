@@ -37,7 +37,10 @@ class ViumiViewSet(viewsets.GenericViewSet):
                 identifier=serializer.validated_data['payment_method_identifier'],
                 active=True
             )
+            
             checkout_id = viumi.create_checkout(order, '')
+            order.payment_method = 'viumi'
+            order.save()
 
             return Response({ 'checkout_id': checkout_id })
         except (Order.DoesNotExist, ViumiPaymentMethod.DoesNotExist):

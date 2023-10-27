@@ -1,8 +1,12 @@
 from django.contrib import admin
+from django.urls import path
 
 from orders.models import Order, OrderTicket, SellerTicket
 from django.contrib.contenttypes.models import ContentType
-from django.http import HttpResponseRedirect
+from django.http import HttpResponseRedirect, HttpResponse
+
+from django.utils.html import format_html
+from django.views import View
 
 import csv
 from django.http import HttpResponse
@@ -36,7 +40,7 @@ class SellerTicketAdmin(admin.ModelAdmin):
     actions = ['create_report']
     extra = 0
     list_display = (
-        'identifier', 'quantity', 'price', 'cost', 'ticket','order','created'
+        'identifier', 'quantity', 'cost', 'ticket','order','created'
     )
     list_filter = ('ticket__seller', 'order__identifier', 'order__status', )
 
@@ -46,19 +50,20 @@ class SellerTicketAdmin(admin.ModelAdmin):
     def get_queryset(self, request):
         # Customize this queryset filter based on your requirements
         queryset = super().get_queryset(request)
-        queryset = queryset.exclude(order__status='cancelled')
+        queryset = queryset.filter(order__status__in=['paid','reserved','approved','completed'])
         return queryset
     
     @admin.action(description="Exportar reporte")
     def create_report(modeladmin, request, queryset):
         meta = modeladmin.model._meta
         field_names = [field.name for field in meta.fields]
+        field_names_verbose = [field.verbose_name for field in meta.fields]
 
         response = HttpResponse(content_type='text/csv')
         response['Content-Disposition'] = 'attachment; filename={}.csv'.format(meta)
         writer = csv.writer(response, delimiter=';')
 
-        writer.writerow(field_names)
+        writer.writerow(field_names_verbose)
         for obj in queryset:
             row = writer.writerow([getattr(obj, field) for field in field_names])
 
@@ -67,3 +72,5 @@ class SellerTicketAdmin(admin.ModelAdmin):
 
 admin.site.register(Order, OrderAdmin)
 admin.site.register(SellerTicket, SellerTicketAdmin)
+ 
+
