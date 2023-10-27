@@ -40,6 +40,7 @@ class ViumiViewSet(viewsets.GenericViewSet):
             
             checkout_id = viumi.create_checkout(order, '')
             order.payment_method = 'viumi'
+            order.payment_method_id = checkout_id
             order.save()
 
             return Response({ 'checkout_id': checkout_id })

@@ -49,7 +49,8 @@ class Order(CountrySpecificModel):
         on_delete=models.SET_NULL, related_name='order_shipping_address'
     )
 
-    payment_method = models.CharField(_('metodo de pago'), max_length=50)
+    payment_method = models.CharField(_('metodo de pago'), max_length=50, blank=True, null=True)
+    payment_method_id = models.CharField(_('ID metodo de pago'), max_length=250, blank=True, null=True)
     
     def __str__(self):
         return f'#{self.identifier}'

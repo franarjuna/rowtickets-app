@@ -60,6 +60,9 @@ class MobbexViewSet(viewsets.GenericViewSet):
             if payment_data['status']['code'] == '200' and Decimal(payment_data['total']) == payment.order.total:
                 # Payment status is OK and total matches order, mark order as paid
                 payment.order.status = ORDER_STATUSES['PAID']
+                
+                payment.order.payment_method = 'mobbex'
+                payment.order.payment_method_id = checkout_id
                 payment.order.save()
                 # Send email to seller and buyer
 
