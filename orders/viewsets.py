@@ -57,9 +57,9 @@ class OrderViewset(
         address_id = None
         shipping_id = None
 
-        query_address = Address.objects.filter(user = request.user.id, address_type = 'billing', street_address_1 = billing_address.get('street_address1') ).first()
+        #query_address = Address.objects.filter(user = request.user.id, address_type = 'billing', street_address_1 = billing_address.get('street_address1') ).first()
         
-        if query_address is None:
+        if billing_address is None:
             address = Address.objects.create(
                 country = country,
                 user_id = request.user.id,
@@ -76,10 +76,9 @@ class OrderViewset(
                 ar_dni = billing_address.get('ar_dni'),
                 address_type = "billing"
             )
-            #address.save()
             address_id = address.id
-        else: 
-            address_id = query_address.id
+        #else: 
+        #    address_id = query_address.id
             
 
         tickets_subtotal = Decimal('0')
