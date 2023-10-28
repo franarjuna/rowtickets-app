@@ -52,8 +52,8 @@ class OrderViewset(
 
 
         order_tickets = data.pop('order_tickets')
-        billing_address = request.data["billing_address"]
-        shipping_address = request.data["shipping_address"]
+        billing_address = request.data.get("billing_address")
+        shipping_address = request.data.get("shipping_address")
         address_id = None
         shipping_id = None
 
