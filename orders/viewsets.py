@@ -1,5 +1,7 @@
 from decimal import Decimal
 from operator import itemgetter
+from django.contrib.auth.mixins import PermissionRequiredMixin
+from django.views.generic.detail import DetailView
 
 from rest_framework import mixins, viewsets
 from rest_framework import permissions, status
@@ -151,3 +153,7 @@ class OrderViewset(
     #         raise serializer.ValidationError()
 
     #     return super().create(request, *args, **kwargs)
+class OrderDetailView(PermissionRequiredMixin, DetailView):
+    permission_required = "products.view_order"
+    template_name = "admin/orders/views/detail.html"
+    model = Order
