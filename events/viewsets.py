@@ -61,7 +61,7 @@ class EventViewSet(mixins.RetrieveModelMixin, mixins.ListModelMixin, viewsets.Ge
         }
     
     def get_serializer_class(self):
-        request = self.context.get('request')
+        request = self.request
         
         list_type =  request.GET.get('list_type', None)
         if list_type == 'full':
