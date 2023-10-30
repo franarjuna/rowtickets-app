@@ -36,7 +36,13 @@ class OrderViewset(
 
     def create(self, request, *args, **kwargs):
         self.request.data['user'] = request.user.id
-        serializer = self.get_serializer(data=request.data)
+        order_id = request.data.POST.get('order_id')
+        ordervalidation = {
+            order_tickets: request.data.POST.get('order_tickets'),
+            billing_address: request.data.POST.get('billing_address'),
+            shipping_address: request.data.POST.get('shipping_address'),
+        }
+        serializer = self.get_serializer(data=ordervalidation)
         serializer.is_valid(raise_exception=True)
 
         data = serializer.validated_data
@@ -116,29 +122,29 @@ class OrderViewset(
                 'tickets_not_found': tickets_not_found,
                 'tickets_with_lower_availability': tickets_with_lower_availability
             }, status.HTTP_400_BAD_REQUEST)
-
-        order = Order.objects.create(
-            user=request.user, status=ORDER_STATUSES['IN_PROGRESS'], country=country,
-            per_ticket_service_charge=country_settings.per_ticket_service_charge,
-            ticket_price_surcharge_percentage=country_settings.ticket_price_surcharge_percentage,
-            tickets_subtotal=tickets_subtotal,
-            service_charge_subtotal=service_charge_subtotal,
-            total=order_total,
-            billing_address_id = address_id
-        )
-
-        for ticket_data in order_tickets:
-            OrderTicket.objects.create(
-                order=order,
-                ticket_id=ticket_data['id'],
-                quantity=ticket_data['quantity'],
-                price=ticket_data['price'],
-                cost=ticket_data['cost'],
-                service_charge_subtotal=ticket_data['service_charge_subtotal'],
-                subtotal=ticket_data['subtotal']
+        if order_id != None:
+            order = Order.objects.create(
+                user=request.user, status=ORDER_STATUSES['IN_PROGRESS'], country=country,
+                per_ticket_service_charge=country_settings.per_ticket_service_charge,
+                ticket_price_surcharge_percentage=country_settings.ticket_price_surcharge_percentage,
+                tickets_subtotal=tickets_subtotal,
+                service_charge_subtotal=service_charge_subtotal,
+                total=order_total,
+                billing_address_id = address_id
             )
 
-        serializer = OrderSerializer(order)
+            for ticket_data in order_tickets:
+                OrderTicket.objects.create(
+                    order=order,
+                    ticket_id=ticket_data['id'],
+                    quantity=ticket_data['quantity'],
+                    price=ticket_data['price'],
+                    cost=ticket_data['cost'],
+                    service_charge_subtotal=ticket_data['service_charge_subtotal'],
+                    subtotal=ticket_data['subtotal']
+                )
+
+            serializer = OrderSerializer(order)
         headers = self.get_success_headers(serializer.data)
 
         return Response(serializer.data, status=status.HTTP_201_CREATED, headers=headers)
