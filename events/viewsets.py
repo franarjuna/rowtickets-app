@@ -7,7 +7,7 @@ from rest_framework.response import Response
 
 from events.models import Category, Event, Ticket, Section, Organizer
 from events.serializers import (
-    CategorySerializer, CategoryBasicSerializer, EventDetailSerializer, EventListingSerializer, EventSerializer, TicketSerializer,TicketCreateSerializer,SectionSerializer,OrganizerSerializer,EventHighSerializer
+    CategorySerializer, CategoryBasicSerializer, EventDetailSerializer, EventListingSerializer, EventSerializer, TicketSerializer,TicketCreateSerializer,SectionSerializer,OrganizerSerializer,EventHighSerializer,EventWithSectionsSerializer
 )
 from users.models import User
 from datetime import datetime
@@ -54,9 +54,19 @@ class EventViewSet(mixins.RetrieveModelMixin, mixins.ListModelMixin, viewsets.Ge
             )
 
         return queryset
-
+    
+    def get_serializer_context(self):
+        return {
+            'request': self.request,
+        }
+    
     def get_serializer_class(self):
-        if self.action == 'list':
+        request = self.context.get('request')
+        
+        list_type =  request.GET.get('list_type', None)
+        if list_type == 'full':
+            return EventWithSectionsSerializer
+        elif self.action == 'list':
             return EventHighSerializer
 
         return EventDetailSerializer
