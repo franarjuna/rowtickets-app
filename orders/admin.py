@@ -4,7 +4,7 @@ from django.urls import path
 from orders.models import Order, OrderTicket, SellerTicket
 from django.contrib.contenttypes.models import ContentType
 from django.http import HttpResponseRedirect, HttpResponse
-from django_admin_filters import DateRange, DateRangePicker
+#from django_admin_filters import DateRange, DateRangePicker
 
 from django.utils.html import format_html
 from django.views import View
@@ -29,7 +29,8 @@ class OrderAdmin(admin.ModelAdmin):
         'country', 'user', 'per_ticket_service_charge', 'ticket_price_surcharge_percentage', 'tickets_subtotal',
         'service_charge_subtotal', 'total'
     )
-    list_filter = ('identifier', 'status', 'user', ('created', DateRangePicker), 'country', )
+    list_filter = ('identifier', 'status', 'user', 'created', 'country', )
+    #list_filter = ('identifier', 'status', 'user', ('created', DateRangePicker), 'country', )
 
     @admin.action(description="Cancelar evento(s) seleccionado")
     def canelar_masivo(modeladmin, request, queryset):
