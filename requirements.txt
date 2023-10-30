@@ -13,7 +13,7 @@ django_heroku
 django-modelcluster==6.0
 django-quill-editor==0.1.40
 dj-rest-auth[with_social]==3.0.0
-
+django-data-browser
 django-storages
 django-stubs==1.16.0
 djangorestframework==3.14.0
@@ -33,3 +33,4 @@ sentry-sdk
 shortuuid==1.0.11
 stripe
 whitenoise
+
