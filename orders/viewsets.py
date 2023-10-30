@@ -36,11 +36,11 @@ class OrderViewset(
 
     def create(self, request, *args, **kwargs):
         self.request.data['user'] = request.user.id
-        order_id = request.data.POST.get('order_id')
+        order_id = request.data.get('order_id')
         ordervalidation = {
-            order_tickets: request.data.POST.get('order_tickets'),
-            billing_address: request.data.POST.get('billing_address'),
-            shipping_address: request.data.POST.get('shipping_address'),
+            order_tickets: request.data.get('order_tickets'),
+            billing_address: request.data.get('billing_address'),
+            shipping_address: request.data.get('shipping_address'),
         }
         serializer = self.get_serializer(data=ordervalidation)
         serializer.is_valid(raise_exception=True)
@@ -122,6 +122,7 @@ class OrderViewset(
                 'tickets_not_found': tickets_not_found,
                 'tickets_with_lower_availability': tickets_with_lower_availability
             }, status.HTTP_400_BAD_REQUEST)
+        
         if order_id != None:
             order = Order.objects.create(
                 user=request.user, status=ORDER_STATUSES['IN_PROGRESS'], country=country,
