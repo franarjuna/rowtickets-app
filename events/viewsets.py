@@ -64,9 +64,9 @@ class EventViewSet(mixins.RetrieveModelMixin, mixins.ListModelMixin, viewsets.Ge
         request = self.request
         
         list_type =  request.GET.get('list_type', None)
-        
+
         if list_type == 'full':
-            return EventWithSectionsSerializer
+            return EventListingSerializer
         elif self.action == 'list':
             return EventHighSerializer
 
