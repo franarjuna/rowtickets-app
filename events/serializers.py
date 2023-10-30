@@ -153,7 +153,7 @@ class EventWithSectionsSerializer(serializers.ModelSerializer):
     venue_name = serializers.SerializerMethodField()
     starting_price = serializers.SerializerMethodField()
     organizer = OrganizerSerializer()
-    sections = SectionSerializer()
+    sections = SectionEventSerializer()
 
     def get_starting_price(self, event):
         starting_price = getattr(event, 'starting_price', None)
