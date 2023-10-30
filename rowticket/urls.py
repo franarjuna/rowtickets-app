@@ -58,6 +58,7 @@ urlpatterns = [
     path('token/', TokenObtainPairView.as_view(), name='token_obtain_pair'),
     path('token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
     path('sentry-debug-2d4795b5a4b00eb38d1a1db9a90ffd8c/', trigger_error),
+    path("data-browser/", include("data_browser.urls")),
     re_path(r'(?P<template_name>[\w-]+)/(?P<template_type>html|text)/', EmailTemplateView.as_view()),
     path(r'', include(router.urls)),
     path(r'', include(countries_router.urls))
