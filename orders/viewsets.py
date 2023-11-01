@@ -60,8 +60,8 @@ class OrderViewset(
 
 
         order_tickets = data.pop('order_tickets')
-        billing_address = request.get("billing_address")
-        shipping_address = request.get("shipping_address")
+        billing_address = data.pop("billing_address")
+        shipping_address = data.pop("shipping_address")
         address_id = None
         shipping_id = None
 
@@ -149,6 +149,7 @@ class OrderViewset(
         else:
             order = Order.objects.get(id = order_id)
             order.billing_address_id = address_id
+            order.shipping_address_id = shipping_id
             order.save()
             
         headers = self.get_success_headers(serializer.data)
