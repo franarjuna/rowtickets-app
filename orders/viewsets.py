@@ -60,14 +60,14 @@ class OrderViewset(
 
 
         order_tickets = data.pop('order_tickets')
-        billing_address = request.data.get("billing_address")
-        shipping_address = request.data.get("shipping_address")
+        billing_address = request.get("billing_address")
+        shipping_address = request.get("shipping_address")
         address_id = None
         shipping_id = None
 
         #query_address = Address.objects.filter(user = request.user.id, address_type = 'billing', street_address_1 = billing_address.get('street_address1') ).first()
         
-        if billing_address is None:
+        if billing_address is not None:
             address = Address.objects.create(
                 country = country,
                 user_id = request.user.id,
