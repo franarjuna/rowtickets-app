@@ -46,7 +46,7 @@ class OrderViewset(
         serializer.is_valid(raise_exception=True)
 
         data = serializer.validated_data
-
+        
         ticket_qs = Ticket.objects.with_availability()
 
         tickets_not_found = []
@@ -60,8 +60,8 @@ class OrderViewset(
 
 
         order_tickets = data.pop('order_tickets')
-        billing_address = data.pop("billing_address")
-        shipping_address = data.pop("shipping_address")
+        billing_address = data.get("billing_address",None)
+        shipping_address = data.get("shipping_address",None)
         address_id = None
         shipping_id = None
 
@@ -123,7 +123,7 @@ class OrderViewset(
                 'tickets_with_lower_availability': tickets_with_lower_availability
             }, status.HTTP_400_BAD_REQUEST)
         
-        if order_id != None:
+        if order_id is None:
             order = Order.objects.create(
                 user=request.user, status=ORDER_STATUSES['IN_PROGRESS'], country=country,
                 per_ticket_service_charge=country_settings.per_ticket_service_charge,
@@ -145,12 +145,13 @@ class OrderViewset(
                     subtotal=ticket_data['subtotal']
                 )
 
-            serializer = OrderSerializer(order)
         else:
-            order = Order.objects.get(id = order_id)
+            order = Order.objects.get(identifier = order_id)
             order.billing_address_id = address_id
             order.shipping_address_id = shipping_id
             order.save()
+        
+        serializer = OrderSerializer(order)
             
         headers = self.get_success_headers(serializer.data)
 
