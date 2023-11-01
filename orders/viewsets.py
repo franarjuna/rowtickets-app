@@ -38,9 +38,9 @@ class OrderViewset(
         self.request.data['user'] = request.user.id
         order_id = request.data.get('order_id')
         ordervalidation = {
-            order_tickets: request.data.get('order_tickets'),
-            billing_address: request.data.get('billing_address'),
-            shipping_address: request.data.get('shipping_address'),
+            "order_tickets": request.data.get('order_tickets'),
+            "billing_address": request.data.get('billing_address'),
+            "shipping_address": request.data.get('shipping_address'),
         }
         serializer = self.get_serializer(data=ordervalidation)
         serializer.is_valid(raise_exception=True)
