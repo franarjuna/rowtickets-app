@@ -146,6 +146,11 @@ class OrderViewset(
                 )
 
             serializer = OrderSerializer(order)
+        else:
+            order = Order.objects.get(id = order_id)
+            order.billing_address_id = address_id
+            order.save()
+            
         headers = self.get_success_headers(serializer.data)
 
         return Response(serializer.data, status=status.HTTP_201_CREATED, headers=headers)
